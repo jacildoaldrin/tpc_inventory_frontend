@@ -8,13 +8,35 @@
   height: 750px;
   width: 600px;
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .25);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
 .logo {
   width: 400px;
 }
 
-.form{
-    width: 65%;
+.form {
+  width: 65%;
+}
+
+.button {
+  width: 100%;
+  color: white;
+  background-color: #25a732;
+  margin-top: 20px;
+  padding: 15px 0;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease;
+}
+
+.button:hover{
+  cursor: pointer;
+  background-color: #32c741;
+}
+
+.button:focus {
+  outline: none;
 }

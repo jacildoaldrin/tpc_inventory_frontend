@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -9,12 +8,14 @@ import Logo from "../../assets/tpc_logo.jpg";
 
 import styles from "./LoginForm.module.css";
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   return (
     <div className={styles["login-form"]}>
       <img src={Logo} alt="logo" className={styles["logo"]} />
-      <form className={styles["form"]} noValidate>
+      <div className={styles["form"]}>
         <TextField
+          value={props.email}
+          onChange={(event) => props.handleEmailInput(event.target.value)}
           variant="outlined"
           margin="normal"
           required
@@ -29,6 +30,8 @@ const LoginForm = () => {
           }}
         />
         <TextField
+          value={props.password}
+          onChange={(event) => props.handlePasswordInput(event.target.value)}
           variant="outlined"
           margin="normal"
           required
@@ -43,19 +46,19 @@ const LoginForm = () => {
           }}
         />
         <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
+          control={
+            <Checkbox
+              value={props.checked}
+              onChange={(event) => props.handleCheckbox(event.target.checked)}
+              color="primary"
+            />
+          }
           label="Remember me"
         />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          style={{ color: "white", padding: "15px", marginTop: "20px" }}
-        >
+        <button className={styles["button"]} onClick={() => props.handleLogin()}>
           LOGIN
-        </Button>
-      </form>
+        </button>
+      </div>
     </div>
   );
 };
