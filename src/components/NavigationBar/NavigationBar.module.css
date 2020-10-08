@@ -44,6 +44,8 @@
 }
 
 /****************************/
+
+/* RIGHT CONTAINER OF NAVBAR */
 .right-container {
   width: 100%;
   height: 100%;
@@ -84,3 +86,4 @@
   cursor: pointer;
   color: rgb(216, 20, 20);
 }
+/****************************/
