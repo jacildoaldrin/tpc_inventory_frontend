@@ -1,0 +1,14 @@
+.footer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copyright{
+  font-size: 16px;
+  font-weight: normal;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,34 @@
+.layout {
+  background-color: #f8f8f8;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  margin: auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.navbar {
+  height: 100px;
+  width: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
+.main {
+  height: 70%;
+  width: 80%;
+}
+
+.footer {
+  height: 100px;
+  width: 100%;
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
