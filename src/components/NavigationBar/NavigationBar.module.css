@@ -13,30 +13,31 @@
 }
 
 .image {
-  height: 100px;
-  width: 100px;
+  height: 110px;
+  width: 110px;
 }
 
 .navigation-items {
   width: 600px;
+  margin-top: 25px;
   display: flex;
   justify-content: space-evenly;
 }
 
 .navigation-item {
   font-size: 22px;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
   padding: 5px 0;
   transition: 0.3s ease;
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid transparent;
 
 }
 
 .navigation-item:hover {
   color: #8abb7b;
   text-decoration: none;
-  border-bottom: 1px solid #8abb7b;
+  border-bottom: 2px solid #8abb7b;
 }
 
 .navigation-item:focus {
