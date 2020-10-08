@@ -1,35 +1,29 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 
+//assets
 import Logo from "../../assets/tpc_logo.jpg";
 import UserImage from "../../assets/luka.jpg";
-
-import styles from "./NavigationBar.module.css";
 
 //components
 import HamburgerButton from "../HamburgerButton/HamburgerButton";
 
-const NavigationBar = () => {
+import styles from "./NavigationBar.module.css";
+
+const NavigationBar = (props) => {
+  const history = useHistory();
+
   return (
     <div className={styles["navbar"]}>
       <div className={styles["left-container"]}>
-        <img src={Logo} alt="logo" className={styles["image"]} />
+        <img src={Logo} alt="logo" className={styles["image"]} onClick={() => history.push("/")}/>
         <div className={styles["navigation-items"]}>
-          <a href="/" className={styles["navigation-item"]}>
-            Orders
-          </a>
-          <a href="/" className={styles["navigation-item"]}>
-            Transactions
-          </a>
-          <a href="/" className={styles["navigation-item"]}>
-            Products
-          </a>
-          <a href="/" className={styles["navigation-item"]}>
-            Suppliers
-          </a>
-          <a href="/" className={styles["navigation-item"]}>
-            Storage
-          </a>
+          <span className={styles["navigation-item"]} onClick={() => history.push("/orders")}>Orders</span>
+          <span className={styles["navigation-item"]} onClick={() => history.push("/transactions")}>Transactions</span>
+          <span className={styles["navigation-item"]} onClick={() => history.push("/products")}>Products</span>
+          <span className={styles["navigation-item"]} onClick={() => history.push("/suppliers")}>Suppliers</span>
+          <span className={styles["navigation-item"]} onClick={() => history.push("/storage")}>Storage</span>
         </div>
       </div>
       <div className={styles["right-container"]}>
@@ -41,7 +35,10 @@ const NavigationBar = () => {
             &nbsp;Logout
           </h1>
         </div>
-        <HamburgerButton />
+        <HamburgerButton
+          toggled={props.toggled}
+          click={props.handleToggler}
+        />
       </div>
     </div>
   );

@@ -1,15 +1,17 @@
 .hamburger-button{
+    z-index: 10;
     display: none;
     height: 35px;
     width: 40px;
+    transition: 0.5s ease-in-out;
 }
 
 .hamburger-button:hover{
     cursor: pointer;
 }
 
-.hamburger-button div{
-    border: 2px solid#0b3000;
+.hamburger-button span{
+    border: 2px solid black;
     border-radius: 50px;
 }
 

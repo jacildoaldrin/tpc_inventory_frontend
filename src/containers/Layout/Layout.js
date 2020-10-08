@@ -1,5 +1,4 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState } from "react";
 
 // components
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
@@ -9,7 +8,11 @@ import SideDrawer from "../../components/SideDrawer/SideDrawer";
 import styles from "./Layout.module.css";
 
 const Layout = (props) => {
-  const history = useHistory();
+  const [toggled, setToggled] = useState(false);
+
+  const handleToggler = () => {
+    setToggled(!toggled);
+  };
 
   return (
     <>
@@ -17,7 +20,7 @@ const Layout = (props) => {
       <div className={styles["layout"]}>
         <div className={styles["container"]}>
           <div className={styles["navbar"]}>
-            <NavigationBar />
+            <NavigationBar toggled={toggled} handleToggler={handleToggler}/>
           </div>
           <div className={styles["main"]}>{props.children}</div>
           <div className={styles["footer"]}>
