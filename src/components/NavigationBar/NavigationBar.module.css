@@ -19,7 +19,7 @@
 
 .navigation-items {
   width: 600px;
-  margin-top: 25px;
+  margin-top: 20px;
   display: flex;
   justify-content: space-evenly;
 }
@@ -31,7 +31,6 @@
   padding: 5px 0;
   transition: 0.3s ease;
   border-bottom: 2px solid transparent;
-
 }
 
 .navigation-item:hover {
@@ -46,6 +45,42 @@
 
 /****************************/
 .right-container {
-  width: 50%;
+  width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.user-image {
+  height: 70px;
+  width: 70px;
+  box-shadow: 0 0 10px rgba(145, 145, 145, 0.6);
+  border-radius: 50%;
+}
+
+.user-info {
+  margin-left: 15px;
+  height: auto;
+  width: auto;
+  min-width: 100px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.name {
+  font-size: 18px;
+}
+
+.logout {
+  font-size: 16px;
+  color: rgb(56, 56, 56);
+  transition: color 0.3s ease;
+}
+
+.logout:hover {
+  cursor: pointer;
+  color: rgb(216, 20, 20);
 }

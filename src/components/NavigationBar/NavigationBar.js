@@ -1,5 +1,8 @@
 import React from "react";
+import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
+
 import Logo from "../../assets/tpc_logo.jpg";
+import UserImage from "../../assets/luka.jpg";
 
 import styles from "./NavigationBar.module.css";
 
@@ -26,7 +29,16 @@ const NavigationBar = () => {
           </a>
         </div>
       </div>
-      <div className={styles["right-container"]}></div>
+      <div className={styles["right-container"]}>
+        <img src={UserImage} alt="user" className={styles["user-image"]} />
+        <div className={styles["user-info"]}>
+          <h1 className={styles["name"]}>Duka Loncic</h1>
+          <h1 className={styles["logout"]}>
+            <ExitToAppOutlinedIcon />
+            &nbsp;Logout
+          </h1>
+        </div>
+      </div>
     </div>
   );
 };
