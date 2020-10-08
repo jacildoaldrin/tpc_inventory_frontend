@@ -8,7 +8,7 @@
     cursor: pointer;
 }
 
-.line{
+.hamburger-button div{
     border: 2px solid#0b3000;
     border-radius: 50px;
 }
