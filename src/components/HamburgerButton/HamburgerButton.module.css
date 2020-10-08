@@ -1,0 +1,23 @@
+.hamburger-button{
+    display: none;
+    height: 35px;
+    width: 40px;
+}
+
+.hamburger-button:hover{
+    cursor: pointer;
+}
+
+.line{
+    border: 2px solid#0b3000;
+    border-radius: 50px;
+}
+
+
+@media(max-width: 1100px){
+    .hamburger-button{
+        display: flex;
+        flex-flow: column;
+        justify-content: space-evenly;
+    }
+}

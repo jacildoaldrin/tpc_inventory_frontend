@@ -6,6 +6,9 @@ import UserImage from "../../assets/luka.jpg";
 
 import styles from "./NavigationBar.module.css";
 
+//components
+import HamburgerButton from "../HamburgerButton/HamburgerButton";
+
 const NavigationBar = () => {
   return (
     <div className={styles["navbar"]}>
@@ -34,10 +37,11 @@ const NavigationBar = () => {
         <div className={styles["user-info"]}>
           <h1 className={styles["name"]}>Duka Loncic</h1>
           <h1 className={styles["logout"]}>
-            <ExitToAppOutlinedIcon />
+            <ExitToAppOutlinedIcon fontSize="small" />
             &nbsp;Logout
           </h1>
         </div>
+        <HamburgerButton />
       </div>
     </div>
   );
