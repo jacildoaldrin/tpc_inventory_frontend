@@ -1,15 +1,15 @@
 .menu-btn {
   display: none;
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   cursor: pointer;
   transition: all 0.5s ease-in-out;
   z-index: 10;
 }
 
 .menu-btn-burger {
-  width: 45px;
-  height: 6px;
+  width: 25px;
+  height: 3px;
   background: black;
   border-radius: 35px;
   box-shadow: 0 2px 5px rgba(114, 114, 114, 0.2);
@@ -20,8 +20,8 @@
 .menu-btn-burger::after {
   content: "";
   position: absolute;
-  width: 45px;
-  height: 6px;
+  width: 25px;
+  height: 3px;
   background: black;
   border-radius: 35px;
   box-shadow: 0 2px 5px rgba(114, 114, 114, 0.2);
@@ -29,26 +29,28 @@
 }
 
 .menu-btn-burger::before {
-  transform: translateY(-12px);
+  transform: translateY(-8px);
 }
 
 .menu-btn-burger::after {
-  transform: translateY(12px);
+  transform: translateY(8px);
 }
 
 /* ANIMATION */
 .menu-btn.open .menu-btn-burger {
-  transform: translateX(-50px);
+  transform: translateX(-40px);
   background: transparent;
   box-shadow: none;
 }
 
 .menu-btn.open .menu-btn-burger::before {
   transform: rotate(45deg) translate(35px, -35px);
+  box-shadow: 0 0 4px rgb(145, 145, 145);
 }
 
 .menu-btn.open .menu-btn-burger::after {
   transform: rotate(-45deg) translate(35px, 35px);
+  box-shadow: 0 0 4px rgb(145, 145, 145);
 }
 /**************/
 

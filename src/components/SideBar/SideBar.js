@@ -24,7 +24,7 @@ const SideBar = (props) => {
           <div className={styles["user-info"]}>
             <img src={UserImage} alt="user" className={styles["user-image"]} />
             <h1 className={styles["user-name"]}>Duka Loncic</h1>
-            <h1 className={styles["user-role"]}>Admin</h1>
+            <h1 className={styles["user-email"]}>duka.loncic@gmail.com</h1>
           </div>
           <SideBarNavigationItems />
         </div>

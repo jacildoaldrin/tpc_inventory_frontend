@@ -39,7 +39,6 @@ const SideBarNavigationItems = (props) => {
           &nbsp;&nbsp;&nbsp; STORAGE
         </div>
       </List>
-
       <div className={styles["logout-button"]}>
         <ExitToAppIcon />
         &nbsp; LOGOUT

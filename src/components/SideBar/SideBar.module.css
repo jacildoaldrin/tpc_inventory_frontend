@@ -27,35 +27,34 @@
 }
 
 .user-info {
-  margin-top: 70px;
-  height: 40%;
-  width: 100%;
+  padding: 50px 0 30px 30px;
+  height: 25%;
+  width: 95%;
   display: flex;
   flex-flow: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .user-image {
   height: 100%;
-  max-height: 100px;
+  max-height: 56px;
   width: auto;
   border-radius: 50%;
 }
 
 .user-name {
-  margin-top: 20px;
+  margin-top: 10px;
   font-size: 20px;
   width: 100%;
-  text-align: center;
 }
 
-.user-role{
+.user-email {
   margin-top: 5px;
   font-size: 14px;
   width: 100%;
-  text-align: center;
-  color: rgb(88, 88, 88);
+  color: rgb(119, 119, 119);
 }
 
 /****************************/

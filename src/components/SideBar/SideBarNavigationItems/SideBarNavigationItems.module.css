@@ -7,7 +7,7 @@
 }
 
 .navigation-items {
-  height: 40%;
+  height: 65%;
   width: 100%;
   display: flex;
   flex-flow: column;
@@ -18,41 +18,36 @@
   margin: auto;
   display: flex;
   align-items: center;
-  padding-left: 70px;
+  padding-left: 30px;
   height: 18%;
-  width: 80%;
+  width: 95%;
   transition: 0.3s ease-in;
   font-size: 14px;
   color: rgb(170, 170, 170);
-  border-radius: 50px;
+  border-radius: 15px;
 }
 
 .navigation-item:hover {
   cursor: pointer;
-  color: #000;
-  background: rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  color: rgb(0, 104, 31);
+  background: rgba(80, 255, 80, 0.15);
 }
 
 .logout-button {
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 50px;
+  padding-left: 30px;
+  height: 60px;
   font-size: 14px;
   font-weight: 600;
   transition: 0.3s ease-in;
-  width: 70%;
+  width: 95%;
   margin: 0 auto;
-  margin-bottom: 20px;
-  background: rgba(255, 0, 0, 0.9);
-  color: rgba(255, 255, 255, 0.753);
-  border-radius: 50px;
-  box-shadow: 1px 0 10px rgba(0, 0, 0, 0.3);
+  color: rgb(170, 170, 170);
   cursor: pointer;
 }
 
 .logout-button:hover {
-  color: white;
-  background: red;
+  color: red;
 }
