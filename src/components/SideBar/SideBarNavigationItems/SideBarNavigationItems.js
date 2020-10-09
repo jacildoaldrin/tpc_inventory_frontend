@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useContext } from "react";
 import List from "@material-ui/core/List";
+
+//context
+import { NavigationContext } from "../../Contexts/Contexts";
 
 //components
 import SideBarNavigationItem from "./SideBarNavigationItem/SideBarNavigationItem";
@@ -16,51 +18,48 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import styles from "./SideBarNavigationItems.module.css";
 
 const SideBarNavigationItems = (props) => {
-  const [activeItem, setActiveItem] = useState("");
-  const history = useHistory();
+  const { navigationHandler } = useContext(NavigationContext);
 
   const handleClick = (route, itemName) => {
-    setActiveItem(itemName);
-    history.push(route);
+    navigationHandler(route, itemName);
     props.close();
-    console.log("rendering....");
   };
 
   return (
     <div className={styles["container"]}>
       <List className={styles["navigation-items"]}>
         <SideBarNavigationItem
-          activeItem={activeItem}
           name="ORDERS"
-          click={() => handleClick("/orders", "ORDERS")}
+          click={() => handleClick("/orders")}
+          route="/orders"
         >
           <ListAltIcon />
         </SideBarNavigationItem>
         <SideBarNavigationItem
-          activeItem={activeItem}
           name="TRANSACTIONS"
-          click={() => handleClick("/transactions", "TRANSACTIONS")}
+          click={() => handleClick("/transactions")}
+          route="/transactions"
         >
           <ReorderIcon />
         </SideBarNavigationItem>
         <SideBarNavigationItem
-          activeItem={activeItem}
           name="PRODUCTS"
-          click={() => handleClick("/products", "PRODUCTS")}
+          click={() => handleClick("/products")}
+          route="/products"
         >
           <AppsIcon />
         </SideBarNavigationItem>
         <SideBarNavigationItem
-          activeItem={activeItem}
           name="SUPPLIERS"
-          click={() => handleClick("/suppliers", "SUPPLIERS")}
+          click={() => handleClick("/suppliers")}
+          route="/suppliers"
         >
           <PeopleOutlineIcon />
         </SideBarNavigationItem>
         <SideBarNavigationItem
-          activeItem={activeItem}
           name="STORAGE"
-          click={() => handleClick("/storage", "STORAGE")}
+          click={() => handleClick("/storage")}
+          route="/storage"
         >
           <StorefrontIcon />
         </SideBarNavigationItem>

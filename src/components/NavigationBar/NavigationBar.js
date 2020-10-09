@@ -1,6 +1,8 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React, { useContext } from "react";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
+
+//context
+import { NavigationContext } from "../../components/Contexts/Contexts";
 
 //assets
 import Logo from "../../assets/tpc_logo.jpg";
@@ -12,18 +14,17 @@ import HamburgerButton from "../HamburgerButton/HamburgerButton";
 import styles from "./NavigationBar.module.css";
 
 const NavigationBar = (props) => {
-  const history = useHistory();
-
+  const { navigationHandler } = useContext(NavigationContext);
   return (
     <div className={styles["navbar"]}>
       <div className={styles["left-container"]}>
-        <img src={Logo} alt="logo" className={styles["image"]} onClick={() => history.push("/")}/>
+        <img src={Logo} alt="logo" className={styles["image"]} onClick={() => navigationHandler("/")}/>
         <div className={styles["navigation-items"]}>
-          <span className={styles["navigation-item"]} onClick={() => history.push("/orders")}>Orders</span>
-          <span className={styles["navigation-item"]} onClick={() => history.push("/transactions")}>Transactions</span>
-          <span className={styles["navigation-item"]} onClick={() => history.push("/products")}>Products</span>
-          <span className={styles["navigation-item"]} onClick={() => history.push("/suppliers")}>Suppliers</span>
-          <span className={styles["navigation-item"]} onClick={() => history.push("/storage")}>Storage</span>
+          <span className={styles["navigation-item"]} onClick={() => navigationHandler("/orders")}>Orders</span>
+          <span className={styles["navigation-item"]} onClick={() => navigationHandler("/transactions")}>Transactions</span>
+          <span className={styles["navigation-item"]} onClick={() => navigationHandler("/products")}>Products</span>
+          <span className={styles["navigation-item"]} onClick={() => navigationHandler("/suppliers")}>Suppliers</span>
+          <span className={styles["navigation-item"]} onClick={() => navigationHandler("/storage")}>Storage</span>
         </div>
       </div>
       <div className={styles["right-container"]}>
