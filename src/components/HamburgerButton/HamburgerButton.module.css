@@ -1,66 +1,63 @@
-.menu-btn{
-    display: none;
-    height: 50px;
-    width: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    z-index: 10;
+.menu-btn {
+  display: none;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  z-index: 10;
 }
 
-.menu-btn-burger{
-    width: 45px;
-    height: 6px;
-    background: black;
-    border-radius: 35px;
-    box-shadow: 0 2px 5px rgba(114, 114, 114, 0.2);
-    transition: all 0.5s ease-in-out;
+.menu-btn-burger {
+  width: 45px;
+  height: 6px;
+  background: black;
+  border-radius: 35px;
+  box-shadow: 0 2px 5px rgba(114, 114, 114, 0.2);
+  transition: all 0.5s ease-in-out;
 }
 
 .menu-btn-burger::before,
-.menu-btn-burger::after{
-    content: '';
-    position: absolute;
-    width: 45px;
-    height: 6px;
-    background: black;
-    border-radius: 35px;
-    box-shadow: 0 2px 5px rgba(114, 114, 114, 0.2);
-    transition: all 0.5s ease-in-out;
+.menu-btn-burger::after {
+  content: "";
+  position: absolute;
+  width: 45px;
+  height: 6px;
+  background: black;
+  border-radius: 35px;
+  box-shadow: 0 2px 5px rgba(114, 114, 114, 0.2);
+  transition: all 0.5s ease-in-out;
 }
 
-.menu-btn-burger::before{
-    transform: translateY(-12px);
+.menu-btn-burger::before {
+  transform: translateY(-12px);
 }
 
-.menu-btn-burger::after{
-    transform: translateY(12px);
+.menu-btn-burger::after {
+  transform: translateY(12px);
 }
 
 /* ANIMATION */
 .menu-btn.open .menu-btn-burger {
-    transform: translateX(-50px);
-    background: transparent;
-    box-shadow: none;
+  transform: translateX(-50px);
+  background: transparent;
+  box-shadow: none;
 }
 
-.menu-btn.open .menu-btn-burger::before{
-    background: white;
-    transform: rotate(45deg) translate(35px, -35px)
+.menu-btn.open .menu-btn-burger::before {
+  transform: rotate(45deg) translate(35px, -35px);
 }
 
-.menu-btn.open .menu-btn-burger::after{
-    background: white;
-    transform: rotate(-45deg) translate(35px, 35px)
+.menu-btn.open .menu-btn-burger::after {
+  transform: rotate(-45deg) translate(35px, 35px);
 }
 /**************/
 
-@media(max-width: 1100px){
-    .menu-btn{
-        display: flex;
-        position: relative;
-        flex-flow: column;
-        justify-content: center;
-        align-items: center;
-    }
-
+@media (max-width: 1100px) {
+  .menu-btn {
+    display: flex;
+    position: relative;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
 }

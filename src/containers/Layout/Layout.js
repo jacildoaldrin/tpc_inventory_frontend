@@ -16,7 +16,7 @@ const Layout = (props) => {
 
   return (
     <>
-      <SideBar toggled={toggled}/>
+      <SideBar toggled={toggled} handleToggler={handleToggler}/>
       <div className={styles["layout"]}>
         <div className={styles["container"]}>
           <div className={styles["navbar"]}>
