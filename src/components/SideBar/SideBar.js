@@ -26,7 +26,7 @@ const SideBar = (props) => {
             <h1 className={styles["user-name"]}>Duka Loncic</h1>
             <h1 className={styles["user-email"]}>duka.loncic@gmail.com</h1>
           </div>
-          <SideBarNavigationItems />
+          <SideBarNavigationItems close={props.close}/>
         </div>
       </div>
     </>
