@@ -8,7 +8,7 @@ const HamburgerButton = (props) => {
     : styles["menu-btn"];
 
   return (
-    <div className={burgerStyle} onClick={() => props.click()}>
+    <div className={burgerStyle} onClick={() => props.toggled ? props.close() : props.open()}>
       <span />
       <span className={styles["menu-btn-burger"]} />
       <span />

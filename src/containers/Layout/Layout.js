@@ -10,17 +10,21 @@ import styles from "./Layout.module.css";
 const Layout = (props) => {
   const [toggled, setToggled] = useState(false);
 
-  const handleToggler = () => {
-    setToggled(!toggled);
+  const openSideBar = () => {
+    setToggled(true);
+  };
+
+  const closeSideBar = () => {
+    setToggled(false);
   };
 
   return (
     <>
-      <SideBar toggled={toggled} handleToggler={handleToggler}/>
+      <SideBar toggled={toggled} open={openSideBar} close={closeSideBar}/>
       <div className={styles["layout"]}>
         <div className={styles["container"]}>
           <div className={styles["navbar"]}>
-            <NavigationBar toggled={toggled} handleToggler={handleToggler}/>
+            <NavigationBar toggled={toggled} open={openSideBar} close={closeSideBar} />
           </div>
           <div className={styles["main"]}>{props.children}</div>
           <div className={styles["footer"]}>

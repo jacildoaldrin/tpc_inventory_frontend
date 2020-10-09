@@ -37,7 +37,8 @@ const NavigationBar = (props) => {
         </div>
         <HamburgerButton
           toggled={props.toggled}
-          click={props.handleToggler}
+          open={props.open}
+          close={props.close}
         />
       </div>
     </div>

@@ -92,7 +92,7 @@
 
 @media(max-width: 1100px){
   .navbar{
-    width: 90%;
+    width: 85%;
   }
   .navigation-items, .user-image, .user-info{
     display: none;
