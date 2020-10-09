@@ -1,0 +1,19 @@
+.navigation-item {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  height: 18%;
+  width: 95%;
+  transition: 0.3s ease-in;
+  font-size: 14px;
+  color: rgb(170, 170, 170);
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.active{
+  color: rgb(0, 104, 31);
+  background: rgba(80, 255, 80, 0.15);
+}
+

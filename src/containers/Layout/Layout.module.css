@@ -24,7 +24,6 @@
 .main {
   height: 70%;
   width: 80%;
-  min-height: 1000px;
 }
 
 .footer {
@@ -32,4 +31,10 @@
   width: 100%;
   background-color: white;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+@media(max-width: 1100px){
+  .main{
+    width: 100%;
+  }
 }

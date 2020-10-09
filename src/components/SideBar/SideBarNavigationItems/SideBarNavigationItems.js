@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import List from "@material-ui/core/List";
 
-import AppsIcon from "@material-ui/icons/Apps";
+//components
+import SideBarNavigationItem from "./SideBarNavigationItem/SideBarNavigationItem";
+
+//MUI ICONS
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import ReorderIcon from "@material-ui/icons/Reorder";
+import AppsIcon from "@material-ui/icons/Apps";
 import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -12,42 +16,59 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import styles from "./SideBarNavigationItems.module.css";
 
 const SideBarNavigationItems = (props) => {
+  const [activeItem, setActiveItem] = useState("");
   const history = useHistory();
 
-  const handleClick = (route) => {
+  const handleClick = (route, itemName) => {
+    setActiveItem(itemName);
     history.push(route);
     props.close();
-  }
+    console.log("rendering....");
+  };
 
   return (
     <div className={styles["container"]}>
       <List className={styles["navigation-items"]}>
-        <div className={styles["navigation-item"]} onClick={() => handleClick('/orders')}>
+        <SideBarNavigationItem
+          activeItem={activeItem}
+          name="ORDERS"
+          click={() => handleClick("/orders", "ORDERS")}
+        >
           <ListAltIcon />
-          &nbsp;&nbsp;&nbsp; ORDERS
-        </div>
-
-        <div className={styles["navigation-item"]} onClick={() => handleClick('/transactions')}>
+        </SideBarNavigationItem>
+        <SideBarNavigationItem
+          activeItem={activeItem}
+          name="TRANSACTIONS"
+          click={() => handleClick("/transactions", "TRANSACTIONS")}
+        >
           <ReorderIcon />
-          &nbsp;&nbsp;&nbsp; TRANSACTIONS
-        </div>
-
-        <div className={styles["navigation-item"]} onClick={() => handleClick('/products')}>
+        </SideBarNavigationItem>
+        <SideBarNavigationItem
+          activeItem={activeItem}
+          name="PRODUCTS"
+          click={() => handleClick("/products", "PRODUCTS")}
+        >
           <AppsIcon />
-          &nbsp;&nbsp;&nbsp; PRODUCTS
-        </div>
-
-        <div className={styles["navigation-item"]} onClick={() => handleClick('/suppliers')}>
+        </SideBarNavigationItem>
+        <SideBarNavigationItem
+          activeItem={activeItem}
+          name="SUPPLIERS"
+          click={() => handleClick("/suppliers", "SUPPLIERS")}
+        >
           <PeopleOutlineIcon />
-          &nbsp;&nbsp;&nbsp; SUPPLIERS
-        </div>
-
-        <div className={styles["navigation-item"]} onClick={() => handleClick('/storage')}>
+        </SideBarNavigationItem>
+        <SideBarNavigationItem
+          activeItem={activeItem}
+          name="STORAGE"
+          click={() => handleClick("/storage", "STORAGE")}
+        >
           <StorefrontIcon />
-          &nbsp;&nbsp;&nbsp; STORAGE
-        </div>
+        </SideBarNavigationItem>
       </List>
-      <div className={styles["logout-button"]} onClick={() => handleClick('/login')}>
+      <div
+        className={styles["logout-button"]}
+        onClick={() => handleClick("/login")}
+      >
         <ExitToAppIcon />
         &nbsp; LOGOUT
       </div>
