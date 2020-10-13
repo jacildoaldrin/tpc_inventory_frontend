@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
-import styles from "./Login.module.css";
+//context
+import { AuthenticationContext } from "../../contexts/Contexts";
 
 //component
 import LoginForm from "../../components/LoginForm/LoginForm";
 
+import styles from "./Login.module.css";
+
 const Login = () => {
+  const { loginHandler } = useContext(AuthenticationContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
-
-  const handleLogin = () => {
-    console.log(email, password, checked)
-  };
 
   const handleEmailInput = (val) => {
     setEmail(val);
@@ -30,7 +30,7 @@ const Login = () => {
     <div className={styles["login"]}>
       <div className={styles["overlay"]}>
         <LoginForm
-          handleLogin={handleLogin}
+          handleLogin={() => loginHandler(email, password, checked)}
           handleEmailInput={handleEmailInput}
           handlePasswordInput={handlePasswordInput}
           handleCheckbox={handleCheckbox}

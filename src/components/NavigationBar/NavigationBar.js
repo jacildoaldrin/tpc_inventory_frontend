@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 
 //context
-import { NavigationContext } from "../../components/Contexts/Contexts";
+import { NavigationContext } from "../../contexts/Contexts";
 
 //assets
 import Logo from "../../assets/tpc_logo.jpg";

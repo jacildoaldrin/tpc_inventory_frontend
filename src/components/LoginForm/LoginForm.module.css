@@ -9,9 +9,11 @@
   width: 450px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  transition: 0.5s ease-in-out;
 }
 
 .logo {
+  transition: 0.5s ease-in-out;
   width: 300px;
 }
 
@@ -32,11 +34,23 @@
   transition: background-color 0.3s ease;
 }
 
-.button:hover{
+.button:hover {
   cursor: pointer;
   background-color: #32c741;
 }
 
 .button:focus {
   outline: none;
+}
+
+@media (max-width: 500px) {
+  .login-form,
+  .form {
+    height: 550px;
+    width: 90%;
+  }
+
+  .logo {
+    width: 200px;
+  }
 }

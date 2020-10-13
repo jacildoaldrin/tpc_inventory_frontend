@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import List from "@material-ui/core/List";
 
 //context
-import { NavigationContext } from "../../Contexts/Contexts";
+import { NavigationContext } from "../../../contexts/Contexts";
 
 //components
 import SideBarNavigationItem from "./SideBarNavigationItem/SideBarNavigationItem";

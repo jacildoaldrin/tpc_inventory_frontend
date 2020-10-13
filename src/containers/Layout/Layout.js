@@ -1,17 +1,26 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Switch, Route, useRouteMatch } from "react-router-dom";
 
-// context
-import { NavigationContext } from "../../components/Contexts/Contexts";
+//context
+import { NavigationContext } from "../../contexts/Contexts";
 
-// components
+//components
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import Footer from "../../components/Footer/Footer";
 import SideBar from "../../components/SideBar/SideBar";
 
+//containers
+import Dashboard from "../Dashboard/Dashboard";
+import Orders from "../Orders/Orders";
+import Transactions from "../Transactions/Transactions";
+import Products from "../Products/Products";
+import Suppliers from "../Suppliers/Suppliers";
+import Storage from "../Storage/Storage";
+
 import styles from "./Layout.module.css";
 
-const Layout = (props) => {
+const Layout = () => {
+  let { path } = useRouteMatch();
   const [toggled, setToggled] = useState(false);
   const history = useHistory();
 
@@ -24,7 +33,7 @@ const Layout = (props) => {
   };
 
   const navigationHandler = (route) => {
-    history.push(route);
+    history.push(path + route);
   };
 
   return (
@@ -39,7 +48,16 @@ const Layout = (props) => {
               close={closeSideBar}
             />
           </div>
-          <div className={styles["main"]}>{props.children}</div>
+          <div className={styles["main"]}>
+            <Switch>
+              <Route exact path={`${path}`} component={Dashboard} />
+              <Route exact path={`${path}/orders`} component={Orders} />
+              <Route exact path={`${path}/transactions`} component={Transactions} />
+              <Route exact path={`${path}/products`} component={Products} />
+              <Route exact path={`${path}/suppliers`} component={Suppliers} />
+              <Route exact path={`${path}/storage`} component={Storage} />
+            </Switch>
+          </div>
           <div className={styles["footer"]}>
             <Footer />
           </div>
