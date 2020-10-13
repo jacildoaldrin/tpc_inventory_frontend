@@ -24,13 +24,15 @@ const App = () => {
 
   const loginHandler = (email, password, checked) => {
     setIsAuthenticated(true);
-    history.push("/tpc");
+    history.replace("/tpc");
   };
 
   const logoutHandler = () => {
     setIsAuthenticated(false);
-    history.push("/");
+    history.replace("/");
   };
+  
+  console.log(history)
 
   return (
     <MuiThemeProvider theme={MuiTheme}>
