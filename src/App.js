@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
 import { Switch, Route, useHistory } from "react-router-dom";
 import { MuiThemeProvider } from "@material-ui/core";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 //context
 import { AuthenticationContext } from "./contexts";
@@ -11,11 +11,9 @@ import { AuthenticationContext } from "./contexts";
 import Login from "containers/Login/Login";
 import Layout from "containers/Layout/Layout";
 
-//page
-import Unauthorized from "navigation/Unauthorized/Unauthorized";
-
-//protected route
+//navigation
 import ProtectedRoute from "navigation/ProtectedRoute";
+import Unauthorized from "navigation/Unauthorized/Unauthorized";
 
 //theme
 import MuiTheme from "themes/MuiTheme";

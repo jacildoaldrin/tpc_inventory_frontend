@@ -29,7 +29,7 @@ const Unauthorized = () => {
         </p>
       </div>
       <div style={{ paddingTop: "20px" }}>
-        <Link to="/">Back to Login.</Link>
+        <Link to="/">Back to Login</Link>
       </div>
     </div>
   );
