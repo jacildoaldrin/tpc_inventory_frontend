@@ -28,7 +28,7 @@ const Unauthorized = () => {
           location? Like...Hobbiton?
         </p>
       </div>
-      <div style={{paddingTop: "20px"}}>
+      <div style={{ paddingTop: "20px" }}>
         <Link to="/">Back to Login.</Link>
       </div>
     </div>

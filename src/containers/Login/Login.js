@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 
 //context
-import { AuthenticationContext } from "../../contexts/Contexts";
+import { AuthenticationContext } from "contexts";
 
 //component
-import LoginForm from "../../components/LoginForm/LoginForm";
+import LoginForm from "components/LoginForm/LoginForm";
 
 import styles from "./Login.module.css";
 

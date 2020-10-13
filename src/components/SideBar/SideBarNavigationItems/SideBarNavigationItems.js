@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import List from "@material-ui/core/List";
 
 //context
-import { NavigationContext } from "../../../contexts/Contexts";
+import { NavigationContext, AuthenticationContext } from "contexts";
 
 //components
 import SideBarNavigationItem from "./SideBarNavigationItem/SideBarNavigationItem";
@@ -19,6 +19,7 @@ import styles from "./SideBarNavigationItems.module.css";
 
 const SideBarNavigationItems = (props) => {
   const { navigationHandler } = useContext(NavigationContext);
+  const { logoutHandler} = useContext(AuthenticationContext);
 
   const handleClick = (route, itemName) => {
     navigationHandler(route, itemName);
@@ -66,7 +67,7 @@ const SideBarNavigationItems = (props) => {
       </List>
       <div
         className={styles["logout-button"]}
-        onClick={() => handleClick("/login")}
+        onClick={() => logoutHandler()}
       >
         <ExitToAppIcon />
         &nbsp; LOGOUT

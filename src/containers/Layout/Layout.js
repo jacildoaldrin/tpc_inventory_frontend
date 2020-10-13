@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useHistory, Switch, Route, useRouteMatch } from "react-router-dom";
 
 //context
-import { NavigationContext } from "../../contexts/Contexts";
+import { NavigationContext } from "contexts";
 
 //components
-import NavigationBar from "../../components/NavigationBar/NavigationBar";
-import Footer from "../../components/Footer/Footer";
-import SideBar from "../../components/SideBar/SideBar";
+import NavigationBar from "components/NavigationBar/NavigationBar";
+import Footer from "components/Footer/Footer";
+import SideBar from "components/SideBar/SideBar";
 
 //containers
 import Dashboard from "../Dashboard/Dashboard";

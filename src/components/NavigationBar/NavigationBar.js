@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 
 //context
-import { NavigationContext } from "../../contexts/Contexts";
+import { NavigationContext, AuthenticationContext } from "contexts";
 
 //assets
-import Logo from "../../assets/tpc_logo.jpg";
-import UserImage from "../../assets/luka.jpg";
+import Logo from "assets/tpc_logo.jpg";
+import UserImage from "assets/luka.jpg";
 
 //components
 import HamburgerButton from "../HamburgerButton/HamburgerButton";
@@ -15,6 +15,7 @@ import styles from "./NavigationBar.module.css";
 
 const NavigationBar = (props) => {
   const { navigationHandler } = useContext(NavigationContext);
+  const { logoutHandler } = useContext(AuthenticationContext)
   return (
     <div className={styles["navbar"]}>
       <div className={styles["left-container"]}>
@@ -31,7 +32,7 @@ const NavigationBar = (props) => {
         <img src={UserImage} alt="user" className={styles["user-image"]} />
         <div className={styles["user-info"]}>
           <h1 className={styles["name"]}>Duka Loncic</h1>
-          <h1 className={styles["logout"]}>
+          <h1 className={styles["logout"]} onClick={() => logoutHandler()}>
             <ExitToAppOutlinedIcon fontSize="small" />
             &nbsp;Logout
           </h1>

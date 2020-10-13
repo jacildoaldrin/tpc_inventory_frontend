@@ -1,7 +1,7 @@
 import React from "react";
 
 //assets
-import UserImage from "../../assets/luka.jpg";
+import UserImage from "assets/luka.jpg";
 
 //component
 import Backdrop from "../Backdrop/Backdrop";

@@ -4,7 +4,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
 //assets
-import Logo from "../../assets/tpc_logo.jpg";
+import Logo from "assets/tpc_logo.jpg";
 
 import styles from "./LoginForm.module.css";
 

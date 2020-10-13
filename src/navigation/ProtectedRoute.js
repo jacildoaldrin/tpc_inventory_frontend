@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
 
 //context
-import { AuthenticationContext } from "../contexts/Contexts";
+import { AuthenticationContext } from "contexts";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const { isAuthenticated } = useContext(AuthenticationContext);

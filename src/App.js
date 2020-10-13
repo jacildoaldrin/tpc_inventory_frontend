@@ -2,46 +2,40 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Switch, Route, useHistory } from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
-import green from "@material-ui/core/colors/green";
+import { MuiThemeProvider } from "@material-ui/core";
 
 //context
-import { AuthenticationContext } from "./contexts/Contexts";
+import { AuthenticationContext } from "./contexts";
 
 //containers
-import Login from "./containers/Login/Login";
-import Layout from "./containers/Layout/Layout";
+import Login from "containers/Login/Login";
+import Layout from "containers/Layout/Layout";
 
 //page
-import Unauthorized from "./navigation/Unauthorized/Unauthorized";
+import Unauthorized from "navigation/Unauthorized/Unauthorized";
 
 //protected route
-import ProtectedRoute from "./navigation/ProtectedRoute";
+import ProtectedRoute from "navigation/ProtectedRoute";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: green[500],
-    },
-  },
-});
+//theme
+import MuiTheme from "themes/MuiTheme";
 
 const App = () => {
   const history = useHistory();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const loginHandler = (email, password, checked) => {
-    console.log(email, password, checked);
     setIsAuthenticated(true);
     history.push("/tpc");
   };
 
   const logoutHandler = () => {
     setIsAuthenticated(false);
+    history.push("/");
   };
 
   return (
-    <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={MuiTheme}>
       <AuthenticationContext.Provider
         value={{ isAuthenticated, loginHandler, logoutHandler }}
       >
