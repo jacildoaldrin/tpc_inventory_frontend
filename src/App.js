@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import green from "@material-ui/core/colors/green";
 
@@ -25,15 +25,15 @@ const theme = createMuiTheme({
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <MuiThemeProvider theme={theme}>
         <Switch>
-          <Route path="/login" component={Login} exact />
+          <Route path="/" component={Login} exact />
           <Layout>
             <Route
               component={({ match }) => (
                 <>
-                  <Route path="/" component={Dashboard} exact />
+                  <Route path="/dashboard" component={Dashboard}/>
                   <Route path="/orders" component={Orders} />
                   <Route path="/transactions" component={Transactions} />
                   <Route path="/products" component={Products} />
@@ -45,7 +45,7 @@ const App = () => {
           </Layout>
         </Switch>
       </MuiThemeProvider>
-    </BrowserRouter>
+    </Router>
   );
 };
 
