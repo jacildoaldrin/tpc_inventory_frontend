@@ -17,10 +17,6 @@
   font-size: 24px;
 }
 
-.total-rows{
-    height: 100%;
-    padding: 15px 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.search-bar{
+  max-width: 140px;
 }

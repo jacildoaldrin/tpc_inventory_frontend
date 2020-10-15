@@ -40,8 +40,9 @@ const SuppliersTable = (props) => {
       <div className={styles["table-toolbar"]}>
         <h1>Suppliers</h1>
         <div>
-          <div className={styles["search"]}>
+          <div className={styles["search-bar"]}>
             <TextField
+              fullWidth={true}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
