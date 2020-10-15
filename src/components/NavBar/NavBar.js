@@ -1,6 +1,5 @@
 import React from "react";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
-import { useHistory } from "react-router-dom";
 
 //context
 import { useAuth } from "contexts/AuthContext";
@@ -18,12 +17,6 @@ import { NavLink } from "react-router-dom";
 
 const NavBar = (props) => {
   const { logout } = useAuth();
-  const history = useHistory();
-
-  const logoutHandler = async () => {
-    await logout();
-    history.replace("/");
-  };
 
   return (
     <div className={styles["navbar"]}>
@@ -38,7 +31,7 @@ const NavBar = (props) => {
         <img src={UserImage} alt="user" className={styles["user-image"]} />
         <div className={styles["user-info"]}>
           <h1 className={styles["name"]}>Duka Loncic</h1>
-          <h1 className={styles["logout"]} onClick={() => logoutHandler()}>
+          <h1 className={styles["logout"]} onClick={() => logout()}>
             <ExitToAppOutlinedIcon fontSize="small" />
             &nbsp;Logout
           </h1>

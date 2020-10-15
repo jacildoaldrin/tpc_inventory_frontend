@@ -1,6 +1,5 @@
 import React from "react";
 import List from "@material-ui/core/List";
-import { useHistory } from "react-router-dom";
 
 //context
 import { useAuth } from "contexts/AuthContext";
@@ -20,15 +19,9 @@ import styles from "./SideBarNavigationItems.module.css";
 
 const SideBarNavigationItems = (props) => {
   const { logout } = useAuth();
-  const history = useHistory();
 
   const handleClick = () => {
     props.close();
-  };
-
-  const handleLogout = async () => {
-    await logout();
-    history.replace("/");
   };
 
   return (
@@ -70,7 +63,7 @@ const SideBarNavigationItems = (props) => {
           <StorefrontIcon />
         </SideBarNavigationItem>
       </List>
-      <div className={styles["logout-button"]} onClick={() => handleLogout()}>
+      <div className={styles["logout-button"]} onClick={() => logout()}>
         <ExitToAppIcon />
         &nbsp; LOGOUT
       </div>
