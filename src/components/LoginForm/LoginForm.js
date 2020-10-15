@@ -1,10 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-
-//context
-import { useAuth } from "contexts/AuthContext";
+import Alert from "@material-ui/lab/Alert";
 
 //assets
 import Logo from "assets/tpc_logo.jpg";
@@ -12,35 +8,26 @@ import Logo from "assets/tpc_logo.jpg";
 import styles from "./LoginForm.module.css";
 
 const LoginForm = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const { login } = useAuth();
-
-  const emailHandler = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const passwordHandler = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const loginHandler = async (e) => {
-    e.preventDefault();
-    try {
-      await login(email, password);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
-    <form className={styles["login-form"]} onSubmit={event => loginHandler(event)}>
+    <form
+      className={styles["login-form"]}
+      onSubmit={(event) => props.handleLogin(event)}
+    >
       <img src={Logo} alt="logo" className={styles["logo"]} />
+      <Alert
+        severity="error"
+        className={
+          props.error === ""
+            ? `${styles["error-message"]} ${styles["hidden"]}`
+            : styles["error-message"]
+        }
+      >
+        {props.error}
+      </Alert>
       <div className={styles["form"]}>
         <TextField
-          value={email}
-          onChange={(event) => emailHandler(event)}
+          value={props.email}
+          onChange={(event) => props.handleEmailInput(event.target.value)}
           variant="outlined"
           margin="normal"
           required
@@ -55,8 +42,8 @@ const LoginForm = (props) => {
           }}
         />
         <TextField
-          value={password}
-          onChange={(event) => passwordHandler(event)}
+          value={props.password}
+          onChange={(event) => props.handlePasswordInput(event.target.value)}
           variant="outlined"
           margin="normal"
           required
@@ -70,17 +57,9 @@ const LoginForm = (props) => {
             boxShadow: "0 0 3px rgba(0, 0, 0, .15)",
           }}
         />
-        <FormControlLabel
-          control={
-            <Checkbox
-              value={props.checked}
-              onChange={(event) => props.handleCheckbox(event.target.checked)}
-              color="primary"
-            />
-          }
-          label="Remember me"
-        />
-        <button className={styles["button"]} type="submit">LOGIN</button>
+        <button className={styles["button"]} type="submit">
+          LOGIN
+        </button>
       </div>
     </form>
   );

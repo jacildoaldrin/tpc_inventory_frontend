@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 //context
+import { useAuth } from "contexts/AuthContext";
 
 //component
 import LoginForm from "components/LoginForm/LoginForm";
@@ -10,7 +11,8 @@ import styles from "./Login.module.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [checked, setChecked] = useState(false);
+  const [error, setError] = useState("");
+  const { login } = useAuth();
 
   const handleEmailInput = (val) => {
     setEmail(val);
@@ -20,8 +22,13 @@ const Login = () => {
     setPassword(val);
   };
 
-  const handleCheckbox = (val) => {
-    setChecked(val);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login(email, password);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
@@ -30,10 +37,10 @@ const Login = () => {
         <LoginForm
           handleEmailInput={handleEmailInput}
           handlePasswordInput={handlePasswordInput}
-          handleCheckbox={handleCheckbox}
+          handleLogin={handleLogin}
           email={email}
           password={password}
-          checked={checked}
+          error={error}
         />
       </div>
     </div>

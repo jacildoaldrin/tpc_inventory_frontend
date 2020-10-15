@@ -43,10 +43,22 @@
   outline: none;
 }
 
+.error-message{
+  width: 80%;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
 @media (max-width: 500px) {
   .login-form,
   .form {
     height: 550px;
+    width: 90%;
+  }
+
+  .error-message{
     width: 90%;
   }
 
