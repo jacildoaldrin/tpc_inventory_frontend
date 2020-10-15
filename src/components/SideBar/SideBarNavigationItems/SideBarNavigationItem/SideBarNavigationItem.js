@@ -1,22 +1,19 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import styles from "./SideBarNavigationItem.module.css";
 
 const SideBarNavigationItem = (props) => {
-  const location = useLocation();
   return (
-    <div
-      className={
-        location.pathname === props.route
-          ? `${styles["navigation-item"]} ${styles["active"]}`
-          : styles["navigation-item"]
-      }
+    <NavLink
+      to={props.route}
+      className={styles["navigation-item"]}
+      activeClassName={`${styles["navigation-item"]} ${styles["active"]}`}
       onClick={props.click}
     >
       {props.children}
-      &nbsp;&nbsp;&nbsp; {props.name}
-    </div>
+      <div>{props.name}</div>
+    </NavLink>
   );
 };
 

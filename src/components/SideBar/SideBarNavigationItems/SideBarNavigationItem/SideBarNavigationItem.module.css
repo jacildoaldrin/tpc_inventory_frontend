@@ -12,6 +12,15 @@
   cursor: pointer;
 }
 
+.navigation-item:hover{
+  color: rgb(0, 104, 31);
+  text-decoration: none;
+}
+
+.navigation-item div{
+  padding-left: 20px;
+}
+
 .active{
   color: rgb(0, 104, 31);
   background: rgba(80, 255, 80, 0.15);

@@ -1,66 +1,47 @@
-import React  from "react";
-import { Switch, Route } from "react-router-dom";
+import React from "react";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 import { MuiThemeProvider } from "@material-ui/core";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 //context
-import { AuthProvider } from "contexts/AuthContext";
+import { useAuth } from "contexts/AuthContext";
 
 //containers
 import Login from "containers/Login/Login";
 import Layout from "containers/Layout/Layout";
 
-//navigation
-import ProtectedRoute from "navigation/ProtectedRoute";
-import Unauthorized from "navigation/Unauthorized/Unauthorized";
+//pages
+import Dashboard from "containers/Dashboard/Dashboard";
+import Orders from "containers/Orders/Orders";
+import Transactions from "containers/Transactions/Transactions";
+import Products from "containers/Products/Products";
+import Suppliers from "containers/Suppliers/Suppliers";
+import Storage from "containers/Storage/Storage";
 
 //theme
 import MuiTheme from "themes/MuiTheme";
 
-// import { Users } from "models/Users";
-
 const App = () => {
-  // const history = useHistory();
-  // const [user, setUser] = useState(null);
-
-  // const loginHandler = async (email, password, checked) => {
-  //   let data = await getUserInfo(email, password);
-  //   if (data !== null) {
-  //     setUser(data);
-  //     history.replace("/tpc");
-  //   } else {
-  //     console.log("invalid email/password");
-  //   }
-  // };
-
-  // const logoutHandler = async () => {
-  //   history.replace("/");
-  // };
-
-  // const getUserInfo = (email, password) => {
-  //   return new Promise((resolve) => {
-  //     let data = null;
-  //     Users.map((user) => {
-  //       if (user.email === email && user.password === password) {
-  //         data = user;
-  //       }
-  //     });
-  //     setTimeout(() => {
-  //       resolve(data);
-  //     }, 3000);
-  //   });
-  // };
-
+  const { currUser } = useAuth();
   return (
     <MuiThemeProvider theme={MuiTheme}>
-      <AuthProvider>
+      <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/unauthorized" component={Unauthorized} />
-          <ProtectedRoute path="/tpc" component={Layout} />
+          {currUser !== null ? (
+            <Layout>
+              <Route exact path="/" component={Dashboard} />
+              <Route path="/orders" component={Orders} />
+              <Route path="/transactions" component={Transactions} />
+              <Route path="/products" component={Products} />
+              <Route path="/suppliers" component={Suppliers} />
+              <Route path="/storage" component={Storage} />
+            </Layout>
+          ) : (
+            <Login />
+          )}
         </Switch>
-      </AuthProvider>
+      </BrowserRouter>
     </MuiThemeProvider>
   );
 };

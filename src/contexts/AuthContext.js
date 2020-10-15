@@ -30,7 +30,7 @@ export const AuthProvider = (props) => {
       setCurrUser(user);
       setLoading(false);
     });
-
+    
     return unsubscribe;
   }, []);
 

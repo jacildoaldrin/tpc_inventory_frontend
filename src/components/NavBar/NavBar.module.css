@@ -21,33 +21,6 @@
 .image:hover{
   cursor: pointer;
 }
-
-.navigation-items {
-  width: 600px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.navigation-item {
-  font-size: 20px;
-  color: rgba(0, 0, 0, 0.8);
-  text-decoration: none;
-  padding: 3px 0;
-  transition: 0.3s ease;
-  border-bottom: 2px solid transparent;
-}
-
-.navigation-item:hover {
-  cursor: pointer;
-  color: #8abb7b;
-  border-bottom: 2px solid #8abb7b;
-}
-
-.navigation-item:focus {
-  outline: none;
-}
-
 /****************************/
 
 /* RIGHT CONTAINER OF NAVBAR */
@@ -94,7 +67,7 @@
   .navbar{
     width: 85%;
   }
-  .navigation-items, .user-image, .user-info{
+  .user-image, .user-info{
     display: none;
   }
 }
