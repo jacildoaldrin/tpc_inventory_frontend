@@ -35,7 +35,7 @@ const LoginForm = (props) => {
   };
 
   return (
-    <div className={styles["login-form"]}>
+    <form className={styles["login-form"]} onSubmit={event => loginHandler(event)}>
       <img src={Logo} alt="logo" className={styles["logo"]} />
       <div className={styles["form"]}>
         <TextField
@@ -80,14 +80,9 @@ const LoginForm = (props) => {
           }
           label="Remember me"
         />
-        <button
-          className={styles["button"]}
-          onClick={(event) => loginHandler(event)}
-        >
-          LOGIN
-        </button>
+        <button className={styles["button"]} type="submit">LOGIN</button>
       </div>
-    </div>
+    </form>
   );
 };
 

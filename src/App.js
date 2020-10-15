@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import { MuiThemeProvider } from "@material-ui/core";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,10 +27,12 @@ const App = () => {
   const history = useHistory();
 
   // just to clear the url when user logs out
-  if (currUser === null) {
-    history.replace("/");
-  }
-  
+  useEffect(() => {
+    if (currUser === null) {
+      history.replace("/");
+    }
+  }, [history, currUser]);
+
   return (
     <MuiThemeProvider theme={MuiTheme}>
       <Switch>
