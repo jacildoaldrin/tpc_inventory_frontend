@@ -89,9 +89,7 @@ const SuppliersTable = (props) => {
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row) => (
               <TableRow key={row.id}>
-                <TableCell align="center" component="th" scope="row">
-                  {row.id}
-                </TableCell>
+                <TableCell align="center">{row["id"]}</TableCell>
                 <TableCell align="left">{row["supplier_name"]}</TableCell>
                 <TableCell align="left">
                   {row["supplier_email"] === null

@@ -11,12 +11,23 @@
   padding: 30px 30px;
   display: flex;
   justify-content: space-between;
+  transition: 0.3s ease-in-out;
 }
 
 .table-toolbar h1 {
   font-size: 24px;
 }
 
-.search-bar{
-  max-width: 140px;
+.search-bar {
+  transition: 0.3s ease-in-out;
+  width: 200px;
+}
+
+@media (max-width: 500px) {
+  .table-toolbar {
+    padding: 20px 10px;
+  }
+  .search-bar {
+    width: 150px;
+  }
 }
