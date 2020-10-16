@@ -10,10 +10,58 @@
 }
 
 .form {
-  height: 800px;
-  width: 800px;
+  height: 720px;
+  width: 700px;
   background: white;
   z-index: 10;
-  border-radius: 15px;
-  padding: 20px;
 }
+
+/* FORM HEADER STYLE */
+.form-header {
+  height: 15%;
+  width: 100%;
+  font-size: 32px;
+  padding: 0 30px;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  background-color: #29c56c;
+}
+/**********************/
+
+/* FORM BODY STYLE */
+.form-body {
+  height: 70%;
+  width: 100%;
+  display: inline-flex;
+  padding: 50px 30px;
+}
+/********************/
+
+/* FORM FOOTER STYLE */
+.form-footer {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #29c56c;
+}
+
+.form-button {
+  padding: 10px 50px;
+  margin-right: 30px;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+  color: white;
+  border: 3px solid white;
+}
+
+.form-button:hover {
+  color: #29c56c;
+  background-color: white;
+}
+
+/*********************/
