@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import React from "react";
+import { Switch, Route} from "react-router-dom";
 import { MuiThemeProvider } from "@material-ui/core";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 //context
-import { useAuth } from "contexts/AuthContext";
+// import { useAuth } from "contexts/AuthContext";
 
 //containers
-import Login from "containers/Login/Login";
+// import Login from "containers/Login/Login";
 import Layout from "containers/Layout/Layout";
 
 //pages
@@ -23,20 +23,20 @@ import Storage from "containers/Storage/Storage";
 import MuiTheme from "themes/MuiTheme";
 
 const App = () => {
-  const { currUser } = useAuth();
-  const history = useHistory();
+  // const { currUser } = useAuth();
+  // const history = useHistory();
 
   // just to clear the url when user logs out
-  useEffect(() => {
-    if (currUser === null) {
-      history.replace("/");
-    }
-  }, [history, currUser]);
+  // useEffect(() => {
+  //   if (currUser === null) {
+  //     history.replace("/");
+  //   }
+  // }, [history, currUser]);
 
   return (
     <MuiThemeProvider theme={MuiTheme}>
       <Switch>
-        {currUser !== null ? (
+        {/* {currUser !== null ? ( */}
           <Layout>
             <Route exact path="/" component={Dashboard} />
             <Route path="/orders" component={Orders} />
@@ -45,9 +45,9 @@ const App = () => {
             <Route path="/suppliers" component={Suppliers} />
             <Route path="/storage" component={Storage} />
           </Layout>
-        ) : (
-          <Login />
-        )}
+        {/* ) : ( */}
+          {/* <Login /> */}
+        {/* )} */}
       </Switch>
     </MuiThemeProvider>
   );
