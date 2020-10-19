@@ -1,12 +1,25 @@
 import React from "react";
+import { Route, useRouteMatch } from "react-router-dom";
 
-import styles from "./Products.module.css"
+//context
+import { ProductsProvider } from "contexts/ProductsContext";
+
+//components
+import ProductsTable from "components/Tables/ProductsTable/ProductsTable";
+
+import styles from "./Products.module.css";
 
 const Products = () => {
+  let match = useRouteMatch();
+
   return (
-    <div className={styles['products']}>
-      <h1>Products</h1>
-    </div>
+    <ProductsProvider>
+      <div className={styles["products"]}>
+        <Route exact path={`${match.url}/`}>
+          <ProductsTable />
+        </Route>
+      </div>
+    </ProductsProvider>
   );
 };
 
