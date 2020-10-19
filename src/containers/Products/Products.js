@@ -6,6 +6,7 @@ import { ProductsProvider } from "contexts/ProductsContext";
 
 //components
 import ProductsTable from "components/Tables/ProductsTable/ProductsTable";
+import AddButton from "components/AddButton/AddButton";
 
 import styles from "./Products.module.css";
 
@@ -16,7 +17,11 @@ const Products = () => {
     <ProductsProvider>
       <div className={styles["products"]}>
         <Route exact path={`${match.url}/`}>
-          <ProductsTable />
+          <AddButton route={`${match.url}/add-product`}>Add Product</AddButton>
+          <ProductsTable /> 
+        </Route>
+        <Route path={`${match.url}/add-product`}>
+          <h1>add product</h1>
         </Route>
       </div>
     </ProductsProvider>

@@ -11,6 +11,7 @@ import {
   TextField,
   InputAdornment,
 } from "@material-ui/core";
+import Moment from "moment";
 
 //icons
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -21,12 +22,12 @@ import { useProducts } from "contexts/ProductsContext";
 
 import styles from "./ProductsTable.module.css";
 
-const ProductsTable = (props) => {
+const ProductsTable = () => {
   const { products } = useProducts();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
@@ -64,10 +65,10 @@ const ProductsTable = (props) => {
             <TableCell align="left" width="20%">
               <b>Product Description</b>
             </TableCell>
-            <TableCell align="left" width="10%">
+            <TableCell align="left" width="15%">
               <b>Date Added</b>
             </TableCell>
-            <TableCell align="left" width="10%">
+            <TableCell align="left" width="15%">
               <b>Last Modified</b>
             </TableCell>
             <TableCell align="left" width="10%">
@@ -79,10 +80,10 @@ const ProductsTable = (props) => {
             <TableCell align="left" width="10%">
               <b>Unit Sell Price</b>
             </TableCell>
-            <TableCell align="left" width="10%">
+            <TableCell align="left" width="5%">
               <b>Category</b>
             </TableCell>
-            <TableCell align="center" width="10%">
+            <TableCell align="center" width="5%">
               <b>Action</b>
             </TableCell>
           </TableRow>
@@ -91,11 +92,11 @@ const ProductsTable = (props) => {
           {products
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row) => (
-              <TableRow key={row.id}>
+              <TableRow key={row["_id"]}>
                 <TableCell align="center">{row["_id"]}</TableCell>
                 <TableCell align="left">{row["description"]}</TableCell>
-                <TableCell align="left">{row["date_added"]}</TableCell>
-                <TableCell align="left">{row["date_modified"]}</TableCell>
+                <TableCell align="left">{Moment(row["date_added"]).format("MMMM Do, YYYY, h:MM a")}</TableCell>
+                <TableCell align="left">{Moment(row["date_modified"]).format("MMMM Do, YYYY, h:MM a")}</TableCell>
                 <TableCell align="left">{row["stock_qty"]}</TableCell>
                 <TableCell align="left">{row["cost_with_tax"]}</TableCell>
                 <TableCell align="left">{row["unit_sell_price"]}</TableCell>
