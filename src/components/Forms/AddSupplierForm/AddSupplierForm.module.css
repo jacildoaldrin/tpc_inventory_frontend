@@ -1,54 +1,79 @@
+.container {
+  height: 100%;
+  width: 100%;
+}
+
 .form {
-  height: 720px;
-  width: 700px;
+  margin: auto;
   background: white;
+  width: 60%;
+  border: 2px solid black;
+  padding: 0 5%;
+  transition: 0.3s ease-in-out;
 }
 
 /* FORM HEADER STYLE */
 .form-header {
-  height: 15%;
+  margin: 25px 0;
   width: 100%;
   font-size: 32px;
-  padding: 0 30px;
-  color: white;
+  align-items: center;
   display: inline-flex;
   align-items: center;
-  background-color: #29c56c;
+  transition: 0.3s ease-in-out;
 }
+
 /**********************/
 
 /* FORM BODY STYLE */
 .form-body {
-  height: 70%;
-  width: 100%;
-  display: inline-flex;
-  padding: 50px 30px;
+  margin: 25px 0;
 }
 /********************/
 
 /* FORM FOOTER STYLE */
 .form-footer {
-  height: 15%;
-  width: 100%;
+  margin: 25px 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   align-items: center;
-  background-color: #29c56c;
 }
 
 .form-button {
-  padding: 10px 50px;
-  margin-right: 30px;
+  padding: 10px 60px;
   text-align: center;
   font-weight: 700;
   transition: 0.2s ease-in;
-  color: white;
-  border: 3px solid white;
+  color: black;
+  border: 2px solid black;
   background: none;
+  min-width: 100px;
 }
 
-.form-button:hover {
-  color: #29c56c;
-  background-color: white;
-}
 /*********************/
+
+@media (max-width: 700px) {
+  .form {
+    width: 95%;
+    height: 90%;
+    padding: 30px 20px;
+  }
+
+  .form-header {
+    margin: 10px 0;
+  }
+
+  .form-footer {
+    align-items: center;
+  }
+  .form-button {
+    padding: 10px 0;
+    width: 45%;
+  }
+}
+
+@media (max-width: 400px) {
+  .form-header {
+    font-size: 22px;
+  }
+}

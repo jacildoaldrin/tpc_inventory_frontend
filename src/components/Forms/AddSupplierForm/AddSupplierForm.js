@@ -16,7 +16,7 @@ const AddSupplier = (props) => {
   };
 
   return (
-    <div>
+    <div className={styles["container"]}>
       <LeftChevron click={goBack} />
       <form className={styles["form"]}>
         <div className={styles["form-header"]}>

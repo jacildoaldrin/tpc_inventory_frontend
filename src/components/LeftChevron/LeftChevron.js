@@ -7,8 +7,8 @@ const LeftChevron = (props) => {
   return (
     <div className={styles["chevron-container"]}>
       <ChevronLeftIcon
-        onClick={() => props.click}
-        style={{fontSize: "50px"}}
+        onClick={() => props.click()}
+        style={{ fontSize: "50px", cursor: "pointer" }}
       />
     </div>
   );
