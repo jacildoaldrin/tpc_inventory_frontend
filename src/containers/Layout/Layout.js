@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+//context
+import { NavigationProvider } from "contexts/NavigationContext";
+
 //components
 import NavBar from "components/NavBar/NavBar";
 import Footer from "components/Footer/Footer";
@@ -19,7 +22,7 @@ const Layout = (props) => {
   };
 
   return (
-    <>
+    <NavigationProvider>
       <SideBar toggled={toggled} open={openSideBar} close={closeSideBar} />
       <div className={styles["layout"]}>
         <div className={styles["container"]}>
@@ -32,7 +35,7 @@ const Layout = (props) => {
           </div>
         </div>
       </div>
-    </>
+    </NavigationProvider>
   );
 };
 

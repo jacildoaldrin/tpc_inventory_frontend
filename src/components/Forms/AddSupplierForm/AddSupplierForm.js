@@ -11,13 +11,9 @@ import styles from "./AddSupplierForm.module.css";
 const AddSupplier = (props) => {
   let history = useHistory();
 
-  const goBack = () => {
-    history.goBack();
-  };
-
   return (
     <div className={styles["container"]}>
-      <LeftChevron click={goBack} />
+      <LeftChevron />
       <form className={styles["form"]}>
         <div className={styles["form-header"]}>
           <PersonAddIcon style={{ fontSize: "40px" }} />
@@ -97,7 +93,10 @@ const AddSupplier = (props) => {
           <button className={styles["form-button"]} type="submit">
             SUBMIT
           </button>
-          <button className={styles["form-button"]} onClick={() => goBack()}>
+          <button
+            className={styles["form-button"]}
+            onClick={() => history.goBack()}
+          >
             CANCEL
           </button>
         </div>

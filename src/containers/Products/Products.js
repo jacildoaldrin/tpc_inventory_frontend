@@ -5,8 +5,9 @@ import { Route, useRouteMatch } from "react-router-dom";
 import { ProductsProvider } from "contexts/ProductsContext";
 
 //components
-import ProductsTable from "components/Tables/ProductsTable/ProductsTable";
 import AddButton from "components/AddButton/AddButton";
+import AddProductForm from "components/Forms/AddProductForm/AddProductForm";
+import ProductsTable from "components/Tables/ProductsTable/ProductsTable";
 import ProductDetails from "components/Details/ProductDetails/ProductDetails";
 
 import styles from "./Products.module.css";
@@ -22,7 +23,7 @@ const Products = () => {
           <ProductsTable />
         </Route>
         <Route path={`${match.url}/add-product`}>
-          <h1>add product</h1>
+          <AddProductForm />
         </Route>
         <Route path={`${match.url}/product-details/:product_id`}>
           <ProductDetails />

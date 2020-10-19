@@ -19,11 +19,13 @@ import SearchIcon from "@material-ui/icons/Search";
 
 //context
 import { useProducts } from "contexts/ProductsContext";
+import { useNavigation } from "contexts/NavigationContext";
 
 import styles from "./ProductsTable.module.css";
 
 const ProductsTable = () => {
-  const { products, viewProductDetails } = useProducts();
+  const { products } = useProducts();
+  const { viewDetails } = useNavigation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -95,7 +97,7 @@ const ProductsTable = () => {
               <TableRow
                 key={row["_id"]}
                 className={styles["table-row"]}
-                onClick={() => viewProductDetails(row["_id"])}
+                onClick={() => viewDetails(`products/product-details/${row["_id"]}`)}
               >
                 <TableCell align="center">{row["_id"]}</TableCell>
                 <TableCell align="left">{row["description"]}</TableCell>
