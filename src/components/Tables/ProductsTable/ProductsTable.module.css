@@ -1,34 +1,42 @@
 .container {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .table {
-    min-width: 1100px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  min-width: 1100px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.table-toolbar {
+  padding: 30px 30px;
+  display: flex;
+  justify-content: space-between;
+  transition: 0.3s ease-in-out;
+}
+
+.table-toolbar h1 {
+  font-size: 24px;
+}
+
+.table-row {
+  cursor: pointer;
+  transition: background 0.3s ease-in;
+}
+
+.table-row:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.search-bar {
+  transition: 0.3s ease-in-out;
+  width: 200px;
+}
+
+@media (max-width: 500px) {
   .table-toolbar {
-    padding: 30px 30px;
-    display: flex;
-    justify-content: space-between;
-    transition: 0.3s ease-in-out;
+    padding: 20px 10px;
   }
-  
-  .table-toolbar h1 {
-    font-size: 24px;
-  }
-  
   .search-bar {
-    transition: 0.3s ease-in-out;
-    width: 200px;
+    width: 150px;
   }
-  
-  @media (max-width: 500px) {
-    .table-toolbar {
-      padding: 20px 10px;
-    }
-    .search-bar {
-      width: 150px;
-    }
-  }
-  
+}

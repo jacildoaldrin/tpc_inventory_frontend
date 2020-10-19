@@ -23,7 +23,7 @@ import { useProducts } from "contexts/ProductsContext";
 import styles from "./ProductsTable.module.css";
 
 const ProductsTable = () => {
-  const { products } = useProducts();
+  const { products, viewProductDetails } = useProducts();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -92,11 +92,19 @@ const ProductsTable = () => {
           {products
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row) => (
-              <TableRow key={row["_id"]}>
+              <TableRow
+                key={row["_id"]}
+                className={styles["table-row"]}
+                onClick={() => viewProductDetails(row["_id"])}
+              >
                 <TableCell align="center">{row["_id"]}</TableCell>
                 <TableCell align="left">{row["description"]}</TableCell>
-                <TableCell align="left">{Moment(row["date_added"]).format("MMMM Do, YYYY, h:MM a")}</TableCell>
-                <TableCell align="left">{Moment(row["date_modified"]).format("MMMM Do, YYYY, h:MM a")}</TableCell>
+                <TableCell align="left">
+                  {Moment(row["date_added"]).format("MMMM Do, YYYY, h:MM a")}
+                </TableCell>
+                <TableCell align="left">
+                  {Moment(row["date_modified"]).format("MMMM Do, YYYY, h:MM a")}
+                </TableCell>
                 <TableCell align="left">{row["stock_qty"]}</TableCell>
                 <TableCell align="left">{row["cost_with_tax"]}</TableCell>
                 <TableCell align="left">{row["unit_sell_price"]}</TableCell>

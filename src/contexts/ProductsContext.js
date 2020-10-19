@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const ProductsContext = React.createContext();
@@ -9,6 +10,16 @@ export const useProducts = () => {
 
 export const ProductsProvider = (props) => {
   const [products, setProducts] = useState([]);
+  const history = useHistory();
+
+  const viewProductDetails = async (id) => {
+    let response = await axios.get(`http://localhost:8000/products/${id}`);
+    let product = response.data;
+    history.push({
+      pathname: `/products/product-details/${id}`,
+      product_details: { ...product },
+    });
+  };
 
   useEffect(() => {
     async function getProducts() {
@@ -24,7 +35,7 @@ export const ProductsProvider = (props) => {
   }, []);
 
   return (
-    <ProductsContext.Provider value={{ products }}>
+    <ProductsContext.Provider value={{ products, viewProductDetails }}>
       {props.children}
     </ProductsContext.Provider>
   );
