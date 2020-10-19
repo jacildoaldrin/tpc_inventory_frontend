@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useAuth } from "contexts/AuthContext";
 
 //component
-import LoginForm from "components/LoginForm/LoginForm";
+import LoginForm from "components/Forms/LoginForm/LoginForm";
 
 import styles from "./Login.module.css";
 

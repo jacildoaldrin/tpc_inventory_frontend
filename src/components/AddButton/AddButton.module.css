@@ -21,6 +21,7 @@
 
 .button:hover {
   cursor: pointer;
+  text-decoration: none;
   color: rgb(0, 104, 31);
   background: rgba(80, 255, 80, 0.15);
 }

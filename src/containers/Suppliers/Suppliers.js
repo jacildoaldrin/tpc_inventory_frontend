@@ -1,32 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
+import { Route, useRouteMatch } from "react-router-dom";
 
 //context
 import { SuppliersProvider } from "contexts/SuppliersContext";
 
 //components
 import SuppliersTable from "components/Tables/SuppliersTable/SuppliersTable";
-import CreateSupplierModal from "components/Modals/CreateSupplierModal/CreateSupplierModal";
 import AddButton from "components/AddButton/AddButton";
+
+//form
+import AddSupplierForm from "components/Forms/AddSupplierForm/AddSupplierForm";
 
 import styles from "./Suppliers.module.css";
 
 const Suppliers = () => {
-  const [show, setShow] = useState(false);
-
-  const showModal = () => {
-    setShow(true);
-  };
-
-  const hideModal = () => {
-    setShow(false);
-  };
+  let match = useRouteMatch();
 
   return (
     <SuppliersProvider>
-      <CreateSupplierModal show={show} hideModal={hideModal} />
       <div className={styles["suppliers"]}>
-        <AddButton showModal={showModal}>Add Supplier</AddButton>
-        <SuppliersTable />
+        <Route exact path={`${match.url}/`}>
+          <AddButton route={`${match.url}/add-supplier`}>
+            Add Supplier
+          </AddButton>
+          <SuppliersTable />
+        </Route>
+        <Route path={`${match.url}/add-supplier`}>
+          <AddSupplierForm />
+        </Route>
       </div>
     </SuppliersProvider>
   );

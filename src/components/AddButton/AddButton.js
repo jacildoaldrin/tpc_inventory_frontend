@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
 import styles from "./AddButton.module.css";
@@ -6,10 +7,10 @@ import styles from "./AddButton.module.css";
 const AddButton = (props) => {
   return (
     <div className={styles["button-container"]}>
-      <div className={styles["button"]} onClick={() => props.showModal()}>
+      <Link to={props.route} className={styles["button"]}>
         <AddCircleOutlineIcon />
         &nbsp; {props.children}
-      </div>
+      </Link>
     </div>
   );
 };
