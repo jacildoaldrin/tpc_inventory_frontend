@@ -52,6 +52,10 @@
   padding: 10px 0;
 }
 
+.chip{
+  margin-left: 5px;
+}
+
 .buttons {
   margin-top: 30px;
   display: flex;
@@ -75,7 +79,7 @@
   background: #beffad;
 }
 
-.dropdown-label{
+.dropdown-label {
   background: white;
 }
 

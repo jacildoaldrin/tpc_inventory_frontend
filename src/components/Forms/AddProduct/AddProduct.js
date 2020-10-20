@@ -22,10 +22,13 @@ const AddProduct = () => {
   const { goBack } = useNavigation();
   const [collection, setCollection] = useState("");
   const [collections, setCollections] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [openCollection, setOpenCollection] = useState(false);
 
-  const handleChange = (event) => {
-    setCollection(event.target.value);
+  const [tag, setTag] = useState("");
+  const [tags, setTags] = useState([]);
+  const [openTag, setOpenTag] = useState(false);
+
+  const handleChangeCollection = (event) => {
     if (
       event.target.value !== "" &&
       !collections.includes(event.target.value)
@@ -34,20 +37,44 @@ const AddProduct = () => {
       temp.push(event.target.value);
       setCollections([...temp]);
     }
+    setCollection("");
   };
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleChangeTag = (event) => {
+    if (event.target.value !== "" && !tags.includes(event.target.value)) {
+      let temp = tags;
+      temp.push(event.target.value);
+      setTags([...temp]);
+    }
+    setTag("");
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleOpenCollection = () => {
+    setOpenCollection(true);
+  };
+
+  const handleOpenTag = () => {
+    setOpenTag(true);
+  };
+
+  const handleCloseCollection = () => {
+    setOpenCollection(false);
+  };
+
+  const handleCloseTag = () => {
+    setOpenTag(false);
   };
 
   const handleRemoveCollection = (index) => {
     let temp = collections;
     temp.splice(index, 1);
     setCollections([...temp]);
+  };
+
+  const handleRemoveTag = (index) => {
+    let temp = tags;
+    temp.splice(index, 1);
+    setTags([...temp]);
   };
 
   return (
@@ -147,15 +174,15 @@ const AddProduct = () => {
                     id="collection-label"
                     className={styles["dropdown-label"]}
                   >
-                    Collection
+                    Collection(s)
                   </InputLabel>
                   <Select
                     labelId="collection-label"
                     value={collection}
-                    open={open}
-                    onChange={handleChange}
-                    onOpen={handleOpen}
-                    onClose={handleClose}
+                    open={openCollection}
+                    onChange={handleChangeCollection}
+                    onOpen={handleOpenCollection}
+                    onClose={handleCloseCollection}
                   >
                     <MenuItem value="">
                       <em>None</em>
@@ -164,20 +191,53 @@ const AddProduct = () => {
                     <MenuItem value="pot">Pot</MenuItem>
                   </Select>
                 </FormControl>
-                <h6>
-                  Collection(s):{" "}
+                <h6 style={{ paddingTop: "15px" }}>
+                  Collection(s):
                   {collections.map((collection, idx) => (
                     <Chip
                       key={idx}
                       label={collection}
                       onDelete={() => handleRemoveCollection(idx)}
+                      className={styles["chip"]}
                     />
                   ))}
                 </h6>
               </Grid>
               <Grid item xs={12}>
-                <TextField required variant="outlined" label="Tags" fullWidth />
-                <h6>Tag(s): </h6>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel
+                    id="tags-label"
+                    className={styles["dropdown-label"]}
+                  >
+                    Tag(s)
+                  </InputLabel>
+                  <Select
+                    labelId="tags-label"
+                    value={tag}
+                    open={openTag}
+                    onChange={handleChangeTag}
+                    onOpen={handleOpenTag}
+                    onClose={handleCloseTag}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value="metallic">Metallic</MenuItem>
+                    <MenuItem value="ceramic">Ceramic</MenuItem>
+                    <MenuItem value="with stand">With Stand</MenuItem>
+                  </Select>
+                </FormControl>
+                <h6 style={{ paddingTop: "15px" }}>
+                  Tag(s):
+                  {tags.map((tag, idx) => (
+                    <Chip
+                      key={idx}
+                      label={tag}
+                      onDelete={() => handleRemoveTag(idx)}
+                      className={styles["chip"]}
+                    />
+                  ))}
+                </h6>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
