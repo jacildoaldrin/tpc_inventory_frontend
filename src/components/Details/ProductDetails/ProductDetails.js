@@ -9,15 +9,23 @@ import LeftChevron from "components/LeftChevron/LeftChevron";
 const ProductDetails = (props) => {
   const { product_id } = useParams();
   const [product, setProduct] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const { getProductDetails } = useProducts();
 
   useEffect(() => {
-    async function getProduct() {
-      let product = await getProductDetails(product_id);
-      setProduct(product);
+    if (isLoading) {
+      async function getProduct() {
+        try {
+          let product = await getProductDetails(product_id);
+          setProduct(product);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      getProduct();
     }
-    getProduct();
-  }, [product, product_id, getProductDetails]);
+    setIsLoading(false);
+  }, [isLoading, product_id, getProductDetails]);
 
   return (
     <div>
