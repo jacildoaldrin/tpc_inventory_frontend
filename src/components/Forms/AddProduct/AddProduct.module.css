@@ -58,8 +58,7 @@
   justify-content: space-evenly;
 }
 
-.submit-button,
-.cancel-button {
+.button {
   padding: 10px 0;
   width: 40%;
   font-size: 20px;
@@ -69,10 +68,15 @@
   border: 1px solid #8c8c8c;
   box-sizing: border-box;
   box-shadow: 0 0 3px darkgrey;
+  transition: 0.3s ease-in;
 }
 
-.submit-button {
+.button:hover {
   background: #beffad;
+}
+
+.dropdown-label{
+  background: white;
 }
 
 @media (max-width: 1100px) {

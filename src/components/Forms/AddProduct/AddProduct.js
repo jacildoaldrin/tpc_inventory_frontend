@@ -1,5 +1,13 @@
-import React from "react";
-import { TextField, Grid } from "@material-ui/core";
+import React, { useState } from "react";
+import {
+  TextField,
+  Grid,
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Chip,
+} from "@material-ui/core";
 import LeftChevron from "components/LeftChevron/LeftChevron";
 
 //context
@@ -10,8 +18,38 @@ import Hugo from "assets/hugo.jpg";
 
 import styles from "./AddProduct.module.css";
 
-const AddProduct = (props) => {
+const AddProduct = () => {
   const { goBack } = useNavigation();
+  const [collection, setCollection] = useState("");
+  const [collections, setCollections] = useState([]);
+  const [open, setOpen] = useState(false);
+
+  const handleChange = (event) => {
+    setCollection(event.target.value);
+    if (
+      event.target.value !== "" &&
+      !collections.includes(event.target.value)
+    ) {
+      let temp = collections;
+      temp.push(event.target.value);
+      setCollections([...temp]);
+    }
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleRemoveCollection = (index) => {
+    let temp = collections;
+    temp.splice(index, 1);
+    setCollections([...temp]);
+  };
+
   return (
     <div className={styles["add-product"]}>
       <LeftChevron />
@@ -21,7 +59,7 @@ const AddProduct = (props) => {
           <img src={Hugo} alt="sample-item" className={styles["image"]} />
           <div className={styles["product-price"]}>
             <h1 className={styles["heading"]}>Product Price</h1>
-            <Grid container spacing={1} className={styles['grid']}>
+            <Grid container spacing={1} className={styles["grid"]}>
               <Grid item xs={12} sm={7}>
                 <TextField
                   required
@@ -52,7 +90,7 @@ const AddProduct = (props) => {
         <div className={styles["right-inner-container"]}>
           <div className={styles["product-info"]}>
             <h1 className={styles["heading"]}>Product Info</h1>
-            <Grid container spacing={1} className={styles['grid']}>
+            <Grid container spacing={1} className={styles["grid"]}>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -86,7 +124,7 @@ const AddProduct = (props) => {
           </div>
           <div className={styles["product-details"]}>
             <h1 className={styles["heading"]}>Product Details</h1>
-            <Grid container spacing={1} className={styles['grid']}>
+            <Grid container spacing={1} className={styles["grid"]}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
@@ -104,13 +142,38 @@ const AddProduct = (props) => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Collection"
-                  fullWidth
-                />
-                <h6>Collection(s): </h6>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel
+                    id="collection-label"
+                    className={styles["dropdown-label"]}
+                  >
+                    Collection
+                  </InputLabel>
+                  <Select
+                    labelId="collection-label"
+                    value={collection}
+                    open={open}
+                    onChange={handleChange}
+                    onOpen={handleOpen}
+                    onClose={handleClose}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value="table">Table</MenuItem>
+                    <MenuItem value="pot">Pot</MenuItem>
+                  </Select>
+                </FormControl>
+                <h6>
+                  Collection(s):{" "}
+                  {collections.map((collection, idx) => (
+                    <Chip
+                      key={idx}
+                      label={collection}
+                      onDelete={() => handleRemoveCollection(idx)}
+                    />
+                  ))}
+                </h6>
               </Grid>
               <Grid item xs={12}>
                 <TextField required variant="outlined" label="Tags" fullWidth />
@@ -147,11 +210,8 @@ const AddProduct = (props) => {
             </Grid>
           </div>
           <div className={styles["buttons"]}>
-            <button className={styles["submit-button"]}>Submit</button>
-            <button
-              className={styles["cancel-button"]}
-              onClick={() => goBack()}
-            >
+            <button className={styles["button"]}>Submit</button>
+            <button className={styles["button"]} onClick={() => goBack()}>
               Cancel
             </button>
           </div>
