@@ -6,26 +6,18 @@ import styles from "./ProductDetails.module.css";
 import { useProducts } from "contexts/ProductsContext";
 import LeftChevron from "components/LeftChevron/LeftChevron";
 
-const ProductDetails = (props) => {
+const ProductDetails = () => {
   const { product_id } = useParams();
   const [product, setProduct] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
   const { getProductDetails } = useProducts();
 
   useEffect(() => {
-    if (isLoading) {
-      async function getProduct() {
-        try {
-          let product = await getProductDetails(product_id);
-          setProduct(product);
-        } catch (err) {
-          console.log(err);
-        }
-      }
-      getProduct();
+    async function getProduct() {
+      let product = await getProductDetails(product_id);
+      setProduct(product);
     }
-    setIsLoading(false);
-  }, [isLoading, product_id, getProductDetails]);
+    getProduct();
+  }, [product_id, getProductDetails]);
 
   return (
     <div>
