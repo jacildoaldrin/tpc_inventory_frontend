@@ -6,7 +6,7 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 //components
 import LeftChevron from "components/LeftChevron/LeftChevron";
 
-import styles from "./AddSupplierForm.module.css";
+import styles from "./AddSupplier.module.css";
 
 const AddSupplier = (props) => {
   let history = useHistory();

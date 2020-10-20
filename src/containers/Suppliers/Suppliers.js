@@ -9,7 +9,7 @@ import SuppliersTable from "components/Tables/SuppliersTable/SuppliersTable";
 import AddButton from "components/AddButton/AddButton";
 
 //form
-import AddSupplierForm from "components/Forms/AddSupplierForm/AddSupplierForm";
+import AddSupplier from "components/Forms/AddSupplier/AddSupplier";
 
 import styles from "./Suppliers.module.css";
 
@@ -26,7 +26,7 @@ const Suppliers = () => {
           <SuppliersTable />
         </Route>
         <Route path={`${match.url}/add-supplier`}>
-          <AddSupplierForm />
+          <AddSupplier />
         </Route>
       </div>
     </SuppliersProvider>
