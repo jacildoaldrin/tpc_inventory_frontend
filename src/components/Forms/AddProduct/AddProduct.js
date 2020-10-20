@@ -2,12 +2,16 @@ import React from "react";
 import { TextField, Grid } from "@material-ui/core";
 import LeftChevron from "components/LeftChevron/LeftChevron";
 
+//context
+import { useNavigation } from "contexts/NavigationContext";
+
 //assets
 import Hugo from "assets/hugo.jpg";
 
 import styles from "./AddProduct.module.css";
 
 const AddProduct = (props) => {
+  const { goBack } = useNavigation();
   return (
     <div className={styles["add-product"]}>
       <LeftChevron />
@@ -17,7 +21,7 @@ const AddProduct = (props) => {
           <img src={Hugo} alt="sample-item" className={styles["image"]} />
           <div className={styles["product-price"]}>
             <h1 className={styles["heading"]}>Product Price</h1>
-            <Grid container spacing={1}>
+            <Grid container spacing={1} className={styles['grid']}>
               <Grid item xs={12} sm={7}>
                 <TextField
                   required
@@ -48,7 +52,7 @@ const AddProduct = (props) => {
         <div className={styles["right-inner-container"]}>
           <div className={styles["product-info"]}>
             <h1 className={styles["heading"]}>Product Info</h1>
-            <Grid container spacing={1}>
+            <Grid container spacing={1} className={styles['grid']}>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -82,7 +86,7 @@ const AddProduct = (props) => {
           </div>
           <div className={styles["product-details"]}>
             <h1 className={styles["heading"]}>Product Details</h1>
-            <Grid container spacing={1}>
+            <Grid container spacing={1} className={styles['grid']}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
@@ -144,7 +148,12 @@ const AddProduct = (props) => {
           </div>
           <div className={styles["buttons"]}>
             <button className={styles["submit-button"]}>Submit</button>
-            <button className={styles["cancel-button"]}>Cancel</button>
+            <button
+              className={styles["cancel-button"]}
+              onClick={() => goBack()}
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </form>
