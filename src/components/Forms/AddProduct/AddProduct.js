@@ -95,12 +95,15 @@ const AddProduct = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
+    formData.append("product_description", "testing");
+    formData.append("order_price", "12.22");
+    formData.append("sell_price", "24.44");
+
     formData.append("image", imageFile);
-    console.log(imageFile.size/1024);
-    // axios
-    //   .post("https://httpbin.org/anything", formData)
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
+    axios
+      .post("https://httpbin.org/anything", formData)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (
