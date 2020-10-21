@@ -1,7 +1,6 @@
 import React from "react";
 import { Switch, Route} from "react-router-dom";
 import { MuiThemeProvider } from "@material-ui/core";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 //context

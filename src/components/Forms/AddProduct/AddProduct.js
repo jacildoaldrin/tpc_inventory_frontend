@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
 import {
-  TextField,
   Grid,
   Select,
   FormControl,
@@ -13,17 +13,27 @@ import LeftChevron from "components/LeftChevron/LeftChevron";
 //context
 import { useNavigation } from "contexts/NavigationContext";
 
+//component
+import InputField from "components/InputField/InputField";
+import InputArea from "components/InputArea/InputArea";
+
 //assets
-import Hugo from "assets/hugo.jpg";
 
 import styles from "./AddProduct.module.css";
 
 const AddProduct = () => {
   const { goBack } = useNavigation();
+
+  //image states
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+
+  //collection states
   const [collection, setCollection] = useState("");
   const [collections, setCollections] = useState([]);
   const [openCollection, setOpenCollection] = useState(false);
 
+  //tag states
   const [tag, setTag] = useState("");
   const [tags, setTags] = useState([]);
   const [openTag, setOpenTag] = useState(false);
@@ -77,207 +87,190 @@ const AddProduct = () => {
     setTags([...temp]);
   };
 
+  const uploadFile = (event) => {
+    setImagePreview(URL.createObjectURL(event.target.files[0]));
+    setImageFile(event.target.files[0]);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    console.log(imageFile.size/1024);
+    // axios
+    //   .post("https://httpbin.org/anything", formData)
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
+  };
+
   return (
-    <div className={styles["add-product"]}>
-      <LeftChevron />
-      <h1 className={styles["header"]}>ADD PRODUCT</h1>
-      <form className={styles["container"]}>
-        <div className={styles["left-inner-container"]}>
-          <img src={Hugo} alt="sample-item" className={styles["image"]} />
-          <div className={styles["product-price"]}>
-            <h1 className={styles["heading"]}>Product Price</h1>
-            <Grid container spacing={1} className={styles["grid"]}>
-              <Grid item xs={12} sm={7}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Unit Selling Price"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={7}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Original Cost"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={7}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Original Cost with Tax"
-                  fullWidth
-                />
-              </Grid>
-            </Grid>
-          </div>
-        </div>
-        <div className={styles["right-inner-container"]}>
-          <div className={styles["product-info"]}>
-            <h1 className={styles["heading"]}>Product Info</h1>
-            <Grid container spacing={1} className={styles["grid"]}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  variant="outlined"
-                  multiline
-                  rows="2"
-                  label="Product Description"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Listing Name"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField required variant="outlined" label="UPC" fullWidth />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Supplier Code"
-                  fullWidth
-                />
-              </Grid>
-            </Grid>
-          </div>
-          <div className={styles["product-details"]}>
-            <h1 className={styles["heading"]}>Product Details</h1>
-            <Grid container spacing={1} className={styles["grid"]}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Fits Size"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Dimensions"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl fullWidth variant="outlined">
-                  <InputLabel
-                    id="collection-label"
-                    className={styles["dropdown-label"]}
-                  >
-                    Collection(s)
-                  </InputLabel>
-                  <Select
-                    labelId="collection-label"
-                    value={collection}
-                    open={openCollection}
-                    onChange={handleChangeCollection}
-                    onOpen={handleOpenCollection}
-                    onClose={handleCloseCollection}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value="table">Table</MenuItem>
-                    <MenuItem value="pot">Pot</MenuItem>
-                  </Select>
-                </FormControl>
-                <h6 style={{ paddingTop: "15px" }}>
-                  Collection(s):
-                  {collections.map((collection, idx) => (
-                    <Chip
-                      key={idx}
-                      label={collection}
-                      onDelete={() => handleRemoveCollection(idx)}
-                      className={styles["chip"]}
-                    />
-                  ))}
-                </h6>
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl fullWidth variant="outlined">
-                  <InputLabel
-                    id="tags-label"
-                    className={styles["dropdown-label"]}
-                  >
-                    Tag(s)
-                  </InputLabel>
-                  <Select
-                    labelId="tags-label"
-                    value={tag}
-                    open={openTag}
-                    onChange={handleChangeTag}
-                    onOpen={handleOpenTag}
-                    onClose={handleCloseTag}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value="metallic">Metallic</MenuItem>
-                    <MenuItem value="ceramic">Ceramic</MenuItem>
-                    <MenuItem value="with stand">With Stand</MenuItem>
-                  </Select>
-                </FormControl>
-                <h6 style={{ paddingTop: "15px" }}>
-                  Tag(s):
-                  {tags.map((tag, idx) => (
-                    <Chip
-                      key={idx}
-                      label={tag}
-                      onDelete={() => handleRemoveTag(idx)}
-                      className={styles["chip"]}
-                    />
-                  ))}
-                </h6>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Low Stock"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  multiline
-                  rows="2"
-                  variant="outlined"
-                  label="Packaging"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  multiline
-                  rows="2"
-                  variant="outlined"
-                  label="Product Notes"
-                  fullWidth
-                />
-              </Grid>
-            </Grid>
-          </div>
-          <div className={styles["buttons"]}>
-            <button className={styles["button"]}>Submit</button>
-            <button className={styles["button"]} onClick={() => goBack()}>
-              Cancel
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
+    <form onSubmit={(event) => handleSubmit(event)}>
+      <div className={"product-image"}>
+        {imageFile !== null ? (
+          <img src={imagePreview} className={styles["image"]} alt="preview" />
+        ) : null}
+        <input
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={(event) => uploadFile(event)}
+        />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    // <div className={styles["add-product"]}>
+    //   <LeftChevron />
+    //   <h1 className={styles["header"]}>ADD PRODUCT</h1>
+    //   <form className={styles["container"]}>
+    //     <div className={styles["left-inner-container"]}>
+    //       <div className={"product-image"}>
+    //         {imageFile !== null ? (
+    //           <img
+    //             src={imagePreview}
+    //             className={styles["image"]}
+    //             alt="preview"
+    //           />
+    //         ) : null}
+    //         <input
+    //           type="file"
+    //           name="image"
+    //           accept="image/*"
+    //           onChange={(event) => uploadFile(event)}
+    //         />
+    //       </div>
+    //       <div className={styles["product-price"]}>
+    //         <h1 className={styles["heading"]}>Product Price</h1>
+    //         <Grid container spacing={1} className={styles["grid"]}>
+    //           <Grid item xs={12} sm={7}>
+    //             <InputField label={"Unit Selling Price"} />
+    //           </Grid>
+    //           <Grid item xs={12} sm={7}>
+    //             <InputField label={"Original Cost"} />
+    //           </Grid>
+    //           <Grid item xs={12} sm={7}>
+    //             <InputField label={"Original Cost with Tax"} />
+    //           </Grid>
+    //         </Grid>
+    //       </div>
+    //     </div>
+    //     <div className={styles["right-inner-container"]}>
+    //       <div className={styles["product-info"]}>
+    //         <h1 className={styles["heading"]}>Product Info</h1>
+    //         <Grid container spacing={1} className={styles["grid"]}>
+    //           <Grid item xs={12}>
+    //             <InputArea label={"Product Description"} />
+    //           </Grid>
+    //           <Grid item xs={12}>
+    //             <InputField label={"Listing Name"} />
+    //           </Grid>
+    //           <Grid item xs={12} sm={6}>
+    //             <InputField label={"UPC"} />
+    //           </Grid>
+    //           <Grid item xs={12} sm={6}>
+    //             <InputField label={"Supplier Code"} />
+    //           </Grid>
+    //         </Grid>
+    //       </div>
+    //       <div className={styles["product-details"]}>
+    //         <h1 className={styles["heading"]}>Product Details</h1>
+    //         <Grid container spacing={1} className={styles["grid"]}>
+    //           <Grid item xs={12} sm={6}>
+    //             <InputField label={"Fits Size"} />
+    //           </Grid>
+    //           <Grid item xs={12} sm={6}>
+    //             <InputField label={"Dimensions"} />
+    //           </Grid>
+    //           <Grid item xs={12}>
+    //             <FormControl fullWidth variant="outlined">
+    //               <InputLabel
+    //                 id="collection-label"
+    //                 className={styles["dropdown-label"]}
+    //               >
+    //                 Collection(s)
+    //               </InputLabel>
+    //               <Select
+    //                 labelId="collection-label"
+    //                 value={collection}
+    //                 open={openCollection}
+    //                 onChange={handleChangeCollection}
+    //                 onOpen={handleOpenCollection}
+    //                 onClose={handleCloseCollection}
+    //               >
+    //                 <MenuItem value="">
+    //                   <em>None</em>
+    //                 </MenuItem>
+    //                 <MenuItem value="table">Table</MenuItem>
+    //                 <MenuItem value="pot">Pot</MenuItem>
+    //               </Select>
+    //             </FormControl>
+    //             <h6 style={{ paddingTop: "15px" }}>
+    //               Collection(s):
+    //               {collections.map((collection, idx) => (
+    //                 <Chip
+    //                   key={idx}
+    //                   label={collection}
+    //                   onDelete={() => handleRemoveCollection(idx)}
+    //                   className={styles["chip"]}
+    //                 />
+    //               ))}
+    //             </h6>
+    //           </Grid>
+    //           <Grid item xs={12}>
+    //             <FormControl fullWidth variant="outlined">
+    //               <InputLabel
+    //                 id="tags-label"
+    //                 className={styles["dropdown-label"]}
+    //               >
+    //                 Tag(s)
+    //               </InputLabel>
+    //               <Select
+    //                 labelId="tags-label"
+    //                 value={tag}
+    //                 open={openTag}
+    //                 onChange={handleChangeTag}
+    //                 onOpen={handleOpenTag}
+    //                 onClose={handleCloseTag}
+    //               >
+    //                 <MenuItem value="">
+    //                   <em>None</em>
+    //                 </MenuItem>
+    //                 <MenuItem value="metallic">Metallic</MenuItem>
+    //                 <MenuItem value="ceramic">Ceramic</MenuItem>
+    //                 <MenuItem value="with stand">With Stand</MenuItem>
+    //               </Select>
+    //             </FormControl>
+    //             <h6 style={{ paddingTop: "15px" }}>
+    //               Tag(s):
+    //               {tags.map((tag, idx) => (
+    //                 <Chip
+    //                   key={idx}
+    //                   label={tag}
+    //                   onDelete={() => handleRemoveTag(idx)}
+    //                   className={styles["chip"]}
+    //                 />
+    //               ))}
+    //             </h6>
+    //           </Grid>
+    //           <Grid item xs={12} sm={6}>
+    //             <InputField label={"Low Stock"} />
+    //           </Grid>
+    //           <Grid item xs={12}>
+    //             <InputArea label={"Packaging"} />
+    //           </Grid>
+    //           <Grid item xs={12}>
+    //             <InputArea label={"Product Notes"} />
+    //           </Grid>
+    //         </Grid>
+    //       </div>
+    //       <div className={styles["buttons"]}>
+    //         <button className={styles["button"]}>Submit</button>
+    //         <button className={styles["button"]} onClick={() => goBack()}>
+    //           Cancel
+    //         </button>
+    //       </div>
+    //     </div>
+    //   </form>
+    // </div>
   );
 };
 
