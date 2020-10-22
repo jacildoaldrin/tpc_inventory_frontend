@@ -25,6 +25,7 @@ const SuppliersTable = (props) => {
   const { suppliers } = useSuppliers();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -35,6 +36,17 @@ const SuppliersTable = (props) => {
     setPage(0);
   };
 
+  const handleSearchTermChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  let result = suppliers;
+  if (searchTerm) {
+    result = suppliers.filter((supplier) =>
+      supplier.supplier_name.toLowerCase().includes(searchTerm)
+    );
+  }
+
   return (
     <TableContainer component={Paper} className={styles["container"]}>
       <div className={styles["table-toolbar"]}>
@@ -42,6 +54,8 @@ const SuppliersTable = (props) => {
         <div>
           <div className={styles["search-bar"]}>
             <TextField
+              value={searchTerm}
+              onChange={handleSearchTermChange}
               fullWidth={true}
               InputProps={{
                 startAdornment: (
@@ -64,15 +78,15 @@ const SuppliersTable = (props) => {
             <TableCell align="left" width="10%">
               <b>Name</b>
             </TableCell>
-            <TableCell align="left" width="15%">
+            <TableCell align="left" width="10%">
               <b>Email</b>
             </TableCell>
-            <TableCell align="left" width="10%">
+            {/* <TableCell align="left" width="10%">
               <b>Phone #</b>
             </TableCell>
             <TableCell align="left" width="20%">
               <b>Address</b>
-            </TableCell>
+            </TableCell> */}
             <TableCell align="left" width="10%">
               <b>Contact</b>
             </TableCell>
@@ -85,7 +99,7 @@ const SuppliersTable = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {suppliers
+          {result
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row) => (
               <TableRow key={row.id}>
@@ -96,7 +110,7 @@ const SuppliersTable = (props) => {
                     ? "N/A"
                     : row["supplier_email"]}
                 </TableCell>
-                <TableCell align="left">
+                {/* <TableCell align="left">
                   {row["supplier_phone"] === null
                     ? "N/A"
                     : row["supplier_phone"]}
@@ -105,7 +119,7 @@ const SuppliersTable = (props) => {
                   {row["supplier_address"] === null
                     ? "N/A"
                     : row["supplier_address"]}
-                </TableCell>
+                </TableCell> */}
                 <TableCell align="left">
                   {row["supplier_contact"] === null
                     ? "N/A"
