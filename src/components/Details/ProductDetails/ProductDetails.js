@@ -114,8 +114,8 @@ const ProductDetails = () => {
   }
 
   const getProductStorageDetails = () => {
-    console.log(`${target}/storages/product/${product_id}`)
-    Axios.get(`${target}/storages/product/${product_id}`)
+    // console.log(`${target}/getThisProductInAllStorages/${product_id}`)
+    Axios.get(`${target}/storages/getThisProductInAllStorages/${product_id}`)
     .then(res => {
       setProductStorageDetails(res.data)
       console.log("getProductStorageDetails")
