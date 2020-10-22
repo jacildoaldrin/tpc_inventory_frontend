@@ -23,6 +23,15 @@
   width: 200px;
 }
 
+.table-row {
+  cursor: pointer;
+  transition: background 0.3s ease-in;
+}
+
+.table-row:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
 @media (max-width: 500px) {
   .table-toolbar {
     padding: 20px 10px;

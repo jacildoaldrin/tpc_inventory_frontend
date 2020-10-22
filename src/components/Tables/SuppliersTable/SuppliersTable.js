@@ -18,11 +18,13 @@ import SearchIcon from "@material-ui/icons/Search";
 
 //context
 import { useSuppliers } from "contexts/SuppliersContext";
+import { useNavigation } from "contexts/NavigationContext";
 
 import styles from "./SuppliersTable.module.css";
 
 const SuppliersTable = (props) => {
   const { suppliers } = useSuppliers();
+  const { viewDetails } = useNavigation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
@@ -102,7 +104,13 @@ const SuppliersTable = (props) => {
           {result
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row) => (
-              <TableRow key={row.id}>
+              <TableRow
+                key={row.id}
+                className={styles["table-row"]}
+                onClick={() =>
+                  viewDetails(`suppliers/supplier-details/${row["id"]}`)
+                }
+              >
                 <TableCell align="center">{row["id"]}</TableCell>
                 <TableCell align="left">{row["supplier_name"]}</TableCell>
                 <TableCell align="left">
