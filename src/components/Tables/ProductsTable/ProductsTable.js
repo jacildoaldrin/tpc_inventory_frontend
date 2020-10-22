@@ -61,7 +61,8 @@ const ProductsTable = () => {
       <Table className={styles["table"]} aria-label="simple table">
         <TableHead className={styles["table-header"]}>
           <TableRow>
-            <TableCell align="center" width="10%">
+            <TableCell align="center" width="5%" />
+            <TableCell align="center" width="5%">
               <b>Product Code</b>
             </TableCell>
             <TableCell align="left" width="20%">
@@ -97,15 +98,28 @@ const ProductsTable = () => {
               <TableRow
                 key={row["_id"]}
                 className={styles["table-row"]}
-                onClick={() => viewDetails(`products/product-details/${row["_id"]}`)}
+                onClick={() =>
+                  viewDetails(`products/product-details/${row["_id"]}`)
+                }
               >
+                <TableCell align="center">
+                  <img
+                    alt="img"
+                    src={`http://localhost:8000/uploads/${row["image"]}`}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                </TableCell>
                 <TableCell align="center">{row["_id"]}</TableCell>
                 <TableCell align="left">{row["description"]}</TableCell>
                 <TableCell align="left">
-                  {Moment(row["date_added"]).format("MMMM Do, YYYY, h:MM a")}
+                  {Moment(row["date_added"]).format("MMMM D, YYYY, HH:MM a")}
                 </TableCell>
                 <TableCell align="left">
-                  {Moment(row["date_modified"]).format("MMMM Do, YYYY, h:MM a")}
+                  {Moment(row["date_modified"]).format("MMMM D, YYYY, HH:MM a")}
                 </TableCell>
                 <TableCell align="left">{row["stock_qty"]}</TableCell>
                 <TableCell align="left">{row["cost_with_tax"]}</TableCell>

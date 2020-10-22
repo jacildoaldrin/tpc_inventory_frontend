@@ -120,17 +120,17 @@ const AddProduct = () => {
     formData.append("packaging", packaging);
     formData.append("image", imageFile);
 
-    // axios
-    //   .post("http://localhost:8000/products/add-product", formData, {
-    //     "content-type": "multipart/form-data",
-    //   })
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
-
     axios
-      .post("http://httpbin.org/anything", formData)
+      .post("http://localhost:8000/products/add-product", formData, {
+        "content-type": "multipart/form-data",
+      })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+
+    // axios
+    //   .post("http://httpbin.org/anything", formData)
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -321,6 +321,7 @@ const AddProduct = () => {
                   label={"Low Stock"}
                   value={lowStock}
                   setValue={setLowStock}
+                  type="number"
                 />
               </Grid>
               <Grid item xs={12}>
