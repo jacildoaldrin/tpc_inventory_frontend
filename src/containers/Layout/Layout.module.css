@@ -23,7 +23,7 @@
 
 .main {
   margin-top: 20px;
-  height: 900px;
+  height: 1100px;
   width: 80%;
 }
 
@@ -41,5 +41,6 @@
 @media(max-width: 1100px){
   .main{
     width: 95%;
+    height: auto;
   }
 }

@@ -6,7 +6,7 @@ import { ProductsProvider } from "contexts/ProductsContext";
 
 //components
 import AddButton from "components/AddButton/AddButton";
-import AddProductForm from "components/Forms/AddProductForm/AddProductForm";
+import AddProductForm from "components/Forms/AddProduct/AddProduct";
 import ProductsTable from "components/Tables/ProductsTable/ProductsTable";
 import ProductDetails from "components/Details/ProductDetails/ProductDetails";
 

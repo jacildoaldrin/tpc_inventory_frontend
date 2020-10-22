@@ -28,6 +28,7 @@ const ProductsTable = () => {
   const { viewDetails } = useNavigation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleChangePage = (newPage) => {
     setPage(newPage);
@@ -38,6 +39,17 @@ const ProductsTable = () => {
     setPage(0);
   };
 
+  const handleSearchTermChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  let result = products;
+  if (searchTerm) {
+    result = products.filter((product) =>
+      product.description.toLowerCase().includes(searchTerm)
+    );
+  }
+
   return (
     <TableContainer component={Paper} className={styles["container"]}>
       <div className={styles["table-toolbar"]}>
@@ -45,6 +57,8 @@ const ProductsTable = () => {
         <div>
           <div className={styles["search-bar"]}>
             <TextField
+              value={searchTerm}
+              onChange={handleSearchTermChange}
               fullWidth={true}
               InputProps={{
                 startAdornment: (
@@ -91,13 +105,15 @@ const ProductsTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products
+          {result
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row) => (
               <TableRow
                 key={row["_id"]}
                 className={styles["table-row"]}
-                onClick={() => viewDetails(`products/product-details/${row["_id"]}`)}
+                onClick={() =>
+                  viewDetails(`products/product-details/${row["_id"]}`)
+                }
               >
                 <TableCell align="center">{row["_id"]}</TableCell>
                 <TableCell align="left">{row["description"]}</TableCell>

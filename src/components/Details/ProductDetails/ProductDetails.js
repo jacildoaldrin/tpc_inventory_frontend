@@ -97,7 +97,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const ProductDetails = (props) => {
+const ProductDetails = () => {
   const { product_id } = useParams();
   const [product, setProduct] = useState({});
   const [productStorageDetails, setProductStorageDetails] = useState(null);
