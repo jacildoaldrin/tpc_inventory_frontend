@@ -12,6 +12,7 @@ import AddButton from "components/AddButton/AddButton";
 import AddSupplier from "components/Forms/AddSupplier/AddSupplier";
 
 import styles from "./Suppliers.module.css";
+import SupplierDetails from "components/Details/SupplierDetails/SupplierDetails";
 
 const Suppliers = () => {
   let match = useRouteMatch();
@@ -27,6 +28,9 @@ const Suppliers = () => {
         </Route>
         <Route path={`${match.url}/add-supplier`}>
           <AddSupplier />
+        </Route>
+        <Route path={`${match.url}/supplier-details/:supplier_id`}>
+          <SupplierDetails />
         </Route>
       </div>
     </SuppliersProvider>
