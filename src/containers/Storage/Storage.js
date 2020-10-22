@@ -1,4 +1,3 @@
-import AddButton from "components/AddButton/AddButton";
 import StorageTable from "components/Tables/StorageTable/StorageTable";
 import { StorageProvider } from "contexts/StorageContext";
 import React from "react";
