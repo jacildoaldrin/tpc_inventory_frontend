@@ -43,7 +43,7 @@ const App = () => {
             <Route path="/transactions" component={Transactions} />
             <Route path="/products" component={Products} />
             <Route path="/suppliers" component={Suppliers} />
-            <Route path="/storage" component={Storage} />
+            <Route path="/storages" component={Storage} />
           </Layout>
         {/* ) : ( */}
           {/* <Login /> */}

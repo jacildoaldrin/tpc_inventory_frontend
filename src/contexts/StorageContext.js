@@ -12,7 +12,7 @@ export const StorageProvider = (props) => {
     const [storage, setStorage] = React.useState([])
 
     React.useEffect(() => {
-        Axios.get("http://localhost:8000/storage")
+        Axios.get("http://localhost:8000/storages")
             .then(res=>setStorage(res.data))
             .catch(err=>console.log(err))
     }, [])
