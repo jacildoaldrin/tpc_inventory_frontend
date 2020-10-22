@@ -10,16 +10,18 @@ export const useSuppliers = () => {
 export const SuppliersProvider = (props) => {
   const [suppliers, setSuppliers] = useState([]);
 
-  useEffect(() => {
-    async function getSuppliers() {
-      try {
-        await axios
-          .get("http://localhost:8000/suppliers")
-          .then((response) => setSuppliers(response.data));
-      } catch (err) {
-        console.log(err);
-      }
+  async function getSuppliers() {
+    try {
+      await axios
+        .get("http://localhost:8000/suppliers")
+        .then((response) => setSuppliers(response.data));
+    } catch (err) {
+      console.log(err);
     }
+  }
+  
+  useEffect(() => {
+    
     getSuppliers();
   }, []);
 
