@@ -26,7 +26,6 @@ const AddProduct = () => {
 
   //image states
   const [imageFile, setImageFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
 
   //collection states
   const [collection, setCollection] = useState("");
@@ -50,6 +49,20 @@ const AddProduct = () => {
     setCollection("");
   };
 
+  const handleOpenCollection = () => {
+    setOpenCollection(true);
+  };
+
+  const handleCloseCollection = () => {
+    setOpenCollection(false);
+  };
+
+  const handleRemoveCollection = (index) => {
+    let temp = collections;
+    temp.splice(index, 1);
+    setCollections([...temp]);
+  };
+
   const handleChangeTag = (event) => {
     if (event.target.value !== "" && !tags.includes(event.target.value)) {
       let temp = tags;
@@ -59,26 +72,12 @@ const AddProduct = () => {
     setTag("");
   };
 
-  const handleOpenCollection = () => {
-    setOpenCollection(true);
-  };
-
   const handleOpenTag = () => {
     setOpenTag(true);
   };
 
-  const handleCloseCollection = () => {
-    setOpenCollection(false);
-  };
-
   const handleCloseTag = () => {
     setOpenTag(false);
-  };
-
-  const handleRemoveCollection = (index) => {
-    let temp = collections;
-    temp.splice(index, 1);
-    setCollections([...temp]);
   };
 
   const handleRemoveTag = (index) => {
@@ -87,8 +86,7 @@ const AddProduct = () => {
     setTags([...temp]);
   };
 
-  const uploadFile = (event) => {
-    setImagePreview(URL.createObjectURL(event.target.files[0]));
+  const handleImageFile = (event) => {
     setImageFile(event.target.files[0]);
   };
 
@@ -101,179 +99,170 @@ const AddProduct = () => {
 
     formData.append("image", imageFile);
     axios
-      .post("https://httpbin.org/anything", formData)
+      .post("http://localhost:8000/products/add-product", formData, {
+        "content-type": "multipart/form-data",
+      })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
 
   return (
-    <form onSubmit={(event) => handleSubmit(event)}>
-      <div className={"product-image"}>
-        {imageFile !== null ? (
-          <img src={imagePreview} className={styles["image"]} alt="preview" />
-        ) : null}
-        <input
-          type="file"
-          name="image"
-          accept="image/*"
-          onChange={(event) => uploadFile(event)}
-        />
-      </div>
-      <button type="submit">Submit</button>
-    </form>
-    // <div className={styles["add-product"]}>
-    //   <LeftChevron />
-    //   <h1 className={styles["header"]}>ADD PRODUCT</h1>
-    //   <form className={styles["container"]}>
-    //     <div className={styles["left-inner-container"]}>
-    //       <div className={"product-image"}>
-    //         {imageFile !== null ? (
-    //           <img
-    //             src={imagePreview}
-    //             className={styles["image"]}
-    //             alt="preview"
-    //           />
-    //         ) : null}
-    //         <input
-    //           type="file"
-    //           name="image"
-    //           accept="image/*"
-    //           onChange={(event) => uploadFile(event)}
-    //         />
-    //       </div>
-    //       <div className={styles["product-price"]}>
-    //         <h1 className={styles["heading"]}>Product Price</h1>
-    //         <Grid container spacing={1} className={styles["grid"]}>
-    //           <Grid item xs={12} sm={7}>
-    //             <InputField label={"Unit Selling Price"} />
-    //           </Grid>
-    //           <Grid item xs={12} sm={7}>
-    //             <InputField label={"Original Cost"} />
-    //           </Grid>
-    //           <Grid item xs={12} sm={7}>
-    //             <InputField label={"Original Cost with Tax"} />
-    //           </Grid>
-    //         </Grid>
-    //       </div>
-    //     </div>
-    //     <div className={styles["right-inner-container"]}>
-    //       <div className={styles["product-info"]}>
-    //         <h1 className={styles["heading"]}>Product Info</h1>
-    //         <Grid container spacing={1} className={styles["grid"]}>
-    //           <Grid item xs={12}>
-    //             <InputArea label={"Product Description"} />
-    //           </Grid>
-    //           <Grid item xs={12}>
-    //             <InputField label={"Listing Name"} />
-    //           </Grid>
-    //           <Grid item xs={12} sm={6}>
-    //             <InputField label={"UPC"} />
-    //           </Grid>
-    //           <Grid item xs={12} sm={6}>
-    //             <InputField label={"Supplier Code"} />
-    //           </Grid>
-    //         </Grid>
-    //       </div>
-    //       <div className={styles["product-details"]}>
-    //         <h1 className={styles["heading"]}>Product Details</h1>
-    //         <Grid container spacing={1} className={styles["grid"]}>
-    //           <Grid item xs={12} sm={6}>
-    //             <InputField label={"Fits Size"} />
-    //           </Grid>
-    //           <Grid item xs={12} sm={6}>
-    //             <InputField label={"Dimensions"} />
-    //           </Grid>
-    //           <Grid item xs={12}>
-    //             <FormControl fullWidth variant="outlined">
-    //               <InputLabel
-    //                 id="collection-label"
-    //                 className={styles["dropdown-label"]}
-    //               >
-    //                 Collection(s)
-    //               </InputLabel>
-    //               <Select
-    //                 labelId="collection-label"
-    //                 value={collection}
-    //                 open={openCollection}
-    //                 onChange={handleChangeCollection}
-    //                 onOpen={handleOpenCollection}
-    //                 onClose={handleCloseCollection}
-    //               >
-    //                 <MenuItem value="">
-    //                   <em>None</em>
-    //                 </MenuItem>
-    //                 <MenuItem value="table">Table</MenuItem>
-    //                 <MenuItem value="pot">Pot</MenuItem>
-    //               </Select>
-    //             </FormControl>
-    //             <h6 style={{ paddingTop: "15px" }}>
-    //               Collection(s):
-    //               {collections.map((collection, idx) => (
-    //                 <Chip
-    //                   key={idx}
-    //                   label={collection}
-    //                   onDelete={() => handleRemoveCollection(idx)}
-    //                   className={styles["chip"]}
-    //                 />
-    //               ))}
-    //             </h6>
-    //           </Grid>
-    //           <Grid item xs={12}>
-    //             <FormControl fullWidth variant="outlined">
-    //               <InputLabel
-    //                 id="tags-label"
-    //                 className={styles["dropdown-label"]}
-    //               >
-    //                 Tag(s)
-    //               </InputLabel>
-    //               <Select
-    //                 labelId="tags-label"
-    //                 value={tag}
-    //                 open={openTag}
-    //                 onChange={handleChangeTag}
-    //                 onOpen={handleOpenTag}
-    //                 onClose={handleCloseTag}
-    //               >
-    //                 <MenuItem value="">
-    //                   <em>None</em>
-    //                 </MenuItem>
-    //                 <MenuItem value="metallic">Metallic</MenuItem>
-    //                 <MenuItem value="ceramic">Ceramic</MenuItem>
-    //                 <MenuItem value="with stand">With Stand</MenuItem>
-    //               </Select>
-    //             </FormControl>
-    //             <h6 style={{ paddingTop: "15px" }}>
-    //               Tag(s):
-    //               {tags.map((tag, idx) => (
-    //                 <Chip
-    //                   key={idx}
-    //                   label={tag}
-    //                   onDelete={() => handleRemoveTag(idx)}
-    //                   className={styles["chip"]}
-    //                 />
-    //               ))}
-    //             </h6>
-    //           </Grid>
-    //           <Grid item xs={12} sm={6}>
-    //             <InputField label={"Low Stock"} />
-    //           </Grid>
-    //           <Grid item xs={12}>
-    //             <InputArea label={"Packaging"} />
-    //           </Grid>
-    //           <Grid item xs={12}>
-    //             <InputArea label={"Product Notes"} />
-    //           </Grid>
-    //         </Grid>
-    //       </div>
-    //       <div className={styles["buttons"]}>
-    //         <button className={styles["button"]}>Submit</button>
-    //         <button className={styles["button"]} onClick={() => goBack()}>
-    //           Cancel
-    //         </button>
-    //       </div>
-    //     </div>
-    //   </form>
-    // </div>
+    <div className={styles["add-product"]}>
+      <LeftChevron />
+      <h1 className={styles["header"]}>ADD PRODUCT</h1>
+      <form
+        className={styles["container"]}
+        onSubmit={(event) => handleSubmit(event)}
+      >
+        <div className={styles["left-inner-container"]}>
+          <div className={"product-image"}>
+            {imageFile !== null ? (
+              <img
+                src={URL.createObjectURL(imageFile)}
+                className={styles["image"]}
+                alt="preview"
+              />
+            ) : null}
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={(event) => handleImageFile(event)}
+            />
+          </div>
+          <div className={styles["product-price"]}>
+            <h1 className={styles["heading"]}>Product Price</h1>
+            <Grid container spacing={1} className={styles["grid"]}>
+              <Grid item xs={12} sm={7}>
+                <InputField label={"Unit Selling Price"} />
+              </Grid>
+              <Grid item xs={12} sm={7}>
+                <InputField label={"Original Cost"} />
+              </Grid>
+              <Grid item xs={12} sm={7}>
+                <InputField label={"Original Cost with Tax"} />
+              </Grid>
+            </Grid>
+          </div>
+        </div>
+        <div className={styles["right-inner-container"]}>
+          <div className={styles["product-info"]}>
+            <h1 className={styles["heading"]}>Product Info</h1>
+            <Grid container spacing={1} className={styles["grid"]}>
+              <Grid item xs={12}>
+                <InputArea label={"Product Description"} />
+              </Grid>
+              <Grid item xs={12}>
+                <InputField label={"Listing Name"} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <InputField label={"UPC"} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <InputField label={"Supplier Code"} />
+              </Grid>
+            </Grid>
+          </div>
+          <div className={styles["product-details"]}>
+            <h1 className={styles["heading"]}>Product Details</h1>
+            <Grid container spacing={1} className={styles["grid"]}>
+              <Grid item xs={12} sm={6}>
+                <InputField label={"Fits Size"} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <InputField label={"Dimensions"} />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel
+                    id="collection-label"
+                    className={styles["dropdown-label"]}
+                  >
+                    Collection(s)
+                  </InputLabel>
+                  <Select
+                    labelId="collection-label"
+                    value={collection}
+                    open={openCollection}
+                    onChange={handleChangeCollection}
+                    onOpen={handleOpenCollection}
+                    onClose={handleCloseCollection}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value="table">Table</MenuItem>
+                    <MenuItem value="pot">Pot</MenuItem>
+                  </Select>
+                </FormControl>
+                <h6 style={{ paddingTop: "5px" }}>
+                  Collection(s):
+                  {collections.map((collection, idx) => (
+                    <Chip
+                      key={idx}
+                      label={collection}
+                      onDelete={() => handleRemoveCollection(idx)}
+                      className={styles["chip"]}
+                    />
+                  ))}
+                </h6>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel
+                    id="tags-label"
+                    className={styles["dropdown-label"]}
+                  >
+                    Tag(s)
+                  </InputLabel>
+                  <Select
+                    labelId="tags-label"
+                    value={tag}
+                    open={openTag}
+                    onChange={handleChangeTag}
+                    onOpen={handleOpenTag}
+                    onClose={handleCloseTag}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value="metallic">Metallic</MenuItem>
+                    <MenuItem value="ceramic">Ceramic</MenuItem>
+                    <MenuItem value="with stand">With Stand</MenuItem>
+                  </Select>
+                </FormControl>
+                <h6 style={{ paddingTop: "5px" }}>
+                  Tag(s):
+                  {tags.map((tag, idx) => (
+                    <Chip
+                      key={idx}
+                      label={tag}
+                      onDelete={() => handleRemoveTag(idx)}
+                      className={styles["chip"]}
+                    />
+                  ))}
+                </h6>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <InputField label={"Low Stock"} />
+              </Grid>
+              <Grid item xs={12}>
+                <InputArea label={"Packaging"} />
+              </Grid>
+              <Grid item xs={12}>
+                <InputArea label={"Product Notes"} />
+              </Grid>
+            </Grid>
+          </div>
+          <div className={styles["buttons"]}>
+            <button className={styles["button"]}>Submit</button>
+            <button className={styles["button"]} onClick={() => goBack()}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };
 
