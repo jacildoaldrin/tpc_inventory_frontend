@@ -32,6 +32,10 @@
   width: 100%;
   background-color: white;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 @media(max-width: 1100px){
