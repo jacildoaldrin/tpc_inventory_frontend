@@ -58,7 +58,7 @@ const SideBarNavigationItems = (props) => {
         <SideBarNavigationItem
           name="STORAGE"
           click={() => handleClick()}
-          route="/storage"
+          route="/storages"
         >
           <StorefrontIcon />
         </SideBarNavigationItem>

@@ -18,7 +18,7 @@ const NavBarNavigationItems = (props) => {
       <NavLink className={styles["navigation-item"]} to={"/suppliers"} activeClassName={`${styles['navigation-item']} ${styles['active']}`}>
         Suppliers
       </NavLink>
-      <NavLink className={styles["navigation-item"]} to={"/storage"} activeClassName={`${styles['navigation-item']} ${styles['active']}`}>
+      <NavLink className={styles["navigation-item"]} to={"/storages"} activeClassName={`${styles['navigation-item']} ${styles['active']}`}>
         Storage
       </NavLink>
     </div>
