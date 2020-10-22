@@ -10,6 +10,8 @@ const InputArea = (props) => {
       rows="2"
       fullWidth
       label={props.label}
+      value={props.value}
+      onChange={(event) => props.setValue(event.target.value)}
     />
   );
 };

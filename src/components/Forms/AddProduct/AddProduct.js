@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Grid,
@@ -23,6 +23,18 @@ import styles from "./AddProduct.module.css";
 
 const AddProduct = () => {
   const { goBack } = useNavigation();
+  const [unitSellingPrice, setUnitSellingPrice] = useState("");
+  const [originalCost, setOriginalCost] = useState("");
+  const [originalCostWithTax, setOriginalCostWithTax] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+  const [listingName, setListingName] = useState("");
+  const [upc, setUpc] = useState("");
+  const [supplierCode, setSupplierCode] = useState("");
+  const [fitsSize, setFitsSize] = useState("");
+  const [dimensions, setDimensions] = useState("");
+  const [lowStock, setLowStock] = useState("");
+  const [packaging, setPackaging] = useState("");
+  const [productNotes, setProductNotes] = useState("");
 
   //image states
   const [imageFile, setImageFile] = useState(null);
@@ -30,6 +42,7 @@ const AddProduct = () => {
   //collection states
   const [collection, setCollection] = useState("");
   const [collections, setCollections] = useState([]);
+  const [collectionsSelected, setCollectionsSelected] = useState([]);
   const [openCollection, setOpenCollection] = useState(false);
 
   //tag states
@@ -40,11 +53,11 @@ const AddProduct = () => {
   const handleChangeCollection = (event) => {
     if (
       event.target.value !== "" &&
-      !collections.includes(event.target.value)
+      !collectionsSelected.includes(event.target.value)
     ) {
-      let temp = collections;
+      let temp = collectionsSelected;
       temp.push(event.target.value);
-      setCollections([...temp]);
+      setCollectionsSelected([...temp]);
     }
     setCollection("");
   };
@@ -58,9 +71,9 @@ const AddProduct = () => {
   };
 
   const handleRemoveCollection = (index) => {
-    let temp = collections;
+    let temp = collectionsSelected;
     temp.splice(index, 1);
-    setCollections([...temp]);
+    setCollectionsSelected([...temp]);
   };
 
   const handleChangeTag = (event) => {
@@ -93,18 +106,40 @@ const AddProduct = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("product_description", "testing");
-    formData.append("order_price", "12.22");
-    formData.append("sell_price", "24.44");
-
+    formData.append("list_name", listingName);
+    formData.append("description", productDescription);
+    formData.append("upc", upc);
+    formData.append("supplier_code", supplierCode);
+    formData.append("fits_size", fitsSize);
+    formData.append("dimensions", dimensions);
+    formData.append("low_stock", lowStock);
+    formData.append("orig_cost", originalCost);
+    formData.append("orig_cost_with_tax", originalCostWithTax);
+    formData.append("unit_sell_price", unitSellingPrice);
+    formData.append("product_notes", productNotes);
+    formData.append("packaging", packaging);
     formData.append("image", imageFile);
+
+    // axios
+    //   .post("http://localhost:8000/products/add-product", formData, {
+    //     "content-type": "multipart/form-data",
+    //   })
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
+
     axios
-      .post("http://localhost:8000/products/add-product", formData, {
-        "content-type": "multipart/form-data",
-      })
+      .post("http://httpbin.org/anything", formData)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
+
+  useEffect(() => {
+    async function getCollections() {
+      let res = await axios.get("http://localhost:8000/collections");
+      setCollections(res.data);
+    }
+    getCollections();
+  }, []);
 
   return (
     <div className={styles["add-product"]}>
@@ -134,13 +169,28 @@ const AddProduct = () => {
             <h1 className={styles["heading"]}>Product Price</h1>
             <Grid container spacing={1} className={styles["grid"]}>
               <Grid item xs={12} sm={7}>
-                <InputField label={"Unit Selling Price"} />
+                <InputField
+                  label={"Unit Selling Price"}
+                  value={unitSellingPrice}
+                  setValue={setUnitSellingPrice}
+                  type="number"
+                />
               </Grid>
               <Grid item xs={12} sm={7}>
-                <InputField label={"Original Cost"} />
+                <InputField
+                  label={"Original Cost"}
+                  value={originalCost}
+                  setValue={setOriginalCost}
+                  type="number"
+                />
               </Grid>
               <Grid item xs={12} sm={7}>
-                <InputField label={"Original Cost with Tax"} />
+                <InputField
+                  label={"Original Cost with Tax"}
+                  value={originalCostWithTax}
+                  setValue={setOriginalCostWithTax}
+                  type="number"
+                />
               </Grid>
             </Grid>
           </div>
@@ -150,16 +200,28 @@ const AddProduct = () => {
             <h1 className={styles["heading"]}>Product Info</h1>
             <Grid container spacing={1} className={styles["grid"]}>
               <Grid item xs={12}>
-                <InputArea label={"Product Description"} />
+                <InputArea
+                  label={"Product Description"}
+                  value={productDescription}
+                  setValue={setProductDescription}
+                />
               </Grid>
               <Grid item xs={12}>
-                <InputField label={"Listing Name"} />
+                <InputField
+                  label={"Listing Name"}
+                  value={listingName}
+                  setValue={setListingName}
+                />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <InputField label={"UPC"} />
+                <InputField label={"UPC"} value={upc} setValue={setUpc} />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <InputField label={"Supplier Code"} />
+                <InputField
+                  label={"Supplier Code"}
+                  value={supplierCode}
+                  setValue={setSupplierCode}
+                />
               </Grid>
             </Grid>
           </div>
@@ -167,10 +229,18 @@ const AddProduct = () => {
             <h1 className={styles["heading"]}>Product Details</h1>
             <Grid container spacing={1} className={styles["grid"]}>
               <Grid item xs={12} sm={6}>
-                <InputField label={"Fits Size"} />
+                <InputField
+                  label={"Fits Size"}
+                  value={fitsSize}
+                  setValue={setFitsSize}
+                />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <InputField label={"Dimensions"} />
+                <InputField
+                  label={"Dimensions"}
+                  value={dimensions}
+                  setValue={setDimensions}
+                />
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth variant="outlined">
@@ -191,16 +261,19 @@ const AddProduct = () => {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value="table">Table</MenuItem>
-                    <MenuItem value="pot">Pot</MenuItem>
+                    {collections.map((item, idx) => (
+                      <MenuItem key={idx} value={item["collection_name"]}>
+                        {item["collection_name"]}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
                 <h6 style={{ paddingTop: "5px" }}>
                   Collection(s):
-                  {collections.map((collection, idx) => (
+                  {collectionsSelected.map((item, idx) => (
                     <Chip
                       key={idx}
-                      label={collection}
+                      label={item}
                       onDelete={() => handleRemoveCollection(idx)}
                       className={styles["chip"]}
                     />
@@ -244,13 +317,25 @@ const AddProduct = () => {
                 </h6>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <InputField label={"Low Stock"} />
+                <InputField
+                  label={"Low Stock"}
+                  value={lowStock}
+                  setValue={setLowStock}
+                />
               </Grid>
               <Grid item xs={12}>
-                <InputArea label={"Packaging"} />
+                <InputArea
+                  label={"Packaging"}
+                  value={packaging}
+                  setValue={setPackaging}
+                />
               </Grid>
               <Grid item xs={12}>
-                <InputArea label={"Product Notes"} />
+                <InputArea
+                  label={"Product Notes"}
+                  value={productNotes}
+                  setValue={setProductNotes}
+                />
               </Grid>
             </Grid>
           </div>
