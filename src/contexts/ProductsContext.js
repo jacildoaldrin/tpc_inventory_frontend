@@ -21,16 +21,17 @@ export const ProductsProvider = (props) => {
     return data;
   };
 
-  useEffect(() => {
-    async function getProducts() {
-      try {
-        await axios
-          .get("http://localhost:8000/products")
-          .then((response) => setProducts(response.data));
-      } catch (err) {
-        console.log(err);
-      }
+  async function getProducts() {
+    try {
+      await axios
+        .get("http://localhost:8000/products")
+        .then((response) => setProducts(response.data));
+    } catch (err) {
+      console.log(err);
     }
+  }
+
+  useEffect(() => {
     getProducts();
   }, []);
 
