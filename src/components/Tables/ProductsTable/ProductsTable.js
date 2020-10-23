@@ -105,7 +105,7 @@ const ProductsTable = () => {
                 <TableCell align="center">
                   <img
                     alt="img"
-                    src={`http://localhost:8000/uploads/${row["image"]}`}
+                    src={`http://localhost:8000/images/${row["image"]}`}
                     style={{
                       width: "50px",
                       height: "50px",
