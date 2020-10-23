@@ -103,14 +103,14 @@ const ProductDetails = () => {
   const [productStorageDetails, setProductStorageDetails] = useState(null);
   const { getProductDetails } = useProducts();
 
-  const { goBack } = useNavigation();
+  const { goBack, viewDetails } = useNavigation();
 
   const [showbtn, setshowbtn] = useState(false)
 
   async function getProduct() {
     let product = await getProductDetails(product_id);
     setProduct(product);
-    console.log(product);
+    // console.log(product);
   }
 
   const getProductStorageDetails = () => {
@@ -118,8 +118,8 @@ const ProductDetails = () => {
     Axios.get(`${target}/storages/getThisProductInAllStorages/${product_id}`)
     .then(res => {
       setProductStorageDetails(res.data)
-      console.log("getProductStorageDetails")
-      console.log(res.data)
+      // console.log("getProductStorageDetails")
+      // console.log(res.data)
     })
     .catch(err=>console.log(err))
   }
@@ -136,7 +136,7 @@ const ProductDetails = () => {
   const onFloatBtnClick = () => {
     setshowbtn(!showbtn)
   }
-  console.log()
+  
   return (<>
     <Fab className={classes.fab} aria-haspopup="true" variant="extended" onClick={onFloatBtnClick}>
       <ArrowDropUpIcon /> Actions
@@ -151,7 +151,7 @@ const ProductDetails = () => {
     <Container className={classes.mb15vh}>
       <Grid container justify="space-between" alignItems="center" className={classes.underline}>
         <Grid item xs={2} sm={1}><ButtonBase onClick={goBack}><ChevronLeftIcon className={classes.chevron} /></ButtonBase></Grid>
-        <Grid item container xs={10} justify="flex-end"><Typography variant="h5" className={classes.mainProdName} align="right">{product.description} pot but a little ok</Typography></Grid>
+        <Grid item container xs={10} justify="flex-end"><Typography variant="h5" className={classes.mainProdName} align="right">{product.description}</Typography></Grid>
       </Grid>
       <Grid container justify="space-evenly">
         <Grid item xs={12} sm={5} container id="leftCol">
@@ -319,16 +319,26 @@ const ProductDetails = () => {
                         <TableCell align="center">{row.location}</TableCell>
                         <TableCell align="center">{row.bin}</TableCell>
                         <TableCell align="center">{row.quantity}</TableCell>
-                        <TableCell align="right"><Button variant="contained" size="small">Pull</Button></TableCell>
+                        <TableCell align="right">
+                          <Button 
+                            variant="contained" 
+                            size="small"
+                            onClick={()=>viewDetails(`/storages/storage/${row.id}/pull/${product._id}`)}>
+                            Pull
+                            </Button>
+                          </TableCell>
                       </TableRow>
                     ))}
-                    
                   </TableBody>
                 </Table>
               </TableContainer>
               <Grid item xs={12} container justify="flex-start">
                 <Grid item xs={7} sm={11} md={12}>
-                  <Button fullWidth variant="contained" className={classes.mt1rem}>Push</Button>
+                  <Button 
+                    fullWidth 
+                    variant="contained" 
+                    className={classes.mt1rem}
+                    onClick={()=>viewDetails(`/products/push/${product._id}`)}>Push</Button>
                 </Grid>
               </Grid>
             </Grid>

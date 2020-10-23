@@ -11,6 +11,7 @@ import ProductsTable from "components/Tables/ProductsTable/ProductsTable";
 import ProductDetails from "components/Details/ProductDetails/ProductDetails";
 
 import styles from "./Products.module.css";
+import Push from "components/ProductActions/Push";
 
 const Products = () => {
   let match = useRouteMatch();
@@ -28,6 +29,7 @@ const Products = () => {
         <Route path={`${match.url}/product-details/:product_id`}>
           <ProductDetails />
         </Route>
+        <Route path={`${match.url}/push/:product_id`} component={Push} />
       </div>
     </ProductsProvider>
   );
