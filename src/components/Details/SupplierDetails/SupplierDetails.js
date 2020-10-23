@@ -48,12 +48,13 @@ const useStyles = makeStyles((theme) => ({
     margin: "40px",
   },
   rightColumn: {
-    marginTop: "5%",
+    marginTop: "10%",
     marginBottom: "5%",
     [theme.breakpoints.down("sm")]: {
-      marginTop: "10%",
+      marginTop: "20%",
     },
     [theme.breakpoints.down("xs")]: {
+      marginLeft: "12vw",
       marginTop: "0",
     },
   },
@@ -62,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
   },
   label: {
     color: "#25a732",
+    marginBottom: "20px",
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "10px",
+    },
   },
   details: {
     maxWidth: "70%",
@@ -69,7 +74,11 @@ const useStyles = makeStyles((theme) => ({
     overflowWrap: "break-word",
   },
   button: {
-    // margin: "5px 0",
+    margin: "5px 0",
+  },
+  title: {
+    marginTop: "5%",
+    textAlign: "center",
   },
 }));
 
@@ -97,7 +106,7 @@ function SupplierDetails() {
           container
           justify="space-between"
           alignItems="center"
-          className={classes.underline}
+          // className={classes.underline}
         >
           <Grid item xs={2} sm={1}>
             <ButtonBase onClick={goBack}>
@@ -105,84 +114,118 @@ function SupplierDetails() {
             </ButtonBase>
           </Grid>
           <Grid item container xs={10} justify="flex-end">
-            <Typography
+            {/* <Typography
               variant="h5"
               className={classes.mainProdName}
               align="right"
               style={{ marginRight: "5vw" }}
             >
               {supplier.supplier_name}
-            </Typography>
+            </Typography> */}
           </Grid>
         </Grid>
 
         {/* -------Paper */}
         <Paper elevation={3}>
           <Grid container>
+            <Grid item container xs={12} className={classes.title}>
+              <Grid item xs={12}>
+                <Typography variant="h5" className={classes.details}>
+                  {supplier.supplier_name === null
+                    ? "-"
+                    : supplier.supplier_name}
+                </Typography>
+              </Grid>
+            </Grid>
             <Grid item xs={12} sm={9}>
               <Grid container className={classes.leftColumn}>
-                <Grid item xs={4} className={classes.label}>
-                  <Typography>Name:</Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <Typography className={classes.details}>
-                    {supplier.supplier_name === null
-                      ? "-"
-                      : supplier.supplier_name}
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={4} className={classes.label}>
-                  <Typography>Supplier Id:</Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <Typography className={classes.details}>
-                    {supplier.id === null ? "-" : supplier.id}
-                  </Typography>
+                <Grid item container xs={12} spacing={10}>
+                  <Grid item xs={4} className={classes.label}>
+                    <Typography>Supplier Id:</Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography className={classes.details}>
+                      {supplier.id === null ? "-" : supplier.id}
+                    </Typography>
+                  </Grid>
                 </Grid>
 
-                <Grid item xs={4} className={classes.label}>
-                  <Typography>Email:</Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <Typography className={classes.details}>
-                    {supplier.supplier_email === null
-                      ? "-"
-                      : supplier.supplier_email}
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={4} className={classes.label}>
-                  <Typography>Contact:</Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <Typography className={classes.details}>
-                    {supplier.supplier_contact === null
-                      ? "-"
-                      : supplier.supplier_contact}
-                  </Typography>
+                <Grid item container xs={12} sm={6}>
+                  <Grid item xs={4} className={classes.label}>
+                    <Typography>Name:</Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Typography className={classes.details}>
+                      {supplier.supplier_name === null
+                        ? "-"
+                        : supplier.supplier_name}
+                    </Typography>
+                  </Grid>
                 </Grid>
 
-                <Grid item xs={4} className={classes.label}>
-                  <Typography>Address:</Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <Typography className={classes.details}>
-                    {supplier.supplier_address === null
-                      ? "-"
-                      : supplier.supplier_address}
-                  </Typography>
+                <Grid item container xs={12} sm={6}>
+                  <Grid item xs={4} className={classes.label}>
+                    <Typography>Email:</Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Typography className={classes.details}>
+                      {supplier.supplier_email === null
+                        ? "-"
+                        : supplier.supplier_email}
+                    </Typography>
+                  </Grid>
                 </Grid>
 
-                <Grid item xs={4} className={classes.label}>
-                  <Typography>Notes:</Typography>
+                <Grid item container xs={12} sm={6}>
+                  <Grid item xs={4} className={classes.label}>
+                    <Typography>Contact:</Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Typography className={classes.details}>
+                      {supplier.supplier_contact === null
+                        ? "-"
+                        : supplier.supplier_contact}
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={8}>
-                  <Typography className={classes.details}>
-                    {supplier.supplier_notes === null
-                      ? "-"
-                      : supplier.supplier_notes}
-                  </Typography>
+
+                <Grid item container xs={12} sm={6}>
+                  <Grid item xs={4} className={classes.label}>
+                    <Typography>Phone:</Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Typography className={classes.details}>
+                      {supplier.supplier_phone === null
+                        ? "-"
+                        : supplier.supplier_phone}
+                    </Typography>
+                  </Grid>
+                </Grid>
+
+                <Grid item container xs={12}>
+                  <Grid item xs={4} sm={2} className={classes.label}>
+                    <Typography>Address:</Typography>
+                  </Grid>
+                  <Grid item xs={8} sm={10}>
+                    <Typography className={classes.details}>
+                      {supplier.supplier_address === null
+                        ? "-"
+                        : supplier.supplier_address}
+                    </Typography>
+                  </Grid>
+                </Grid>
+
+                <Grid item container xs={12}>
+                  <Grid item xs={4} sm={2} className={classes.label}>
+                    <Typography>Notes:</Typography>
+                  </Grid>
+                  <Grid item xs={8} sm={10}>
+                    <Typography className={classes.details}>
+                      {supplier.supplier_notes === null
+                        ? "-"
+                        : supplier.supplier_notes}
+                    </Typography>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
@@ -192,10 +235,10 @@ function SupplierDetails() {
               item
               xs={12}
               sm={3}
-              container
+              // container
               className={classes.rightColumn}
-              spacing={1}
-              justify="center"
+              // spacing={1}
+              // justify="center"
             >
               <Grid item xs={10}>
                 <Button
