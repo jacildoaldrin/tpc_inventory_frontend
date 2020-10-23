@@ -16,13 +16,13 @@
   color: #25a732;
   font-size: 30px;
   border-bottom: 1px solid #25a732;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .container {
+  height: 100%;
   margin: auto;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-evenly;
   height: 100%;
   width: 100%;
@@ -36,24 +36,14 @@
   display: flex;
   flex-flow: column;
   justify-content: flex-start;
-  padding: 30px 50px;
+  padding: 20px 80px;
   transition: 0.3s ease-in;
 }
 
-/* LEFT INNER CONTAINER STYLES */
 .image {
   width: 100%;
   border-radius: 10px;
   box-shadow: 3px 3px 10px rgba(128, 128, 128, 0.5);
-}
-/*************************/
-
-.grid {
-  padding: 10px 0;
-}
-
-.chip{
-  margin-left: 5px;
 }
 
 .buttons {
@@ -83,17 +73,30 @@
   background: white;
 }
 
+.grid{
+  padding-top: 10px;
+}
+
+.chip{
+  margin-left: 5px;
+}
+
 @media (max-width: 1100px) {
   .add-product {
     height: auto;
     padding-bottom: 50px;
   }
+
+  .container {
+    flex-flow: column;
+  }
+
   .image {
     display: none;
   }
   .left-inner-container,
   .right-inner-container {
-    width: 100%;
+    width: 80%;
     height: 49%;
   }
 }
@@ -101,6 +104,7 @@
 @media (max-width: 700px) {
   .left-inner-container,
   .right-inner-container {
+    width: 100%;
     padding: 0;
   }
 }

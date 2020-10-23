@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
-  TextField,
   Grid,
   Select,
   FormControl,
@@ -13,17 +13,39 @@ import LeftChevron from "components/LeftChevron/LeftChevron";
 //context
 import { useNavigation } from "contexts/NavigationContext";
 
+//component
+import InputField from "components/InputField/InputField";
+import InputArea from "components/InputArea/InputArea";
+
 //assets
-import Hugo from "assets/hugo.jpg";
 
 import styles from "./AddProduct.module.css";
 
 const AddProduct = () => {
   const { goBack } = useNavigation();
+  const [unitSellingPrice, setUnitSellingPrice] = useState("");
+  const [originalCost, setOriginalCost] = useState("");
+  const [originalCostWithTax, setOriginalCostWithTax] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+  const [listingName, setListingName] = useState("");
+  const [upc, setUpc] = useState("");
+  const [supplierCode, setSupplierCode] = useState("");
+  const [fitsSize, setFitsSize] = useState("");
+  const [dimensions, setDimensions] = useState("");
+  const [lowStock, setLowStock] = useState("");
+  const [packaging, setPackaging] = useState("");
+  const [productNotes, setProductNotes] = useState("");
+
+  //image states
+  const [imageFile, setImageFile] = useState(null);
+
+  //collection states
   const [collection, setCollection] = useState("");
   const [collections, setCollections] = useState([]);
+  const [collectionsSelected, setCollectionsSelected] = useState([]);
   const [openCollection, setOpenCollection] = useState(false);
 
+  //tag states
   const [tag, setTag] = useState("");
   const [tags, setTags] = useState([]);
   const [openTag, setOpenTag] = useState(false);
@@ -31,13 +53,27 @@ const AddProduct = () => {
   const handleChangeCollection = (event) => {
     if (
       event.target.value !== "" &&
-      !collections.includes(event.target.value)
+      !collectionsSelected.includes(event.target.value)
     ) {
-      let temp = collections;
+      let temp = collectionsSelected;
       temp.push(event.target.value);
-      setCollections([...temp]);
+      setCollectionsSelected([...temp]);
     }
     setCollection("");
+  };
+
+  const handleOpenCollection = () => {
+    setOpenCollection(true);
+  };
+
+  const handleCloseCollection = () => {
+    setOpenCollection(false);
+  };
+
+  const handleRemoveCollection = (index) => {
+    let temp = collectionsSelected;
+    temp.splice(index, 1);
+    setCollectionsSelected([...temp]);
   };
 
   const handleChangeTag = (event) => {
@@ -49,26 +85,12 @@ const AddProduct = () => {
     setTag("");
   };
 
-  const handleOpenCollection = () => {
-    setOpenCollection(true);
-  };
-
   const handleOpenTag = () => {
     setOpenTag(true);
   };
 
-  const handleCloseCollection = () => {
-    setOpenCollection(false);
-  };
-
   const handleCloseTag = () => {
     setOpenTag(false);
-  };
-
-  const handleRemoveCollection = (index) => {
-    let temp = collections;
-    temp.splice(index, 1);
-    setCollections([...temp]);
   };
 
   const handleRemoveTag = (index) => {
@@ -77,38 +99,97 @@ const AddProduct = () => {
     setTags([...temp]);
   };
 
+  const handleImageFile = (event) => {
+    setImageFile(event.target.files[0]);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("list_name", listingName);
+    formData.append("description", productDescription);
+    formData.append("upc", upc);
+    formData.append("supplier_code", supplierCode);
+    formData.append("fits_size", fitsSize);
+    formData.append("dimensions", dimensions);
+    formData.append("low_stock", lowStock);
+    formData.append("orig_cost", originalCost);
+    formData.append("orig_cost_with_tax", originalCostWithTax);
+    formData.append("unit_sell_price", unitSellingPrice);
+    formData.append("product_notes", productNotes);
+    formData.append("packaging", packaging);
+    formData.append("image", imageFile);
+
+    axios
+      .post("http://localhost:8000/products/add-product", formData, {
+        "content-type": "multipart/form-data",
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+    // axios
+    //   .post("http://httpbin.org/anything", formData)
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    async function getCollections() {
+      let res = await axios.get("http://localhost:8000/collections");
+      setCollections(res.data);
+    }
+    getCollections();
+  }, []);
+
   return (
     <div className={styles["add-product"]}>
       <LeftChevron />
       <h1 className={styles["header"]}>ADD PRODUCT</h1>
-      <form className={styles["container"]}>
+      <form
+        className={styles["container"]}
+        onSubmit={(event) => handleSubmit(event)}
+      >
         <div className={styles["left-inner-container"]}>
-          <img src={Hugo} alt="sample-item" className={styles["image"]} />
+          <div className={"product-image"}>
+            {imageFile !== null ? (
+              <img
+                src={URL.createObjectURL(imageFile)}
+                className={styles["image"]}
+                alt="preview"
+              />
+            ) : null}
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={(event) => handleImageFile(event)}
+            />
+          </div>
           <div className={styles["product-price"]}>
             <h1 className={styles["heading"]}>Product Price</h1>
             <Grid container spacing={1} className={styles["grid"]}>
               <Grid item xs={12} sm={7}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Unit Selling Price"
-                  fullWidth
+                <InputField
+                  label={"Unit Selling Price"}
+                  value={unitSellingPrice}
+                  setValue={setUnitSellingPrice}
+                  type="number"
                 />
               </Grid>
               <Grid item xs={12} sm={7}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Original Cost"
-                  fullWidth
+                <InputField
+                  label={"Original Cost"}
+                  value={originalCost}
+                  setValue={setOriginalCost}
+                  type="number"
                 />
               </Grid>
               <Grid item xs={12} sm={7}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Original Cost with Tax"
-                  fullWidth
+                <InputField
+                  label={"Original Cost with Tax"}
+                  value={originalCostWithTax}
+                  setValue={setOriginalCostWithTax}
+                  type="number"
                 />
               </Grid>
             </Grid>
@@ -119,32 +200,27 @@ const AddProduct = () => {
             <h1 className={styles["heading"]}>Product Info</h1>
             <Grid container spacing={1} className={styles["grid"]}>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  variant="outlined"
-                  multiline
-                  rows="2"
-                  label="Product Description"
-                  fullWidth
+                <InputArea
+                  label={"Product Description"}
+                  value={productDescription}
+                  setValue={setProductDescription}
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Listing Name"
-                  fullWidth
+                <InputField
+                  label={"Listing Name"}
+                  value={listingName}
+                  setValue={setListingName}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField required variant="outlined" label="UPC" fullWidth />
+                <InputField label={"UPC"} value={upc} setValue={setUpc} />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Supplier Code"
-                  fullWidth
+                <InputField
+                  label={"Supplier Code"}
+                  value={supplierCode}
+                  setValue={setSupplierCode}
                 />
               </Grid>
             </Grid>
@@ -153,19 +229,17 @@ const AddProduct = () => {
             <h1 className={styles["heading"]}>Product Details</h1>
             <Grid container spacing={1} className={styles["grid"]}>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Fits Size"
-                  fullWidth
+                <InputField
+                  label={"Fits Size"}
+                  value={fitsSize}
+                  setValue={setFitsSize}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Dimensions"
-                  fullWidth
+                <InputField
+                  label={"Dimensions"}
+                  value={dimensions}
+                  setValue={setDimensions}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -187,16 +261,19 @@ const AddProduct = () => {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value="table">Table</MenuItem>
-                    <MenuItem value="pot">Pot</MenuItem>
+                    {collections.map((item, idx) => (
+                      <MenuItem key={idx} value={item["collection_name"]}>
+                        {item["collection_name"]}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
-                <h6 style={{ paddingTop: "15px" }}>
+                <h6 style={{ paddingTop: "5px" }}>
                   Collection(s):
-                  {collections.map((collection, idx) => (
+                  {collectionsSelected.map((item, idx) => (
                     <Chip
                       key={idx}
-                      label={collection}
+                      label={item}
                       onDelete={() => handleRemoveCollection(idx)}
                       className={styles["chip"]}
                     />
@@ -227,7 +304,7 @@ const AddProduct = () => {
                     <MenuItem value="with stand">With Stand</MenuItem>
                   </Select>
                 </FormControl>
-                <h6 style={{ paddingTop: "15px" }}>
+                <h6 style={{ paddingTop: "5px" }}>
                   Tag(s):
                   {tags.map((tag, idx) => (
                     <Chip
@@ -240,31 +317,25 @@ const AddProduct = () => {
                 </h6>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  variant="outlined"
-                  label="Low Stock"
-                  fullWidth
+                <InputField
+                  label={"Low Stock"}
+                  value={lowStock}
+                  setValue={setLowStock}
+                  type="number"
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  multiline
-                  rows="2"
-                  variant="outlined"
-                  label="Packaging"
-                  fullWidth
+                <InputArea
+                  label={"Packaging"}
+                  value={packaging}
+                  setValue={setPackaging}
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  multiline
-                  rows="2"
-                  variant="outlined"
-                  label="Product Notes"
-                  fullWidth
+                <InputArea
+                  label={"Product Notes"}
+                  value={productNotes}
+                  setValue={setProductNotes}
                 />
               </Grid>
             </Grid>
