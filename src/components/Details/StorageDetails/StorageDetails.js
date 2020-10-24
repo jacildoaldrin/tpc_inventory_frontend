@@ -1,4 +1,4 @@
-import { ButtonBase, Grid, InputAdornment, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core';
+import { Button, ButtonBase, Grid, InputAdornment, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core';
 import { ChevronLeft, Search } from '@material-ui/icons';
 import target from 'api/api.target'
 import Axios from 'axios'
@@ -26,7 +26,10 @@ function StorageDetails() {
 
     React.useEffect(()=>{
         Axios.get(`${target}/storages/productsInStorage/${storage_id}`)
-            .then(res=>setProductsHere(res.data))
+            .then(res=>{
+                setProductsHere(res.data)
+                console.log(res.data)
+            })
             .catch(err=>console.log(err))
         Axios.get(`${target}/storages/${storage_id}`)
             .then(res=>setThisStorage(res.data))
@@ -80,18 +83,19 @@ function StorageDetails() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {productsHere?.map(product => 
-                            <TableRow 
-                                key={product._id}
-                                onClick={()=>viewDetails(`/products/product-details/${product["_id"]}`)}
-                                >
-                                    <TableCell></TableCell>
-                                    <TableCell>{product._id}</TableCell>
-                                    <TableCell>{product.description}</TableCell>
-                                    <TableCell>{product.quantity}</TableCell>
-                                    <TableCell></TableCell>
-                            </TableRow>
-                            )}
+                        {productsHere?.map(product => {
+                            if(product.quantity > 0)
+                                return <TableRow 
+                                    key={product._id}
+                                    >
+                                        <TableCell onClick={()=>viewDetails(`/products/product-details/${product["_id"]}`)}></TableCell>
+                                        <TableCell onClick={()=>viewDetails(`/products/product-details/${product["_id"]}`)}>{product._id}</TableCell>
+                                        <TableCell onClick={()=>viewDetails(`/products/product-details/${product["_id"]}`)}>{product.description}</TableCell>
+                                        <TableCell onClick={()=>viewDetails(`/products/product-details/${product["_id"]}`)}>{product.quantity}</TableCell>
+                                        <TableCell onClick={()=>viewDetails(`/storages/storage/${storage_id}/pull/${product._id}`)}><Button variant="contained">PULL</Button></TableCell>
+                                </TableRow>
+                            else return null
+                        })}
                     </TableBody>
                 </Table>
             </TableContainer>
