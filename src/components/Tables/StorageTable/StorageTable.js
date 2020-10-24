@@ -72,6 +72,7 @@ function StorageTable() {
                     <TableBody>
                         {storage?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map(row => {
+                            if (row.total_items > 0)
                             return <TableRow
                                 onClick={()=>viewDetails(`storages/storage-details/${row.id}`)}
                                 key={row.id}>
@@ -80,6 +81,7 @@ function StorageTable() {
                                     <TableCell align="left">{row.total_items}</TableCell>
                                     <TableCell align="center"><MoreVert /></TableCell>
                             </TableRow>
+                            else return null
                         })}
                     </TableBody>
                 </Table>
