@@ -1,6 +1,6 @@
 import React from 'react'
 import img from 'assets/tpc_logo.jpg'
-import { Button, CircularProgress, Grid, makeStyles, Snackbar, TextField, Typography } from '@material-ui/core'
+import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, makeStyles, TextField, Typography } from '@material-ui/core'
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
 import target from 'api/api.target'
@@ -11,7 +11,7 @@ import { useSnackbar } from 'contexts/SnackbarContext'
 const useStyles = makeStyles(theme=>({
     img: {
         display: "block",
-        maxWidth: "70%",
+        maxWidth: "55%",
         border: "1px solid lightgray",
         borderRadius: "5%",
         margin: "0 auto",
@@ -46,6 +46,7 @@ function Pull(props) {
     const [submitting, setSubmitting] = React.useState(false)
     // const [open, setOpen] = React.useState(false)
     // const [response, setResponse] = React.useState('')
+    const [openModal, setOpenModal] = React.useState(false)
     const { getProductDetails } = useProducts();
     const { goBack } = useNavigation();
     const { openSnackbar } = useSnackbar();
@@ -66,6 +67,20 @@ function Pull(props) {
             // console.log(result)
         })
         .catch(err=>console.log(err))
+    }
+
+    const submitAll = () => {
+        Axios.patch(`${target}/storages/pull`, {product_id, storage_id, quantity: input})
+            .then(res=>{
+                // setResponse(res.data)
+                // setOpen(true)
+                openSnackbar(res.data)
+                setSubmitting(false)
+                // // Expensive design choice right here
+                // Not anymore
+                // getProductStorageDetails();
+                goBack();
+            })
     }
 
     const submit = () => {
@@ -121,6 +136,22 @@ function Pull(props) {
 
     return (
         <>
+            <Dialog open={openModal} onClose={()=>setOpenModal(false)}>
+                <DialogTitle>
+                    ARE YOU SURE?
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        You are about to pull {productStorageDetails?.quantity} items...
+                    </DialogContentText>
+                        <DialogActions>
+                            <Button onClick={goBack} size="large">Cancel</Button>
+                            <Button onClick={submitAll} size="large" variant="contained" disabled={submitting}>
+                                {submitting ? <CircularProgress /> : 'PULL ALL'}
+                            </Button>
+                        </DialogActions>
+                </DialogContent>
+            </Dialog>
         {/* <Snackbar 
             anchorOrigin={{
                 vertical: 'bottom',
@@ -170,6 +201,11 @@ function Pull(props) {
                         <Button onClick={goBack} size="large">Cancel</Button>
                         <Button onClick={submit} size="large" variant="contained" disabled={submitting}>
                             {submitting ? <CircularProgress /> : 'Pull'}
+                        </Button>
+                    </Grid>
+                    <Grid container item justify="center" style={{marginTop: "1rem", marginBottom: "5rem"}}>
+                        <Button onClick={() => setOpenModal(true)} size="large" variant="contained" disabled={submitting} fullWidth>
+                            {submitting ? <CircularProgress /> : 'PULL ALL'}
                         </Button>
                     </Grid>
                 </Grid>
