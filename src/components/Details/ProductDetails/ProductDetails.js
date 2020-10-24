@@ -314,8 +314,10 @@ const ProductDetails = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {productStorageDetails?.map(row => (
-                      <TableRow key={row.id}>
+                    {productStorageDetails?.map(row => {
+                      console.log(row.quantity)
+                      if(row.quantity > 0)
+                      return <TableRow key={row.id}>
                         <TableCell align="center">{row.location}</TableCell>
                         <TableCell align="center">{row.bin}</TableCell>
                         <TableCell align="center">{row.quantity}</TableCell>
@@ -328,7 +330,8 @@ const ProductDetails = () => {
                             </Button>
                           </TableCell>
                       </TableRow>
-                    ))}
+                      else return null
+                    })}
                   </TableBody>
                 </Table>
               </TableContainer>
