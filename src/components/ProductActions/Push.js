@@ -1,10 +1,13 @@
 import React from 'react';
-import { Button, CircularProgress, Grid, makeStyles, Snackbar, TextField, Typography } from '@material-ui/core';
+import { Button, CircularProgress, Grid, makeStyles, 
+    // Snackbar, 
+    TextField, Typography } from '@material-ui/core';
 import { useNavigation } from 'contexts/NavigationContext'
 import { useParams } from "react-router-dom";
 import img from 'assets/tpc_logo.jpg'
 import Axios from 'axios';
 import target from 'api/api.target';
+import { useSnackbar } from 'contexts/SnackbarContext';
 
 const useStyles = makeStyles(theme=>({
     img: {
@@ -36,10 +39,11 @@ function Push() {
     const classes = useStyles();
     const { product_id } = useParams();
     const { goBack } = useNavigation();
+    const { openSnackbar } = useSnackbar();
 
     const [submitting, setSubmitting] = React.useState(false)
-    const [open, setOpen] = React.useState(false)
-    const [response, setResponse] = React.useState('')
+    // const [open, setOpen] = React.useState(false)
+    // const [response, setResponse] = React.useState('')
 
     const submit = (e) => {
         e.preventDefault()
@@ -54,9 +58,11 @@ function Push() {
             setTimeout(()=> {
                 Axios.post(`${target}/storages/push`, {location, bin, product_id, quantity})
                     .then(res=>{
-                        setResponse(res.data)
-                        setOpen(true)
+                        // setResponse(res.data)
+                        // setOpen(true)
+                        openSnackbar(res.data)
                         setSubmitting(false)
+                        goBack();
                         //Expensive design choice right here
                         // getProductStorageDetails();
                     })
@@ -64,7 +70,8 @@ function Push() {
         }
         else {
             setSubmitting(false)
-            setResponse("Make sure the data entered is valid!")
+            openSnackbar("Make sure the data entered is valid!")
+            // setResponse("Make sure the data entered is valid!")
         }
     }
         
@@ -73,7 +80,7 @@ function Push() {
 
     return (
         <>
-        <Snackbar 
+        {/* <Snackbar 
             anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left'
@@ -82,7 +89,7 @@ function Push() {
             autoHideDuration={5000}
             onClose={()=>setOpen(false)}
             message={response}
-            />
+            /> */}
             <Grid container direction="column" alignItems="center" className={classes.container}>
                 <Typography variant="h4">
                     PUSH
