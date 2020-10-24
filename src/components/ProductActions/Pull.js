@@ -70,7 +70,7 @@ function Pull(props) {
     }
 
     const submitAll = () => {
-        Axios.patch(`${target}/storages/pull`, {product_id, storage_id, quantity: input})
+        Axios.patch(`${target}/storages/pull`, {product_id, storage_id, quantity: productStorageDetails?.quantity})
             .then(res=>{
                 // setResponse(res.data)
                 // setOpen(true)
@@ -145,7 +145,7 @@ function Pull(props) {
                         You are about to pull {productStorageDetails?.quantity} items...
                     </DialogContentText>
                         <DialogActions>
-                            <Button onClick={goBack} size="large">Cancel</Button>
+                            <Button onClick={()=>setOpenModal(false)} size="large">Cancel</Button>
                             <Button onClick={submitAll} size="large" variant="contained" disabled={submitting}>
                                 {submitting ? <CircularProgress /> : 'PULL ALL'}
                             </Button>
