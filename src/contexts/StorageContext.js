@@ -1,3 +1,4 @@
+import target from 'api/api.target';
 import Axios from 'axios';
 import React from 'react'
 
@@ -12,7 +13,7 @@ export const StorageProvider = (props) => {
     const [storage, setStorage] = React.useState([])
 
     React.useEffect(() => {
-        Axios.get("http://localhost:8000/storages")
+        Axios.get(`${target}/storages`)
             .then(res=>setStorage(res.data))
             .catch(err=>console.log(err))
     }, [])

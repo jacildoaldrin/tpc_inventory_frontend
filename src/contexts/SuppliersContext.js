@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
+import target from "api/api.target";
 
 const SuppliersContext = React.createContext();
 
@@ -13,7 +14,7 @@ export const SuppliersProvider = (props) => {
   const getSupplierDetails = async (id) => {
     let data = null;
     try {
-      let response = await axios.get(`http://localhost:8000/suppliers/${id}`);
+      let response = await axios.get(`${target}/suppliers/${id}`);
       data = response.data;
     } catch (err) {
       console.log(err);
@@ -24,7 +25,7 @@ export const SuppliersProvider = (props) => {
   async function getSuppliers() {
     try {
       await axios
-        .get("http://localhost:8000/suppliers")
+        .get(`${target}/suppliers`)
         .then((response) => setSuppliers(response.data));
     } catch (err) {
       console.log(err);
