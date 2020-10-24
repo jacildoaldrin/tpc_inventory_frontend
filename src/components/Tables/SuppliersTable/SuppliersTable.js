@@ -50,7 +50,7 @@ const SuppliersTable = (props) => {
   }
 
   return (
-    <TableContainer component={Paper} className={styles["container"]}>
+    <Paper>
       <div className={styles["table-toolbar"]}>
         <h1>Suppliers</h1>
         <div>
@@ -71,6 +71,7 @@ const SuppliersTable = (props) => {
           <div className={styles["sort"]}></div>
         </div>
       </div>
+      <TableContainer className={styles["container"]}>
       <Table className={styles["table"]} aria-label="simple table">
         <TableHead className={styles["table-header"]}>
           <TableRow>
@@ -145,8 +146,8 @@ const SuppliersTable = (props) => {
             ))}
         </TableBody>
       </Table>
-
-      <TablePagination
+    </TableContainer>
+    <TablePagination
         component="div"
         rowsPerPageOptions={[5, 10, 15]}
         rowsPerPage={rowsPerPage}
@@ -155,7 +156,7 @@ const SuppliersTable = (props) => {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={onChangeRowsPerPage}
       />
-    </TableContainer>
+    </Paper>
   );
 };
 

@@ -42,24 +42,23 @@ function StorageTable() {
     const classes = useStyles();
 
     return (
-        <>
-            
-            <TableContainer component={Paper} className="container">
-                <Grid container alignItems="center" justify="space-between" className={classes.titleContainer}>
-                    <ButtonBase onClick={goBack}><ChevronLeft className={classes.chevron} /><Typography variant="h5" className={classes.title}>Storage</Typography></ButtonBase>
-                    <TextField
-                        // fullWidth={true}
-                        className={classes.searchbar}
-                        margin="dense"
-                        variant="outlined"
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                  <Search style={{ color: "rgba(0, 0, 0, 0.4)" }} />
-                                </InputAdornment>
-                            ),
-                        }} />
+        <Paper>
+            <Grid container alignItems="center" justify="space-between" className={classes.titleContainer}>
+                <ButtonBase onClick={goBack}><ChevronLeft className={classes.chevron} /><Typography variant="h5" className={classes.title}>Storage</Typography></ButtonBase>
+                <TextField
+                    // fullWidth={true}
+                    className={classes.searchbar}
+                    margin="dense"
+                    variant="outlined"
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                              <Search style={{ color: "rgba(0, 0, 0, 0.4)" }} />
+                            </InputAdornment>
+                        ),
+                    }} />
                 </Grid>
+            <TableContainer className="container">
                 <Table>
                     <TableHead>
                         <TableRow>
@@ -85,7 +84,8 @@ function StorageTable() {
                         })}
                     </TableBody>
                 </Table>
-                <TablePagination 
+            </TableContainer>
+            <TablePagination 
                     className={classes.paginationContainer}
                     component="div"
                     rowsPerPageOptions={[5,10,15]}
@@ -95,8 +95,7 @@ function StorageTable() {
                     onChangePage={handleChangePage}
                     onChangeRowsPerPage={onChangeRowsPerPage}
                 />
-            </TableContainer>
-        </>
+        </Paper>
     )
 }
 

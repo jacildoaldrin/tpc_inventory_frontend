@@ -39,39 +39,39 @@ function StorageDetails() {
     const classes = useStyles();
 
     return (
-        <>
-            <TableContainer component={Paper}>
-                <Grid container direction="row" justify="space-between" className={classes.head}>
-                    <Grid item xs={12} md={3} container justify="flex-start" alignItems="center">
-                        <ButtonBase onClick={goBack}>
-                            <ChevronLeft className={classes.chevron} />
-                            <Typography variant="h5" className={classes.title}>Storage</Typography>
-                        </ButtonBase>
-                    
-                    </Grid>
-                    <Grid item xs={6} md={3} container justify="center" alignItems="center">
-                        <Typography variant="h6">Location:</Typography>
-                        <Typography variant="h6">{thisStorage?.location}</Typography>
-                    </Grid>
-                    <Grid item xs={6} md={3} container justify="center" alignItems="center">
-                        <Typography variant="h6">Bin:</Typography>
-                        <Typography variant="h6">{thisStorage?.bin}</Typography>
-                    </Grid>
-                    <Grid item xs={12} md={3} container justify="flex-end" alignItems="center">
-                        <TextField
-                        // fullWidth={true}
-                        className={classes.searchbar}
-                        margin="dense"
-                        variant="outlined"
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                  <Search style={{ color: "rgba(0, 0, 0, 0.4)" }} />
-                                </InputAdornment>
-                            ),
-                        }} />
-                    </Grid>
+        <Paper>
+            <Grid container direction="row" justify="space-between" className={classes.head}>
+                <Grid item xs={12} md={3} container justify="flex-start" alignItems="center">
+                    <ButtonBase onClick={goBack}>
+                        <ChevronLeft className={classes.chevron} />
+                        <Typography variant="h5" className={classes.title}>Storage</Typography>
+                    </ButtonBase>
+                
                 </Grid>
+                <Grid item xs={6} md={3} container justify="center" alignItems="center">
+                    <Typography variant="h6">Location:</Typography>
+                    <Typography variant="h6">{thisStorage?.location}</Typography>
+                </Grid>
+                <Grid item xs={6} md={3} container justify="center" alignItems="center">
+                    <Typography variant="h6">Bin:</Typography>
+                    <Typography variant="h6">{thisStorage?.bin}</Typography>
+                </Grid>
+                <Grid item xs={12} md={3} container justify="flex-end" alignItems="center">
+                    <TextField
+                    // fullWidth={true}
+                    className={classes.searchbar}
+                    margin="dense"
+                    variant="outlined"
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                              <Search style={{ color: "rgba(0, 0, 0, 0.4)" }} />
+                            </InputAdornment>
+                        ),
+                    }} />
+                </Grid>
+            </Grid>
+            <TableContainer>
                 <Table>
                     <TableHead>
                         <TableRow>
@@ -99,7 +99,7 @@ function StorageDetails() {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </>
+        </Paper>
     )
 }
 
