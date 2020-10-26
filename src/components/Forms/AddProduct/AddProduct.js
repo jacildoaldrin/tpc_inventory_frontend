@@ -170,7 +170,7 @@ const AddProduct = () => {
             <Grid container spacing={1} className={styles["grid"]}>
               <Grid item xs={12}>
                 <InputArea
-                  required={true}
+                  required
                   label={"Product Description"}
                   value={productDescription}
                   setValue={setProductDescription}
