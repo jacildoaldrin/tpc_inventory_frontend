@@ -4,7 +4,7 @@ import { TextField } from "@material-ui/core";
 const InputArea = (props) => {
   return (
     <TextField
-      required
+      required={props.required? true : false}
       variant="outlined"
       multiline
       rows="2"

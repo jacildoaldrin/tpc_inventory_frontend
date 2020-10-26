@@ -4,7 +4,7 @@ import { TextField } from "@material-ui/core";
 const InputField = (props) => {
   return (
     <TextField
-      required
+      required={props.required? true : false}
       variant="outlined"
       label={props.label}
       fullWidth
