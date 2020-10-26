@@ -46,7 +46,7 @@ const ProductsTable = () => {
   let result = products;
   if (searchTerm) {
     result = products.filter((product) =>
-      product.description.toLowerCase().includes(searchTerm)
+      product.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 

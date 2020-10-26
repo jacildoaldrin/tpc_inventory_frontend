@@ -10,7 +10,7 @@ const InputField = (props) => {
       fullWidth
       value={props.value}
       onChange={(event) => props.setValue(event.target.value)}
-      type={props.type? "number" : "text"}
+      type={props.type ? "number" : "text"}
     />
   );
 };
