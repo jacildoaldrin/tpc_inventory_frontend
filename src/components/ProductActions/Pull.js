@@ -105,14 +105,14 @@ function Pull(props) {
                 })
         }
         else if (input > productStorageDetails.quantity) {
-            openSnackbar('You are pulling way too much!')
+            openSnackbar('You are pulling way too many items!')
             // setResponse('You are pulling way too much!')
             // setOpen(true)
         }
         else {
             // setResponse(`Even god might not be able to do that!`)
             // setOpen(true)
-            openSnackbar('Even god might not be able to do that!')
+            openSnackbar('Please enter valid qty!')
         }
     }
 

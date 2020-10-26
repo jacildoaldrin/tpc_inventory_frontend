@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState } from 'react';
 import { Button, CircularProgress, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import { useNavigation } from 'contexts/NavigationContext'
 import { useParams } from "react-router-dom";
@@ -6,6 +6,8 @@ import img from 'assets/tpc_logo.jpg'
 import Axios from 'axios';
 import target from 'api/api.target';
 import { useSnackbar } from 'contexts/SnackbarContext';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { useProducts } from "contexts/ProductsContext";
 
 const useStyles = makeStyles(theme=>({
     img: {
@@ -38,10 +40,31 @@ function Push() {
     const { product_id } = useParams();
     const { goBack } = useNavigation();
     const { openSnackbar } = useSnackbar();
+    const [ storageLocations, setStorageLocations ] = useState([]);
+    const { getProductDetails } = useProducts();
+    const [ product, setProduct ] = useState({});
 
     const [submitting, setSubmitting] = React.useState(false)
     // const [open, setOpen] = React.useState(false)
     // const [response, setResponse] = React.useState('')
+
+    useEffect(() => {
+        //get locations
+        Axios.get(`${target}/storages/locations`)
+        .then(res=> {
+            setStorageLocations(res.data)
+        })
+        .catch(err=>console.log(err))
+        
+        //get product details
+        getProduct();
+    }, [])
+
+    async function getProduct() {
+        let product = await getProductDetails(product_id);
+        setProduct(product);
+        // console.log(product);
+    }
 
     const submit = (e) => {
         e.preventDefault()
@@ -73,7 +96,6 @@ function Push() {
         }
     }
         
-
     const onFocus = (event) => event.target.select();
 
     return (
@@ -94,20 +116,32 @@ function Push() {
                 </Typography>
                 <form onSubmit={submit}>
                     <Grid container direction="column">
+                        <img src={img} className={classes.img} alt="imageNAME"/>
                         <Grid container item justify="center">
-                            <Typography>
-                                Product Code: {product_id}
+                            <Typography variant="h5">
+                                {product.description}
                             </Typography>
                         </Grid>
-                        <img src={img} className={classes.img} alt="imageNAME"/>
-                        <TextField 
+                        <Autocomplete
+                            freeSolo
+                            id="location"
+                            options={storageLocations}
+                            getOptionLabel={(option) => option.location}
+                            renderInput={(params) => <TextField {...params}
+                                label="Location" 
+                                variant="outlined"
+                                margin="dense" 
+                                onFocus={onFocus}
+                                />}
+                            />
+                        {/* <TextField 
                             variant="outlined" 
                             margin="dense" 
                             label="Location"
                             id="location"
                             onFocus={onFocus}
                             autoComplete='off'
-                            />
+                            /> */}
                         <TextField
                             variant="outlined" 
                             margin="dense" 
