@@ -144,7 +144,7 @@ const ProductDetails = () => {
     <Fab className={showbtn ? classes.btnfloatshow1 : classes.btnfloathide} aria-haspopup="true" variant="extended">
       <ArrowDropUpIcon /> Restock
     </Fab>
-    <Fab className={showbtn ? classes.btnfloatshow2 : classes.btnfloathide} aria-haspopup="true" variant="extended">
+    <Fab className={showbtn ? classes.btnfloatshow2 : classes.btnfloathide} aria-haspopup="true" variant="extended" onClick={() => viewDetails(`/products/edit-product/${product_id}`)}>
       <ArrowDropUpIcon /> Edit
     </Fab>
     
