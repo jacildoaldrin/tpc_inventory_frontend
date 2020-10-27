@@ -45,15 +45,13 @@ const SuppliersTable = (props) => {
   let result = suppliers;
   if (searchTerm) {
     result = suppliers.filter((supplier) => {
-      console.log(supplier.supplier_email);
       var digits = supplier.id.toString();
-      if (digits.includes(searchTerm)) {
-        return supplier;
-      } else if (
+      if (digits.includes(searchTerm)) return supplier;
+      else if (
         supplier.supplier_name.toLowerCase().includes(searchTerm.toLowerCase())
-      ) {
-        return;
-      } else if (
+      )
+        return true;
+      else if (
         supplier.supplier_email !== null &&
         supplier.supplier_email !== " "
       ) {
@@ -76,14 +74,13 @@ const SuppliersTable = (props) => {
       } else if (
         supplier.supplier_notes !== null &&
         supplier.supplier_notes !== " "
-      ) {
+      )
         if (
           supplier.supplier_notes
             .toLowerCase()
             .includes(searchTerm.toLowerCase())
         )
           return true;
-      }
     });
   }
 
