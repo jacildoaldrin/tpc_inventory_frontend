@@ -58,14 +58,12 @@ function Push() {
         .catch(err=>console.log(err))
         
         //get product details
+        async function getProduct() {
+            let product = await getProductDetails(product_id);
+            setProduct(product);
+        }
         getProduct();
     }, [])
-
-    async function getProduct() {
-        let product = await getProductDetails(product_id);
-        setProduct(product);
-        // console.log(product);
-    }
 
     const submit = (e) => {
         e.preventDefault()

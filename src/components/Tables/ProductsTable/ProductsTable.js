@@ -22,6 +22,8 @@ import { useProducts } from "contexts/ProductsContext";
 import { useNavigation } from "contexts/NavigationContext";
 
 import styles from "./ProductsTable.module.css";
+import target from "api/api.target";
+import img from 'assets/tpc_logo.jpg'
 
 const ProductsTable = () => {
   const { products } = useProducts();
@@ -120,7 +122,8 @@ const ProductsTable = () => {
                 <TableCell align="center">
                   <img
                     alt="img"
-                    src={`http://localhost:8000/images/${row["image"]}`}
+                    src={row["image"] ? `${target}/images/${row["image"]}` : img}
+                    // src={`${target}/images/${row["image"]}`}
                     style={{
                       width: "50px",
                       height: "50px",
