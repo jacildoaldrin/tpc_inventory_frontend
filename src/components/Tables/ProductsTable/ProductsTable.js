@@ -50,25 +50,31 @@ const ProductsTable = () => {
     result = products.filter((product) => {
       var digits = product._id.toString();
       var supplierCodeString = product.supplier_code
-        ? product.supplier_code.toString()
+        ? product.supplier_code.toString().toLowerCase()
         : undefined;
-      if (digits.includes(searchTerm)) return true;
-      else if (supplierCodeString !== undefined) {
-        if (supplierCodeString.includes(searchTerm)) return true;
-      } else if (products.upc !== undefined) {
-        if (products.upc.includes(searchTerm)) return true;
-      } else if (
-        product.description.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      var upcCodeString = product.upc
+        ? product.upc.toString().toLowerCase()
+        : undefined;
+
+      var search = searchTerm.toLowerCase();
+      // console.log(search);
+      // console.log(upcCodeString);
+      // console.log(supplierCodeString);
+      if (digits.includes(search)) {
+        return product;
+      } else if (upcCodeString !== undefined) {
+        if (upcCodeString.includes(search)) return true;
+      } else if (supplierCodeString !== undefined) {
+        if (supplierCodeString.includes(search)) return true;
+      } else if (supplierCodeString !== undefined) {
+        if (supplierCodeString.includes(search)) return true;
+      } else if (product.description.toLowerCase().includes(search)) {
         return true;
-      else if (product.category_name !== undefined) {
-        if (
-          product.category_name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-          return true;
-      } else if (product.stock_qty === searchTerm) return true;
-      else if (product.cost_with_tax === searchTerm) return true;
-      else if (product.unit_sell_price === searchTerm) return true;
+      } else if (product.category_name !== undefined) {
+        if (product.category_name.toLowerCase().includes(search)) return true;
+      } else if (product.stock_qty === search) return true;
+      else if (product.cost_with_tax === search) return true;
+      else if (product.unit_sell_price === search) return true;
     });
   }
 
