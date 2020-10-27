@@ -8,6 +8,8 @@ import ApartmentIcon from "@material-ui/icons/Apartment";
 // components
 import LeftChevron from "components/LeftChevron/LeftChevron";
 import styles from "./AddSupplier.module.css";
+import InputField from "components/InputField/InputField";
+import InputArea from "components/InputArea/InputArea";
 
 // axios
 import axios from "axios";
@@ -74,75 +76,48 @@ const AddSupplier = (props) => {
         <div className={styles["form-body"]}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <InputField
                 required
-                label="Supplier Name"
-                fullWidth
-                variant="outlined"
-                label="Supplier Name"
+                label={"Supplier Name"}
                 value={name}
-                onChange={(event) => setName(event.target.value)}
+                setValue={setName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                id="contactName"
-                name="contactName"
-                label="Contact Name"
-                fullWidth
-                variant="outlined"
+              <InputField
+                label={"Contact Name"}
                 value={contact}
-                onChange={(event) => setContact(event.target.value)}
+                setValue={setContact}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                id="email"
-                name="email"
-                label="Email Address"
-                fullWidth
-                autoComplete="email"
-                variant="outlined"
+              <InputField
+                label={"Email Address"}
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                setValue={setEmail}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                id="phoneNumber"
-                name="phoneNumber"
-                label="Phone Number"
-                fullWidth
-                autoComplete="phone"
-                variant="outlined"
+              <InputField
+                label={"Phone Number"}
                 value={phone}
-                onChange={(event) => setPhone(event.target.value)}
+                setValue={setPhone}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                id="address"
-                name="address"
-                label="Address"
-                fullWidth
-                autoComplete="shipping address-line"
-                variant="outlined"
+              <InputField
+                label={"Address"}
                 value={address}
-                onChange={(event) => setAddress(event.target.value)}
+                setValue={setAddress}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                id="note"
-                name="note"
-                label="Note"
-                fullWidth
-                multiline
+              <InputArea
+                required
                 rows="5"
-                rowsMax="5"
-                variant="outlined"
+                label={"Note"}
                 value={notes}
-                onChange={(event) => setNotes(event.target.value)}
+                setValue={setNotes}
               />
             </Grid>
           </Grid>
