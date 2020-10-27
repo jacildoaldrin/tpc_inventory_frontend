@@ -18,6 +18,7 @@ import InputField from "components/InputField/InputField";
 import InputArea from "components/InputArea/InputArea";
 
 //assets
+import ImagePlaceHolder from "assets/tpc_logo.jpg";
 
 import styles from "./AddProduct.module.css";
 
@@ -37,7 +38,7 @@ const AddProduct = () => {
   const [productNotes, setProductNotes] = useState("");
 
   //image states
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState("");
 
   //collection states
   const [collection, setCollection] = useState("");
@@ -112,12 +113,20 @@ const AddProduct = () => {
     formData.append("supplier_code", supplierCode);
     formData.append("fits_size", fitsSize);
     formData.append("dimensions", dimensions);
-    formData.append("low_stock", lowStock);
-    formData.append("orig_cost", originalCost);
-    formData.append("orig_cost_with_tax", originalCostWithTax);
-    formData.append("unit_sell_price", unitSellingPrice);
     formData.append("product_notes", productNotes);
     formData.append("packaging", packaging);
+
+    formData.append("low_stock", lowStock === "" ? 0 : lowStock);
+    formData.append("orig_cost", originalCost === "" ? 0 : originalCost);
+    formData.append(
+      "orig_cost_with_tax",
+      originalCostWithTax === "" ? 0 : originalCostWithTax
+    );
+    formData.append(
+      "unit_sell_price",
+      unitSellingPrice === "" ? 0 : unitSellingPrice
+    );
+
     formData.append("image", imageFile);
 
     axios
@@ -126,11 +135,6 @@ const AddProduct = () => {
       })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-
-    // axios
-    //   .post("http://httpbin.org/anything", formData)
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -151,14 +155,17 @@ const AddProduct = () => {
       >
         <div className={styles["left-inner-container"]}>
           <div className={"product-image"}>
-            {imageFile !== null ? (
-              <img
-                src={URL.createObjectURL(imageFile)}
-                className={styles["image"]}
-                alt="preview"
-              />
-            ) : null}
+            <img
+              src={
+                imageFile !== ""
+                  ? URL.createObjectURL(imageFile)
+                  : ImagePlaceHolder
+              }
+              className={styles["image"]}
+              alt="preview"
+            />
             <input
+              className={styles["image-input"]}
               type="file"
               name="image"
               accept="image/*"
@@ -197,7 +204,7 @@ const AddProduct = () => {
           </div>
         </div>
         <div className={styles["right-inner-container"]}>
-        <div className={styles["product-price"]}>
+          <div className={styles["product-price"]}>
             <h1 className={styles["heading"]}>Product Price</h1>
             <Grid container spacing={1} className={styles["grid"]}>
               <Grid item xs={12} sm={7}>
