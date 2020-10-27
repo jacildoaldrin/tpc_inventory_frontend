@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from 'react';
-import { Button, CircularProgress, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Button, ButtonBase, CircularProgress, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import { useNavigation } from 'contexts/NavigationContext'
 import { useParams } from "react-router-dom";
 import img from 'assets/tpc_logo.jpg'
@@ -8,6 +8,7 @@ import target from 'api/api.target';
 import { useSnackbar } from 'contexts/SnackbarContext';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useProducts } from "contexts/ProductsContext";
+import { ChevronLeft } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme=>({
     img: {
@@ -110,18 +111,24 @@ function Push() {
             onClose={()=>setOpen(false)}
             message={response}
             /> */}
+            
             <Grid container direction="column" alignItems="center" className={classes.container}>
-                <Typography variant="h4">
-                    PUSH
-                </Typography>
+                <Grid container alignItems="center" justify="space-between">
+                    <ButtonBase onClick={goBack}><ChevronLeft style={{fontSize:"10vh"}}  /></ButtonBase>
+                    <Grid item container xs={8} justify="flex-end"> 
+                        <Typography variant="h5" align="right">
+                            {product.description}
+                        </Typography>
+                    </Grid>
+                </Grid>
                 <form onSubmit={submit}>
                     <Grid container direction="column">
-                        <img src={img} className={classes.img} alt="imageNAME"/>
                         <Grid container item justify="center">
                             <Typography variant="h5">
-                                {product.description}
+                                PUSH
                             </Typography>
                         </Grid>
+                        <img src={img} className={classes.img} alt="imageNAME"/>
                         <Autocomplete
                             freeSolo
                             id="location"
