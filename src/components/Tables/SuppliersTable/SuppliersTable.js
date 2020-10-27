@@ -45,7 +45,7 @@ const SuppliersTable = (props) => {
   let result = suppliers;
   if (searchTerm) {
     result = suppliers.filter((supplier) =>
-      supplier.supplier_name.toLowerCase().includes(searchTerm)
+      supplier.supplier_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 

@@ -3,8 +3,6 @@ import { useParams } from "react-router-dom";
 
 // images
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import img from "assets/tpc_logo.jpg";
-import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 
 //context
 import { useSuppliers } from "contexts/SuppliersContext";
@@ -14,19 +12,10 @@ import { useNavigation } from "contexts/NavigationContext";
 import {
   Button,
   ButtonBase,
-  Chip,
   Container,
-  Fab,
   Grid,
-  Hidden,
   makeStyles,
   Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
 } from "@material-ui/core";
 

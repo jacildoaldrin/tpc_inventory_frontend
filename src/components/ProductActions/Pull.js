@@ -1,12 +1,13 @@
-import React from 'react'
+import React,  { useEffect } from 'react'
 import img from 'assets/tpc_logo.jpg'
-import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Button, ButtonBase, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, makeStyles, TextField, Typography } from '@material-ui/core'
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
 import target from 'api/api.target'
-import { useProducts } from "contexts/ProductsContext";
+import { products, useProducts } from "contexts/ProductsContext";
 import { useNavigation } from 'contexts/NavigationContext'
 import { useSnackbar } from 'contexts/SnackbarContext'
+import { ChevronLeft } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme=>({
     img: {
@@ -34,13 +35,17 @@ const useStyles = makeStyles(theme=>({
         fontSize: "1.1rem",
         margin: "5px",
         textAlign: "center"
+    },
+    underline: {
+        borderBottom: "1px solid lightgray",
+        marginBottom: "1rem"
     }
 }))
 
 function Pull(props) {
-    const { product_id, storage_id} = useParams()
+    const { product_id, storage_id } = useParams()
     //product used if you need to reference image
-    const [product, setProduct] = React.useState(null);
+    const [product, setProduct] = React.useState({});
     const [input, setInput] = React.useState(0);
     const [productStorageDetails, setProductStorageDetails] = React.useState(null);
     const [submitting, setSubmitting] = React.useState(false)
@@ -50,13 +55,16 @@ function Pull(props) {
     const { getProductDetails } = useProducts();
     const { goBack } = useNavigation();
     const { openSnackbar } = useSnackbar();
-
-    async function getProduct() {
-        let product = await getProductDetails(product_id);
-        setProduct(product);
-        // console.log(product);
-    }
     
+    useEffect(() => {
+        //get product details
+        async function getProduct() {
+            let product = await getProductDetails(product_id);
+            setProduct(product);
+        }
+        getProduct();
+    }, [])
+
     const getProductStorageDetails = () => {
         // console.log(`${target}/getThisProductInAllStorages/${product_id}`)
         Axios.get(`${target}/storages/getThisProductInAllStorages/${product_id}`)
@@ -163,13 +171,18 @@ function Pull(props) {
             message={response}
             /> */}
             <Grid container direction="column" alignItems="center" className={classes.container}>
-                <Typography variant="h4">
-                    PULL
-                </Typography>
+                <Grid container justify="space-between" className={classes.underline}>
+                    <ButtonBase onClick={goBack}><ChevronLeft style={{fontSize:"10vh"}}  /></ButtonBase>
+                    <Grid item xs={8}>
+                        <Typography variant="h6" align="right">
+                            {product.description}
+                        </Typography>
+                    </Grid>
+                </Grid>
                 <Grid container direction="column">
-                    <Grid container item justify="center">
-                        <Typography>
-                            Product Code: {product_id}
+                <Grid container item justify="center">
+                        <Typography variant="h4">
+                            PULL
                         </Typography>
                     </Grid>
                     <img src={img} className={classes.img} alt="imageNAME"/>
