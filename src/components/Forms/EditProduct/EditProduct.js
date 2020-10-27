@@ -46,7 +46,7 @@ const EditProduct = () => {
   useEffect(() => {
     const getProductDetails = async () => {
       await axios
-        .get(`${process.env.REACT_APP_BACKEND_API_KEY}/products/${product_id}`)
+        .get(`${target}/products/${product_id}`)
         .then((res) => {
           setImage(res.data["image"] || "");
           setListingName(res.data["list_name"] || "");
@@ -116,7 +116,7 @@ const EditProduct = () => {
                 src={
                   image === ""
                     ? Logo
-                    : `${process.env.REACT_APP_BACKEND_API_KEY}/images/${image}`
+                    : `${target}/images/${image}`
                 }
                 className={styles["image"]}
                 alt={image}
