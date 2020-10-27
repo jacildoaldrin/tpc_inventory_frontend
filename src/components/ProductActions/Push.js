@@ -32,6 +32,10 @@ const useStyles = makeStyles(theme=>({
         fontSize: "1.1rem",
         margin: "5px",
         textAlign: "center"
+    },
+    underline: {
+        borderBottom: "1px solid lightgray",
+        marginBottom: "1rem"
     }
 }))
 
@@ -111,10 +115,10 @@ function Push() {
             /> */}
             
             <Grid container direction="column" alignItems="center" className={classes.container}>
-                <Grid container alignItems="center" justify="space-between">
+                <Grid container alignItems="center" justify="space-between" className={classes.underline}>
                     <ButtonBase onClick={goBack}><ChevronLeft style={{fontSize:"10vh"}}  /></ButtonBase>
                     <Grid item container xs={8} justify="flex-end"> 
-                        <Typography variant="h5" align="right">
+                        <Typography variant="h6" align="right">
                             {product.description}
                         </Typography>
                     </Grid>
@@ -122,7 +126,7 @@ function Push() {
                 <form onSubmit={submit}>
                     <Grid container direction="column">
                         <Grid container item justify="center">
-                            <Typography variant="h5">
+                            <Typography variant="h4">
                                 PUSH
                             </Typography>
                         </Grid>

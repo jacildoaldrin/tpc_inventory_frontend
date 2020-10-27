@@ -4,7 +4,7 @@ import { Button, ButtonBase, CircularProgress, Dialog, DialogActions, DialogCont
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
 import target from 'api/api.target'
-import { useProducts } from "contexts/ProductsContext";
+import { products, useProducts } from "contexts/ProductsContext";
 import { useNavigation } from 'contexts/NavigationContext'
 import { useSnackbar } from 'contexts/SnackbarContext'
 import { ChevronLeft } from '@material-ui/icons'
@@ -35,6 +35,10 @@ const useStyles = makeStyles(theme=>({
         fontSize: "1.1rem",
         margin: "5px",
         textAlign: "center"
+    },
+    underline: {
+        borderBottom: "1px solid lightgray",
+        marginBottom: "1rem"
     }
 }))
 
@@ -167,17 +171,17 @@ function Pull(props) {
             message={response}
             /> */}
             <Grid container direction="column" alignItems="center" className={classes.container}>
-                <Grid container justify="space-between">
+                <Grid container justify="space-between" className={classes.underline}>
                     <ButtonBase onClick={goBack}><ChevronLeft style={{fontSize:"10vh"}}  /></ButtonBase>
                     <Grid item xs={8}>
-                        <Typography variant="h5" align="right">
+                        <Typography variant="h6" align="right">
                             {product.description}
                         </Typography>
                     </Grid>
                 </Grid>
                 <Grid container direction="column">
                 <Grid container item justify="center">
-                        <Typography variant="h5">
+                        <Typography variant="h4">
                             PULL
                         </Typography>
                     </Grid>
