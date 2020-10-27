@@ -164,14 +164,13 @@ const AddProduct = () => {
               className={styles["image"]}
               alt="preview"
             />
-            <div style={{}}>
-              <input
-                type="file"
-                name="image"
-                accept="image/*"
-                onChange={(event) => handleImageFile(event)}
-              />
-            </div>
+            <input
+              className={styles["image-input"]}
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={(event) => handleImageFile(event)}
+            />
           </div>
           <div className={styles["product-info"]}>
             <h1 className={styles["heading"]}>Product Info</h1>
