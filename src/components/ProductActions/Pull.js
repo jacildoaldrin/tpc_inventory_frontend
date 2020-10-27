@@ -1,12 +1,13 @@
 import React,  { useEffect } from 'react'
 import img from 'assets/tpc_logo.jpg'
-import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Button, ButtonBase, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, makeStyles, TextField, Typography } from '@material-ui/core'
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
 import target from 'api/api.target'
 import { useProducts } from "contexts/ProductsContext";
 import { useNavigation } from 'contexts/NavigationContext'
 import { useSnackbar } from 'contexts/SnackbarContext'
+import { ChevronLeft } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme=>({
     img: {
@@ -166,16 +167,21 @@ function Pull(props) {
             message={response}
             /> */}
             <Grid container direction="column" alignItems="center" className={classes.container}>
-                <Typography variant="h4">
-                    PULL
-                </Typography>
-                <Grid container direction="column">
-                    <img src={img} className={classes.img} alt="imageNAME"/>
-                    <Grid container item justify="center">
-                        <Typography variant="h6">
+                <Grid container justify="space-between">
+                    <ButtonBase onClick={goBack}><ChevronLeft style={{fontSize:"10vh"}}  /></ButtonBase>
+                    <Grid item xs={8}>
+                        <Typography variant="h5" align="right">
                             {product.description}
                         </Typography>
                     </Grid>
+                </Grid>
+                <Grid container direction="column">
+                <Grid container item justify="center">
+                        <Typography variant="h5">
+                            PULL
+                        </Typography>
+                    </Grid>
+                    <img src={img} className={classes.img} alt="imageNAME"/>
                     <Grid container item className={classes.greenBox}>
                         <Grid container item justify="space-evenly">
                             <Typography className={classes.txt}>Location:</Typography>
