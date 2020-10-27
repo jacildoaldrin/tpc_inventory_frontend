@@ -22,6 +22,8 @@ import { useProducts } from "contexts/ProductsContext";
 import { useNavigation } from "contexts/NavigationContext";
 
 import styles from "./ProductsTable.module.css";
+import target from "api/api.target";
+import img from 'assets/tpc_logo.jpg'
 
 const ProductsTable = () => {
   const { products } = useProducts();
@@ -80,84 +82,82 @@ const ProductsTable = () => {
         </div>
       </div>
       <TableContainer className={styles["container"]}>
-        <Table className={styles["table"]} aria-label="simple table">
-          <TableHead className={styles["table-header"]}>
-            <TableRow>
-              <TableCell align="center" width="5%" />
-              <TableCell align="center" width="5%">
-                <b>Product Code</b>
-              </TableCell>
-              <TableCell align="left" width="20%">
-                <b>Product Description</b>
-              </TableCell>
-              <TableCell align="left" width="15%">
-                <b>Date Added</b>
-              </TableCell>
-              <TableCell align="left" width="15%">
-                <b>Last Modified</b>
-              </TableCell>
-              <TableCell align="left" width="10%">
-                <b>Quantity</b>
-              </TableCell>
-              <TableCell align="left" width="10%">
-                <b>Unit Total Cost</b>
-              </TableCell>
-              <TableCell align="left" width="10%">
-                <b>Unit Sell Price</b>
-              </TableCell>
-              <TableCell align="left" width="5%">
-                <b>Category</b>
-              </TableCell>
-              <TableCell align="center" width="5%">
-                <b>Action</b>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {result
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
-                <TableRow
-                  key={row["_id"]}
-                  className={styles["table-row"]}
-                  onClick={() =>
-                    viewDetails(`products/product-details/${row["_id"]}`)
-                  }
-                >
-                  <TableCell align="center">
-                    <img
-                      alt="img"
-                      src={`http://localhost:8000/images/${row["image"]}`}
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                      }}
-                    />
-                  </TableCell>
-                  <TableCell align="center">{row["_id"]}</TableCell>
-                  <TableCell align="left">{row["description"]}</TableCell>
-                  <TableCell align="left">
-                    {Moment(row["date_added"]).format("MMMM D, YYYY, HH:MM a")}
-                  </TableCell>
-                  <TableCell align="left">
-                    {Moment(row["date_modified"]).format(
-                      "MMMM D, YYYY, HH:MM a"
-                    )}
-                  </TableCell>
-                  <TableCell align="left">{row["stock_qty"]}</TableCell>
-                  <TableCell align="left">{row["cost_with_tax"]}</TableCell>
-                  <TableCell align="left">{row["unit_sell_price"]}</TableCell>
-                  <TableCell align="left">{row["category_name"]}</TableCell>
-                  <TableCell align="center">
-                    <MoreVertIcon />
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
+      <Table className={styles["table"]} aria-label="simple table">
+        <TableHead className={styles["table-header"]}>
+          <TableRow>
+            <TableCell align="center" width="5%" />
+            <TableCell align="center" width="5%">
+              <b>Product Code</b>
+            </TableCell>
+            <TableCell align="left" width="20%">
+              <b>Product Description</b>
+            </TableCell>
+            <TableCell align="left" width="15%">
+              <b>Date Added</b>
+            </TableCell>
+            <TableCell align="left" width="15%">
+              <b>Last Modified</b>
+            </TableCell>
+            <TableCell align="left" width="10%">
+              <b>Quantity</b>
+            </TableCell>
+            <TableCell align="left" width="10%">
+              <b>Unit Total Cost</b>
+            </TableCell>
+            <TableCell align="left" width="10%">
+              <b>Unit Sell Price</b>
+            </TableCell>
+            <TableCell align="left" width="5%">
+              <b>Category</b>
+            </TableCell>
+            <TableCell align="center" width="5%">
+              <b>Action</b>
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {result
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((row) => (
+              <TableRow
+                key={row["_id"]}
+                className={styles["table-row"]}
+                onClick={() =>
+                  viewDetails(`products/product-details/${row["_id"]}`)
+                }
+              >
+                <TableCell align="center">
+                  <img
+                    alt="img"
+                    src={row["image"] ? `${target}/images/${row["image"]}` : img}
+                    // src={`${target}/images/${row["image"]}`}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                </TableCell>
+                <TableCell align="center">{row["_id"]}</TableCell>
+                <TableCell align="left">{row["description"]}</TableCell>
+                <TableCell align="left">
+                  {Moment(row["date_added"]).format("MMMM D, YYYY, HH:MM a")}
+                </TableCell>
+                <TableCell align="left">
+                  {Moment(row["date_modified"]).format("MMMM D, YYYY, HH:MM a")}
+                </TableCell>
+                <TableCell align="left">{row["stock_qty"]}</TableCell>
+                <TableCell align="left">{row["cost_with_tax"]}</TableCell>
+                <TableCell align="left">{row["unit_sell_price"]}</TableCell>
+                <TableCell align="left">{row["category_name"]}</TableCell>
+                <TableCell align="center">
+                  <MoreVertIcon />
+                </TableCell>
+              </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
       <TablePagination
         component="div"
         rowsPerPageOptions={[5, 10, 15]}

@@ -121,7 +121,7 @@ const AddProduct = () => {
     formData.append("image", imageFile);
 
     axios
-      .post("http://localhost:8000/products/add-product", formData, {
+      .post("http://localhost:8000/products", formData, {
         "content-type": "multipart/form-data",
       })
       .then((res) => console.log(res))
