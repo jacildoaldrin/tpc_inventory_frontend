@@ -10,6 +10,8 @@ import {
   Chip,
 } from "@material-ui/core";
 
+import target from "api/api.target";
+
 //context
 import { useNavigation } from "contexts/NavigationContext";
 
@@ -92,10 +94,7 @@ const EditProduct = () => {
       formData.append("newImage", newImage);
     }
 
-    axios.put(
-      `${process.env.REACT_APP_BACKEND_API_KEY}/products/${product_id}`,
-      formData
-    );
+    axios.put(`${target}/products/${product_id}`, formData);
   };
 
   const handleImageFile = (event) => {

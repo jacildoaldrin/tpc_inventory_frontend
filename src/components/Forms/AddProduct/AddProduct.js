@@ -10,6 +10,8 @@ import {
 } from "@material-ui/core";
 import LeftChevron from "components/LeftChevron/LeftChevron";
 
+import target from "api/api.target";
+
 //context
 import { useNavigation } from "contexts/NavigationContext";
 
@@ -132,7 +134,7 @@ const AddProduct = () => {
     formData.append("image", imageFile);
 
     axios
-      .post("http://localhost:8000/products", formData, {
+      .post(`${target}/products`, formData, {
         "content-type": "multipart/form-data",
       })
       .then((res) => console.log(res))
@@ -141,7 +143,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     async function getCollections() {
-      let res = await axios.get("http://localhost:8000/collections");
+      let res = await axios.get(`${target}/collections`);
       setCollections(res.data);
     }
     getCollections();
