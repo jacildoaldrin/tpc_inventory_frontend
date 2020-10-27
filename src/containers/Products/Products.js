@@ -9,6 +9,7 @@ import AddButton from "components/AddButton/AddButton";
 import AddProductForm from "components/Forms/AddProduct/AddProduct";
 import ProductsTable from "components/Tables/ProductsTable/ProductsTable";
 import ProductDetails from "components/Details/ProductDetails/ProductDetails";
+import EditProduct from "components/Forms/EditProduct/EditProduct";
 
 import styles from "./Products.module.css";
 import Push from "components/ProductActions/Push";
@@ -25,6 +26,9 @@ const Products = () => {
         </Route>
         <Route path={`${match.url}/add-product`}>
           <AddProductForm />
+        </Route>
+        <Route path={`${match.url}/edit-product/:product_id`}>
+          <EditProduct />
         </Route>
         <Route path={`${match.url}/product-details/:product_id`}>
           <ProductDetails />

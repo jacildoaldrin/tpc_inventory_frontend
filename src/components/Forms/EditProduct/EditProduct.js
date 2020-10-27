@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import {
   Grid,
@@ -8,25 +9,27 @@ import {
   MenuItem,
   Chip,
 } from "@material-ui/core";
-import LeftChevron from "components/LeftChevron/LeftChevron";
 
 import target from "api/api.target";
 
 //context
 import { useNavigation } from "contexts/NavigationContext";
 
-//component
+//assets
+import Logo from "assets/tpc_logo.jpg";
+
+//components
+import LeftChevron from "components/LeftChevron/LeftChevron";
 import InputField from "components/InputField/InputField";
 import InputArea from "components/InputArea/InputArea";
 
-//assets
-import ImagePlaceHolder from "assets/tpc_logo.jpg";
+import styles from "./EditProduct.module.css";
 
-import styles from "./AddProduct.module.css";
-
-const AddProduct = () => {
+const EditProduct = () => {
   const { goBack } = useNavigation();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { product_id } = useParams();
+  const [image, setImage] = useState("");
+  const [newImage, setNewImage] = useState("");
   const [unitSellingPrice, setUnitSellingPrice] = useState("");
   const [originalCost, setOriginalCost] = useState("");
   const [originalCostWithTax, setOriginalCostWithTax] = useState("");
@@ -40,77 +43,32 @@ const AddProduct = () => {
   const [packaging, setPackaging] = useState("");
   const [productNotes, setProductNotes] = useState("");
 
-  //image states
-  const [imageFile, setImageFile] = useState("");
-
-  //collection states
-  const [collection, setCollection] = useState("");
-  const [collections, setCollections] = useState([]);
-  const [collectionsSelected, setCollectionsSelected] = useState([]);
-  const [openCollection, setOpenCollection] = useState(false);
-
-  //tag states
-  const [tag, setTag] = useState("");
-  const [tags, setTags] = useState([]);
-  const [openTag, setOpenTag] = useState(false);
-
-  const handleChangeCollection = (event) => {
-    if (
-      event.target.value !== "" &&
-      !collectionsSelected.includes(event.target.value)
-    ) {
-      let temp = collectionsSelected;
-      temp.push(event.target.value);
-      setCollectionsSelected([...temp]);
-    }
-    setCollection("");
-  };
-
-  const handleOpenCollection = () => {
-    setOpenCollection(true);
-  };
-
-  const handleCloseCollection = () => {
-    setOpenCollection(false);
-  };
-
-  const handleRemoveCollection = (index) => {
-    let temp = collectionsSelected;
-    temp.splice(index, 1);
-    setCollectionsSelected([...temp]);
-  };
-
-  const handleChangeTag = (event) => {
-    if (event.target.value !== "" && !tags.includes(event.target.value)) {
-      let temp = tags;
-      temp.push(event.target.value);
-      setTags([...temp]);
-    }
-    setTag("");
-  };
-
-  const handleOpenTag = () => {
-    setOpenTag(true);
-  };
-
-  const handleCloseTag = () => {
-    setOpenTag(false);
-  };
-
-  const handleRemoveTag = (index) => {
-    let temp = tags;
-    temp.splice(index, 1);
-    setTags([...temp]);
-  };
-
-  const handleImageFile = (event) => {
-    setImageFile(event.target.files[0]);
-  };
+  useEffect(() => {
+    const getProductDetails = async () => {
+      await axios
+        .get(`${process.env.REACT_APP_BACKEND_API_KEY}/products/${product_id}`)
+        .then((res) => {
+          setImage(res.data["image"] || "");
+          setListingName(res.data["list_name"] || "");
+          setProductDescription(res.data["description"] || "");
+          setUpc(res.data["upc"] || "");
+          setSupplierCode(res.data["supplier_code"] || "");
+          setFitsSize(res.data["fits_size"] || "");
+          setDimensions(res.data["dimensions"] || "");
+          setLowStock(res.data["low_stock"] || "");
+          setOriginalCost(res.data["orig_cost"] || "");
+          setOriginalCostWithTax(res.data["orig_cost_with_tax"] || "");
+          setUnitSellingPrice(res.data["unit_sell_price"] || "");
+          setProductNotes(res.data["product_notes"] || "");
+          setPackaging(res.data["packaging"] || "");
+        });
+    };
+    getProductDetails();
+  }, [product_id]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setIsSubmitting(true);
-    const formData = new FormData();
+    let formData = new FormData();
     formData.append("list_name", listingName);
     formData.append("description", productDescription);
     formData.append("upc", upc);
@@ -131,45 +89,46 @@ const AddProduct = () => {
       unitSellingPrice === "" ? 0 : unitSellingPrice
     );
 
-    formData.append("image", imageFile);
+    formData.append("image", image);
+    if (newImage !== "") {
+      formData.append("newImage", newImage);
+    }
 
-    axios
-      .post(`${target}/products`, formData, {
-        "content-type": "multipart/form-data",
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    axios.put(`${target}/products/${product_id}`, formData);
   };
 
-  useEffect(() => {
-    async function getCollections() {
-      let res = await axios.get(`${target}/collections`);
-      setCollections(res.data);
-    }
-    getCollections();
-  }, []);
+  const handleImageFile = (event) => {
+    setNewImage(event.target.files[0]);
+  };
 
   return (
-    <div className={styles["add-product"]}>
+    <div className={styles["edit-product"]}>
       <LeftChevron />
-      <h1 className={styles["header"]}>ADD PRODUCT</h1>
+      <h1 className={styles["header"]}>EDIT PRODUCT</h1>
       <form
         className={styles["container"]}
         onSubmit={(event) => handleSubmit(event)}
       >
         <div className={styles["left-inner-container"]}>
           <div className={"product-image"}>
-            <img
-              src={
-                imageFile !== ""
-                  ? URL.createObjectURL(imageFile)
-                  : ImagePlaceHolder
-              }
-              className={styles["image"]}
-              alt="preview"
-            />
+            {!newImage ? (
+              <img
+                src={
+                  image === ""
+                    ? Logo
+                    : `${process.env.REACT_APP_BACKEND_API_KEY}/images/${image}`
+                }
+                className={styles["image"]}
+                alt={image}
+              />
+            ) : (
+              <img
+                src={URL.createObjectURL(newImage)}
+                alt="new"
+                className={styles["image"]}
+              />
+            )}
             <input
-              className={styles["image-input"]}
               type="file"
               name="image"
               accept="image/*"
@@ -254,7 +213,7 @@ const AddProduct = () => {
                   setValue={setDimensions}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControl fullWidth variant="outlined">
                   <InputLabel
                     id="collection-label"
@@ -291,8 +250,8 @@ const AddProduct = () => {
                     />
                   ))}
                 </h6>
-              </Grid>
-              <Grid item xs={12}>
+              </Grid> */}
+              {/* <Grid item xs={12}>
                 <FormControl fullWidth variant="outlined">
                   <InputLabel
                     id="tags-label"
@@ -327,7 +286,7 @@ const AddProduct = () => {
                     />
                   ))}
                 </h6>
-              </Grid>
+              </Grid> */}
               <Grid item xs={12} sm={6}>
                 <InputField
                   label={"Low Stock"}
@@ -353,9 +312,7 @@ const AddProduct = () => {
             </Grid>
           </div>
           <div className={styles["buttons"]}>
-            <button className={styles["button"]} disabled={isSubmitting}>
-              Submit
-            </button>
+            <button className={styles["button"]}>Submit</button>
             <button className={styles["button"]} onClick={() => goBack()}>
               Cancel
             </button>
@@ -366,4 +323,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;
