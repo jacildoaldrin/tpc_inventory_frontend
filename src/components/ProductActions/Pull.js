@@ -4,7 +4,7 @@ import { Button, ButtonBase, CircularProgress, Dialog, DialogActions, DialogCont
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
 import target from 'api/api.target'
-import { products, useProducts } from "contexts/ProductsContext";
+import { useProducts } from "contexts/ProductsContext";
 import { useNavigation } from 'contexts/NavigationContext'
 import { useSnackbar } from 'contexts/SnackbarContext'
 import { ChevronLeft } from '@material-ui/icons'

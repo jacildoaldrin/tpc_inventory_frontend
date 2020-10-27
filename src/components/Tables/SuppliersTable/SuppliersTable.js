@@ -44,9 +44,44 @@ const SuppliersTable = (props) => {
 
   let result = suppliers;
   if (searchTerm) {
-    result = suppliers.filter((supplier) =>
-      supplier.supplier_name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    result = suppliers.filter((supplier) => {
+      var digits = supplier.id.toString();
+      if (digits.includes(searchTerm)) return supplier;
+      else if (
+        supplier.supplier_name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+        return true;
+      else if (
+        supplier.supplier_email !== null &&
+        supplier.supplier_email !== " "
+      ) {
+        if (
+          supplier.supplier_email
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        )
+          return true;
+      } else if (
+        supplier.supplier_contact !== null &&
+        supplier.supplier_contact !== " "
+      ) {
+        if (
+          supplier.supplier_contact
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        )
+          return true;
+      } else if (
+        supplier.supplier_notes !== null &&
+        supplier.supplier_notes !== " "
+      )
+        if (
+          supplier.supplier_notes
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        )
+          return true;
+    });
   }
 
   return (
@@ -72,54 +107,54 @@ const SuppliersTable = (props) => {
         </div>
       </div>
       <TableContainer className={styles["container"]}>
-      <Table className={styles["table"]} aria-label="simple table">
-        <TableHead className={styles["table-header"]}>
-          <TableRow>
-            <TableCell align="center" width="5%">
-              <b>ID</b>
-            </TableCell>
-            <TableCell align="left" width="10%">
-              <b>Name</b>
-            </TableCell>
-            <TableCell align="left" width="10%">
-              <b>Email</b>
-            </TableCell>
-            {/* <TableCell align="left" width="10%">
+        <Table className={styles["table"]} aria-label="simple table">
+          <TableHead className={styles["table-header"]}>
+            <TableRow>
+              <TableCell align="center" width="5%">
+                <b>ID</b>
+              </TableCell>
+              <TableCell align="left" width="10%">
+                <b>Name</b>
+              </TableCell>
+              <TableCell align="left" width="10%">
+                <b>Email</b>
+              </TableCell>
+              {/* <TableCell align="left" width="10%">
               <b>Phone #</b>
             </TableCell>
             <TableCell align="left" width="20%">
               <b>Address</b>
             </TableCell> */}
-            <TableCell align="left" width="10%">
-              <b>Contact</b>
-            </TableCell>
-            <TableCell align="left" width="15%">
-              <b>Notes</b>
-            </TableCell>
-            <TableCell align="center" width="5%">
-              <b>Action</b>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {result
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row) => (
-              <TableRow
-                key={row.id}
-                className={styles["table-row"]}
-                onClick={() =>
-                  viewDetails(`suppliers/supplier-details/${row["id"]}`)
-                }
-              >
-                <TableCell align="center">{row["id"]}</TableCell>
-                <TableCell align="left">{row["supplier_name"]}</TableCell>
-                <TableCell align="left">
-                  {row["supplier_email"] === null
-                    ? "N/A"
-                    : row["supplier_email"]}
-                </TableCell>
-                {/* <TableCell align="left">
+              <TableCell align="left" width="10%">
+                <b>Contact</b>
+              </TableCell>
+              <TableCell align="left" width="15%">
+                <b>Notes</b>
+              </TableCell>
+              <TableCell align="center" width="5%">
+                <b>Action</b>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {result
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => (
+                <TableRow
+                  key={row.id}
+                  className={styles["table-row"]}
+                  onClick={() =>
+                    viewDetails(`suppliers/supplier-details/${row["id"]}`)
+                  }
+                >
+                  <TableCell align="center">{row["id"]}</TableCell>
+                  <TableCell align="left">{row["supplier_name"]}</TableCell>
+                  <TableCell align="left">
+                    {row["supplier_email"] === null
+                      ? "N/A"
+                      : row["supplier_email"]}
+                  </TableCell>
+                  {/* <TableCell align="left">
                   {row["supplier_phone"] === null
                     ? "N/A"
                     : row["supplier_phone"]}
@@ -129,25 +164,25 @@ const SuppliersTable = (props) => {
                     ? "N/A"
                     : row["supplier_address"]}
                 </TableCell> */}
-                <TableCell align="left">
-                  {row["supplier_contact"] === null
-                    ? "N/A"
-                    : row["supplier_contact"]}
-                </TableCell>
-                <TableCell align="left">
-                  {row["supplier_notes"] === null
-                    ? "N/A"
-                    : row["supplier_notes"]}
-                </TableCell>
-                <TableCell align="center">
-                  <MoreVertIcon />
-                </TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    <TablePagination
+                  <TableCell align="left">
+                    {row["supplier_contact"] === null
+                      ? "N/A"
+                      : row["supplier_contact"]}
+                  </TableCell>
+                  <TableCell align="left">
+                    {row["supplier_notes"] === null
+                      ? "N/A"
+                      : row["supplier_notes"]}
+                  </TableCell>
+                  <TableCell align="center">
+                    <MoreVertIcon />
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
         component="div"
         rowsPerPageOptions={[5, 10, 15]}
         rowsPerPage={rowsPerPage}

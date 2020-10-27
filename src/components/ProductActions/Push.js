@@ -13,7 +13,7 @@ import { ChevronLeft } from '@material-ui/icons';
 const useStyles = makeStyles(theme=>({
     img: {
         display: "block",
-        maxWidth: "70%",
+        maxWidth: "55%",
         border: "1px solid lightgray",
         borderRadius: "5%",
         margin: "0 auto",
