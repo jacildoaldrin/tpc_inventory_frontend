@@ -50,7 +50,9 @@ const ProductsTable = () => {
     result = products.filter((product) => {
       var digits = product._id.toString();
       if (digits.includes(searchTerm)) return product;
-      else if (
+      else if (products.upc !== undefined) {
+        if (products.upc.includes(searchTerm)) return true;
+      } else if (
         product.description.toLowerCase().includes(searchTerm.toLowerCase())
       )
         return true;
@@ -98,19 +100,19 @@ const ProductsTable = () => {
               <TableCell align="left" width="20%">
                 <b>Product Description</b>
               </TableCell>
-              {/* <TableCell align="left" width="15%">
-                <b>Date Added</b>
+              <TableCell align="left" width="5%">
+                <b>UPC</b>
               </TableCell>
-              <TableCell align="left" width="15%">
+              {/* <TableCell align="left" width="15%">
                 <b>Last Modified</b>
               </TableCell> */}
-              <TableCell align="left" width="10%">
+              <TableCell align="left" width="5%">
                 <b>Quantity</b>
               </TableCell>
-              <TableCell align="left" width="10%">
+              <TableCell align="left" width="5%">
                 <b>Unit Total Cost</b>
               </TableCell>
-              <TableCell align="left" width="10%">
+              <TableCell align="left" width="5%">
                 <b>Unit Sell Price</b>
               </TableCell>
               <TableCell align="left" width="5%">
@@ -148,6 +150,7 @@ const ProductsTable = () => {
                   </TableCell>
                   <TableCell align="center">{row["_id"]}</TableCell>
                   <TableCell align="left">{row["description"]}</TableCell>
+                  <TableCell align="left">{row["upc"]}</TableCell>
                   {/* <TableCell align="left">
                     {Moment(row["date_added"]).format("MMMM D, YYYY, HH:MM a")}
                   </TableCell>
