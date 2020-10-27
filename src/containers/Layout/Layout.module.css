@@ -19,6 +19,8 @@
   width: 100%;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   background-color: white;
+  position: fixed;
+  z-index: 2;
 }
 
 .main {
@@ -26,6 +28,7 @@
   height: 1100px;
   width: 80%;
   padding-bottom: 50px;
+  padding-top: 100px;
 }
 
 .footer {
