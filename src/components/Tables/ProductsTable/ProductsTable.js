@@ -49,8 +49,13 @@ const ProductsTable = () => {
   if (searchTerm) {
     result = products.filter((product) => {
       var digits = product._id.toString();
-      if (digits.includes(searchTerm)) return product;
-      else if (products.upc !== undefined) {
+      var supplierCodeString = product.supplier_code
+        ? product.supplier_code.toString()
+        : undefined;
+      if (digits.includes(searchTerm)) return true;
+      else if (supplierCodeString !== undefined) {
+        if (supplierCodeString.includes(searchTerm)) return true;
+      } else if (products.upc !== undefined) {
         if (products.upc.includes(searchTerm)) return true;
       } else if (
         product.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -118,9 +123,9 @@ const ProductsTable = () => {
               <TableCell align="left" width="5%">
                 <b>Category</b>
               </TableCell>
-              {/* <TableCell align="center" width="5%">
-                <b>Action</b>
-              </TableCell> */}
+              <TableCell align="center" width="5%">
+                <b>Supplier</b>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -163,9 +168,7 @@ const ProductsTable = () => {
                   <TableCell align="left">{row["cost_with_tax"]}</TableCell>
                   <TableCell align="left">{row["unit_sell_price"]}</TableCell>
                   <TableCell align="left">{row["category_name"]}</TableCell>
-                  {/* <TableCell align="center">
-                    <MoreVertIcon />
-                  </TableCell> */}
+                  <TableCell align="center">{row["supplier_code"]}</TableCell>
                 </TableRow>
               ))}
           </TableBody>
