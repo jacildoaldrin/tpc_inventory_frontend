@@ -1,16 +1,17 @@
-import { ButtonBase, Grid, InputAdornment, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography } from '@material-ui/core';
+import { ButtonBase, Grid, InputAdornment, makeStyles, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography } from '@material-ui/core';
 import { useStorage } from 'contexts/StorageContext';
 import { Search, MoreVert, ChevronLeft } from '@material-ui/icons';
 import { useNavigation } from "contexts/NavigationContext";
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const useStyles = makeStyles(theme => ({
     title: {
         display: "inline",
         marginRight: "8px"
     },
-    searchbar: {
-        display: "inline",
+    selectFilter: {
+        marginRight: "16px",
+        width: "160px"
     },
     titleContainer: {
         marginTop: "10px"
@@ -28,7 +29,9 @@ function StorageTable() {
     const { storage } = useStorage();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [select, setSelect] = React.useState('----');
     const { viewDetails, goBack } = useNavigation();
+    const uniqueLocations = [...new Set(storage.filter(item=>(item.total_items > 0)).map(item=>item.location))]
 
     const handleChangePage = (newPage) => {
         setPage(newPage);
@@ -37,6 +40,8 @@ function StorageTable() {
     const onChangeRowsPerPage = (e) => {
         setRowsPerPage(e.target.value);
         setPage(0);
+        console.log(storage)
+        console.log(uniqueLocations)
     };
 
     const classes = useStyles();
@@ -44,19 +49,22 @@ function StorageTable() {
     return (
         <Paper>
             <Grid container alignItems="center" justify="space-between" className={classes.titleContainer}>
-                <ButtonBase onClick={goBack}><ChevronLeft className={classes.chevron} /><Typography variant="h5" className={classes.title}>Storage</Typography></ButtonBase>
-                <TextField
-                    // fullWidth={true}
-                    className={classes.searchbar}
-                    margin="dense"
-                    variant="outlined"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                              <Search style={{ color: "rgba(0, 0, 0, 0.4)" }} />
-                            </InputAdornment>
-                        ),
-                    }} />
+                <ButtonBase onClick={goBack}><ChevronLeft className={classes.chevron} />
+                    <Typography variant="h5" className={classes.title}>Storage</Typography>
+                </ButtonBase>
+                <TextField 
+                    select
+                    className={classes.selectFilter}
+                    value={select}
+                    onChange={(e)=>setSelect(e.target.value)}>
+                    <MenuItem value="----">
+                        ----
+                    </MenuItem>
+                    {uniqueLocations?.map((row) => (
+                    <MenuItem key={row} value={row}>
+                        {row}
+                    </MenuItem>))}
+                </TextField>
                 </Grid>
             <TableContainer className="container">
                 <Table>
@@ -69,7 +77,10 @@ function StorageTable() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {storage?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        {storage?.filter(sto => {
+                                if(select === '----') return true
+                                else  return sto.location === select
+                            }).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map(row => {
                             if (row.total_items > 0)
                             return <TableRow
