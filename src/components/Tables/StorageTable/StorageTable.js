@@ -9,8 +9,9 @@ const useStyles = makeStyles(theme => ({
         display: "inline",
         marginRight: "8px"
     },
-    searchbar: {
-        display: "inline",
+    selectFilter: {
+        marginRight: "16px",
+        width: "160px"
     },
     titleContainer: {
         marginTop: "10px"
@@ -53,6 +54,7 @@ function StorageTable() {
                 </ButtonBase>
                 <TextField 
                     select
+                    className={classes.selectFilter}
                     value={select}
                     onChange={(e)=>setSelect(e.target.value)}>
                     <MenuItem value="----">
