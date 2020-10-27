@@ -41,9 +41,16 @@
 }
 
 .image {
+  display: block;
+  margin: auto;
   width: 100%;
+  max-width: 400px;
   border-radius: 10px;
   box-shadow: 3px 3px 10px rgba(128, 128, 128, 0.5);
+}
+
+.image-input{
+  margin-top: 20px;
 }
 
 .buttons {
@@ -73,11 +80,11 @@
   background: white;
 }
 
-.grid {
+.grid{
   padding-top: 10px;
 }
 
-.chip {
+.chip{
   margin-left: 5px;
 }
 
@@ -91,9 +98,6 @@
     flex-flow: column;
   }
 
-  .image {
-    display: none;
-  }
   .left-inner-container,
   .right-inner-container {
     width: 80%;

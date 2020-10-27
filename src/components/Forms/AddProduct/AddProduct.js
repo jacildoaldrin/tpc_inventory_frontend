@@ -24,6 +24,7 @@ import styles from "./AddProduct.module.css";
 
 const AddProduct = () => {
   const { goBack } = useNavigation();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [unitSellingPrice, setUnitSellingPrice] = useState("");
   const [originalCost, setOriginalCost] = useState("");
   const [originalCostWithTax, setOriginalCostWithTax] = useState("");
@@ -106,6 +107,7 @@ const AddProduct = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     const formData = new FormData();
     formData.append("list_name", listingName);
     formData.append("description", productDescription);
@@ -349,7 +351,9 @@ const AddProduct = () => {
             </Grid>
           </div>
           <div className={styles["buttons"]}>
-            <button className={styles["button"]}>Submit</button>
+            <button className={styles["button"]} disabled={isSubmitting}>
+              Submit
+            </button>
             <button className={styles["button"]} onClick={() => goBack()}>
               Cancel
             </button>

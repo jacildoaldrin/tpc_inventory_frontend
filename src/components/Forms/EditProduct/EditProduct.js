@@ -73,12 +73,20 @@ const EditProduct = () => {
     formData.append("supplier_code", supplierCode);
     formData.append("fits_size", fitsSize);
     formData.append("dimensions", dimensions);
-    formData.append("low_stock", lowStock);
-    formData.append("orig_cost", originalCost);
-    formData.append("orig_cost_with_tax", originalCostWithTax);
-    formData.append("unit_sell_price", unitSellingPrice);
     formData.append("product_notes", productNotes);
     formData.append("packaging", packaging);
+
+    formData.append("low_stock", lowStock === "" ? 0 : lowStock);
+    formData.append("orig_cost", originalCost === "" ? 0 : originalCost);
+    formData.append(
+      "orig_cost_with_tax",
+      originalCostWithTax === "" ? 0 : originalCostWithTax
+    );
+    formData.append(
+      "unit_sell_price",
+      unitSellingPrice === "" ? 0 : unitSellingPrice
+    );
+
     formData.append("image", image);
     if (newImage !== "") {
       formData.append("newImage", newImage);
@@ -97,7 +105,7 @@ const EditProduct = () => {
   return (
     <div className={styles["edit-product"]}>
       <LeftChevron />
-      <h1 className={styles["header"]}>EDIT PRODUCT</h1>
+      <h1 className={styles["header"]}>ADD PRODUCT</h1>
       <form
         className={styles["container"]}
         onSubmit={(event) => handleSubmit(event)}
@@ -128,6 +136,38 @@ const EditProduct = () => {
               onChange={(event) => handleImageFile(event)}
             />
           </div>
+          <div className={styles["product-info"]}>
+            <h1 className={styles["heading"]}>Product Info</h1>
+            <Grid container spacing={1} className={styles["grid"]}>
+              <Grid item xs={12}>
+                <InputArea
+                  required
+                  label={"Product Description"}
+                  value={productDescription}
+                  setValue={setProductDescription}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <InputField
+                  label={"Listing Name"}
+                  value={listingName}
+                  setValue={setListingName}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <InputField label={"UPC"} value={upc} setValue={setUpc} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <InputField
+                  label={"Supplier Code"}
+                  value={supplierCode}
+                  setValue={setSupplierCode}
+                />
+              </Grid>
+            </Grid>
+          </div>
+        </div>
+        <div className={styles["right-inner-container"]}>
           <div className={styles["product-price"]}>
             <h1 className={styles["heading"]}>Product Price</h1>
             <Grid container spacing={1} className={styles["grid"]}>
@@ -153,37 +193,6 @@ const EditProduct = () => {
                   value={originalCostWithTax}
                   setValue={setOriginalCostWithTax}
                   type="number"
-                />
-              </Grid>
-            </Grid>
-          </div>
-        </div>
-        <div className={styles["right-inner-container"]}>
-          <div className={styles["product-info"]}>
-            <h1 className={styles["heading"]}>Product Info</h1>
-            <Grid container spacing={1} className={styles["grid"]}>
-              <Grid item xs={12}>
-                <InputArea
-                  label={"Product Description"}
-                  value={productDescription}
-                  setValue={setProductDescription}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <InputField
-                  label={"Listing Name"}
-                  value={listingName}
-                  setValue={setListingName}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <InputField label={"UPC"} value={upc} setValue={setUpc} />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <InputField
-                  label={"Supplier Code"}
-                  value={supplierCode}
-                  setValue={setSupplierCode}
                 />
               </Grid>
             </Grid>
