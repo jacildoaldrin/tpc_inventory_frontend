@@ -104,14 +104,14 @@ const EditProduct = () => {
   return (
     <div className={styles["edit-product"]}>
       <LeftChevron />
-      <h1 className={styles["header"]}>ADD PRODUCT</h1>
+      <h1 className={styles["header"]}>EDIT PRODUCT</h1>
       <form
         className={styles["container"]}
         onSubmit={(event) => handleSubmit(event)}
       >
         <div className={styles["left-inner-container"]}>
           <div className={"product-image"}>
-            {newImage === "" ? (
+            {!newImage ? (
               <img
                 src={
                   image === ""
