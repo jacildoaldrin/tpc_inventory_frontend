@@ -47,12 +47,24 @@ const ProductsTable = () => {
   if (searchTerm) {
     result = products.filter((product) => {
       var digits = product._id.toString();
+      console.log(typeof product.category_name);
       if (digits.includes(searchTerm)) {
         return product;
-      } else {
-        return product.description
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase());
+      } else if (
+        product.description.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return true;
+      } else if (product.category_name !== undefined) {
+        if (
+          product.category_name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+          return true;
+      } else if (product.stock_qty === searchTerm) {
+        return true;
+      } else if (product.cost_with_tax === searchTerm) {
+        return true;
+      } else if (product.unit_sell_price === searchTerm) {
+        return true;
       }
     });
   }
@@ -87,15 +99,15 @@ const ProductsTable = () => {
               <TableCell align="center" width="5%">
                 <b>Product Code</b>
               </TableCell>
-              <TableCell align="left" width="20%">
+              <TableCell align="left" width="25%">
                 <b>Product Description</b>
               </TableCell>
-              <TableCell align="left" width="15%">
+              {/* <TableCell align="left" width="15%">
                 <b>Date Added</b>
               </TableCell>
               <TableCell align="left" width="15%">
                 <b>Last Modified</b>
-              </TableCell>
+              </TableCell> */}
               <TableCell align="left" width="10%">
                 <b>Quantity</b>
               </TableCell>
@@ -108,9 +120,9 @@ const ProductsTable = () => {
               <TableCell align="left" width="5%">
                 <b>Category</b>
               </TableCell>
-              <TableCell align="center" width="5%">
+              {/* <TableCell align="center" width="5%">
                 <b>Action</b>
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -137,21 +149,21 @@ const ProductsTable = () => {
                   </TableCell>
                   <TableCell align="center">{row["_id"]}</TableCell>
                   <TableCell align="left">{row["description"]}</TableCell>
-                  <TableCell align="left">
+                  {/* <TableCell align="left">
                     {Moment(row["date_added"]).format("MMMM D, YYYY, HH:MM a")}
                   </TableCell>
                   <TableCell align="left">
                     {Moment(row["date_modified"]).format(
                       "MMMM D, YYYY, HH:MM a"
                     )}
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell align="left">{row["stock_qty"]}</TableCell>
                   <TableCell align="left">{row["cost_with_tax"]}</TableCell>
                   <TableCell align="left">{row["unit_sell_price"]}</TableCell>
                   <TableCell align="left">{row["category_name"]}</TableCell>
-                  <TableCell align="center">
+                  {/* <TableCell align="center">
                     <MoreVertIcon />
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
           </TableBody>

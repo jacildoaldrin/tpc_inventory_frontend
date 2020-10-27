@@ -45,13 +45,44 @@ const SuppliersTable = (props) => {
   let result = suppliers;
   if (searchTerm) {
     result = suppliers.filter((supplier) => {
+      console.log(supplier.supplier_email);
       var digits = supplier.id.toString();
       if (digits.includes(searchTerm)) {
         return supplier;
-      } else {
-        return supplier.supplier_name
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase());
+      } else if (
+        supplier.supplier_name.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return;
+      } else if (
+        supplier.supplier_email !== null &&
+        supplier.supplier_email !== " "
+      ) {
+        if (
+          supplier.supplier_email
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        )
+          return true;
+      } else if (
+        supplier.supplier_contact !== null &&
+        supplier.supplier_contact !== " "
+      ) {
+        if (
+          supplier.supplier_contact
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        )
+          return true;
+      } else if (
+        supplier.supplier_notes !== null &&
+        supplier.supplier_notes !== " "
+      ) {
+        if (
+          supplier.supplier_notes
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        )
+          return true;
       }
     });
   }
