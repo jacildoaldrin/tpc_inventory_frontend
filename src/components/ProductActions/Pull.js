@@ -4,7 +4,7 @@ import { Button, ButtonBase, CircularProgress, Dialog, DialogActions, DialogCont
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
 import target from 'api/api.target'
-import { products, useProducts } from "contexts/ProductsContext";
+import { useProducts } from "contexts/ProductsContext";
 import { useNavigation } from 'contexts/NavigationContext'
 import { useSnackbar } from 'contexts/SnackbarContext'
 import { ChevronLeft } from '@material-ui/icons'
@@ -52,11 +52,13 @@ function Pull(props) {
     // const [open, setOpen] = React.useState(false)
     // const [response, setResponse] = React.useState('')
     const [openModal, setOpenModal] = React.useState(false)
-    const { getProductDetails } = useProducts();
+    const { getProductDetails, products } = useProducts();
     const { goBack } = useNavigation();
     const { openSnackbar } = useSnackbar();
     
     useEffect(() => {
+        console.log(products)
+
         //get product details
         async function getProduct() {
             let product = await getProductDetails(product_id);
