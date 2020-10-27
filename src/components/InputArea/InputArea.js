@@ -4,10 +4,10 @@ import { TextField } from "@material-ui/core";
 const InputArea = (props) => {
   return (
     <TextField
-      required
+      required={props.required ? true : false}
       variant="outlined"
       multiline
-      rows="2"
+      rows={props.rows ? props.rows : "2"}
       fullWidth
       label={props.label}
       value={props.value}

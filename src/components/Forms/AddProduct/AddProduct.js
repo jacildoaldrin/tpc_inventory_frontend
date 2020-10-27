@@ -121,7 +121,7 @@ const AddProduct = () => {
     formData.append("image", imageFile);
 
     axios
-      .post("http://localhost:8000/products/add-product", formData, {
+      .post("http://localhost:8000/products", formData, {
         "content-type": "multipart/form-data",
       })
       .then((res) => console.log(res))
@@ -165,7 +165,39 @@ const AddProduct = () => {
               onChange={(event) => handleImageFile(event)}
             />
           </div>
-          <div className={styles["product-price"]}>
+          <div className={styles["product-info"]}>
+            <h1 className={styles["heading"]}>Product Info</h1>
+            <Grid container spacing={1} className={styles["grid"]}>
+              <Grid item xs={12}>
+                <InputArea
+                  required
+                  label={"Product Description"}
+                  value={productDescription}
+                  setValue={setProductDescription}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <InputField
+                  label={"Listing Name"}
+                  value={listingName}
+                  setValue={setListingName}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <InputField label={"UPC"} value={upc} setValue={setUpc} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <InputField
+                  label={"Supplier Code"}
+                  value={supplierCode}
+                  setValue={setSupplierCode}
+                />
+              </Grid>
+            </Grid>
+          </div>
+        </div>
+        <div className={styles["right-inner-container"]}>
+        <div className={styles["product-price"]}>
             <h1 className={styles["heading"]}>Product Price</h1>
             <Grid container spacing={1} className={styles["grid"]}>
               <Grid item xs={12} sm={7}>
@@ -190,37 +222,6 @@ const AddProduct = () => {
                   value={originalCostWithTax}
                   setValue={setOriginalCostWithTax}
                   type="number"
-                />
-              </Grid>
-            </Grid>
-          </div>
-        </div>
-        <div className={styles["right-inner-container"]}>
-          <div className={styles["product-info"]}>
-            <h1 className={styles["heading"]}>Product Info</h1>
-            <Grid container spacing={1} className={styles["grid"]}>
-              <Grid item xs={12}>
-                <InputArea
-                  label={"Product Description"}
-                  value={productDescription}
-                  setValue={setProductDescription}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <InputField
-                  label={"Listing Name"}
-                  value={listingName}
-                  setValue={setListingName}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <InputField label={"UPC"} value={upc} setValue={setUpc} />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <InputField
-                  label={"Supplier Code"}
-                  value={supplierCode}
-                  setValue={setSupplierCode}
                 />
               </Grid>
             </Grid>

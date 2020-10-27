@@ -4,13 +4,13 @@ import { TextField } from "@material-ui/core";
 const InputField = (props) => {
   return (
     <TextField
-      required
+      required={props.required? true : false}
       variant="outlined"
       label={props.label}
       fullWidth
       value={props.value}
       onChange={(event) => props.setValue(event.target.value)}
-      type={props.type? "number" : "text"}
+      type={props.type ? "number" : "text"}
     />
   );
 };
