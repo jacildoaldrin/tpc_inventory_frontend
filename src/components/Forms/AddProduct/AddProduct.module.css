@@ -98,9 +98,6 @@
     flex-flow: column;
   }
 
-  /* .image {
-    display: none;
-  } */
   .left-inner-container,
   .right-inner-container {
     width: 80%;
