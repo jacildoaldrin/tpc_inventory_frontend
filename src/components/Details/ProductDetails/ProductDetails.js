@@ -157,7 +157,7 @@ const ProductDetails = () => {
         <Grid item xs={12} sm={5} container id="leftCol">
           <Grid item xs={12} container>
             <Grid item xs={12}>
-              <img src={img} className={classes.img} alt="plant"/>
+              <img src={product.image !== "" ? `${target}/images/${product.image}` : img} className={classes.img} alt="plant"/>
             </Grid>
             <Grid xs={12} item className={`${classes.underline} ${classes.mt2rem}`}>
               <Typography variant="h6">Product Info</Typography>
