@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, CircularProgress, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import { useNavigation } from 'contexts/NavigationContext'
 import { useParams } from "react-router-dom";
@@ -57,14 +57,12 @@ function Push() {
         .catch(err=>console.log(err))
         
         //get product details
+        async function getProduct() {
+            let product = await getProductDetails(product_id);
+            setProduct(product);
+        }
         getProduct();
     }, [])
-
-    async function getProduct() {
-        let product = await getProductDetails(product_id);
-        setProduct(product);
-        // console.log(product);
-    }
 
     const submit = (e) => {
         e.preventDefault()
@@ -118,7 +116,7 @@ function Push() {
                     <Grid container direction="column">
                         <img src={img} className={classes.img} alt="imageNAME"/>
                         <Grid container item justify="center">
-                            <Typography variant="h5">
+                            <Typography variant="h6">
                                 {product.description}
                             </Typography>
                         </Grid>

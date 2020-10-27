@@ -1,4 +1,4 @@
-import React from 'react'
+import React,  { useEffect } from 'react'
 import img from 'assets/tpc_logo.jpg'
 import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, makeStyles, TextField, Typography } from '@material-ui/core'
 import { useParams } from 'react-router-dom'
@@ -38,9 +38,9 @@ const useStyles = makeStyles(theme=>({
 }))
 
 function Pull(props) {
-    const { product_id, storage_id} = useParams()
+    const { product_id, storage_id } = useParams()
     //product used if you need to reference image
-    const [product, setProduct] = React.useState(null);
+    const [product, setProduct] = React.useState({});
     const [input, setInput] = React.useState(0);
     const [productStorageDetails, setProductStorageDetails] = React.useState(null);
     const [submitting, setSubmitting] = React.useState(false)
@@ -50,13 +50,16 @@ function Pull(props) {
     const { getProductDetails } = useProducts();
     const { goBack } = useNavigation();
     const { openSnackbar } = useSnackbar();
-
-    async function getProduct() {
-        let product = await getProductDetails(product_id);
-        setProduct(product);
-        // console.log(product);
-    }
     
+    useEffect(() => {
+        //get product details
+        async function getProduct() {
+            let product = await getProductDetails(product_id);
+            setProduct(product);
+        }
+        getProduct();
+    }, [])
+
     const getProductStorageDetails = () => {
         // console.log(`${target}/getThisProductInAllStorages/${product_id}`)
         Axios.get(`${target}/storages/getThisProductInAllStorages/${product_id}`)
@@ -167,12 +170,12 @@ function Pull(props) {
                     PULL
                 </Typography>
                 <Grid container direction="column">
+                    <img src={img} className={classes.img} alt="imageNAME"/>
                     <Grid container item justify="center">
-                        <Typography>
-                            Product Code: {product_id}
+                        <Typography variant="h6">
+                            {product.description}
                         </Typography>
                     </Grid>
-                    <img src={img} className={classes.img} alt="imageNAME"/>
                     <Grid container item className={classes.greenBox}>
                         <Grid container item justify="space-evenly">
                             <Typography className={classes.txt}>Location:</Typography>
