@@ -41,7 +41,7 @@ const EditSupplier = (props) => {
       supplier_contact: contact,
       supplier_notes: notes,
     };
-    if (name != null) {
+    if (name != " ") {
       await editSupplier(supplier_id, supplier, snackbar);
     } else {
       console.log("Please fill out required field");
@@ -53,12 +53,6 @@ const EditSupplier = (props) => {
     goBack();
   };
 
-  async function getSupplier() {
-    let supplier = await getSupplierDetails(supplier_id);
-    setSupplier(supplier);
-    setSupplierFields(supplier);
-  }
-
   const setSupplierFields = (supplier) => {
     if (supplier) {
       setName(supplier["supplier_name"] || "");
@@ -69,6 +63,12 @@ const EditSupplier = (props) => {
       setNotes(supplier["supplier_notes"] || "");
     }
   };
+
+  async function getSupplier() {
+    let supplier = await getSupplierDetails(supplier_id);
+    setSupplier(supplier);
+    setSupplierFields(supplier);
+  }
 
   useEffect(() => {
     getSupplier();
@@ -125,7 +125,6 @@ const EditSupplier = (props) => {
             </Grid>
             <Grid item xs={12}>
               <InputArea
-                required
                 rows="5"
                 label={"Note"}
                 value={notes}

@@ -102,7 +102,6 @@ const AddSupplier = (props) => {
             </Grid>
             <Grid item xs={12}>
               <InputArea
-                required
                 rows="5"
                 label={"Note"}
                 value={notes}
