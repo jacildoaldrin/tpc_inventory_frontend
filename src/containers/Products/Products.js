@@ -13,6 +13,7 @@ import EditProduct from "components/Forms/EditProduct/EditProduct";
 
 import styles from "./Products.module.css";
 import Push from "components/ProductActions/Push";
+import { StorageProvider } from "contexts/StorageContext";
 
 const Products = () => {
   let match = useRouteMatch();
@@ -33,7 +34,9 @@ const Products = () => {
         <Route path={`${match.url}/product-details/:product_id`}>
           <ProductDetails />
         </Route>
-        <Route path={`${match.url}/push/:product_id`} component={Push} />
+        <StorageProvider>
+          <Route path={`${match.url}/push/:product_id`} component={Push} />
+        </StorageProvider>
       </div>
     </ProductsProvider>
   );

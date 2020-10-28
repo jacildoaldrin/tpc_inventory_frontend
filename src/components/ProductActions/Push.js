@@ -9,6 +9,7 @@ import { useSnackbar } from 'contexts/SnackbarContext';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useProducts } from "contexts/ProductsContext";
 import { ChevronLeft } from '@material-ui/icons';
+import { useStorage } from 'contexts/StorageContext';
 
 const useStyles = makeStyles(theme=>({
     img: {
@@ -46,7 +47,8 @@ function Push() {
     const { goBack } = useNavigation();
     const { openSnackbar } = useSnackbar();
     const [ storageLocations, setStorageLocations ] = useState([]);
-    const { getProductDetails } = useProducts();
+    const { getProductDetails, getProducts } = useProducts();
+    const { getStorage } = useStorage();
     const [ product, setProduct ] = useState({});
 
     const [submitting, setSubmitting] = React.useState(false)
@@ -67,7 +69,8 @@ function Push() {
             setProduct(product);
         }
         getProduct();
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [product_id])
 
     const submit = (e) => {
         e.preventDefault()
@@ -80,12 +83,14 @@ function Push() {
         // console.log("qty:", qty)
         if (location.length !== 0 && bin.length !== 0 && quantity > -1){
             setTimeout(()=> {
-                Axios.post(`${target}/storages/push`, {location, bin, product_id, quantity})
+                Axios.post(`${target}/storages/push`, { location, bin, product_id, quantity })
                     .then(res=>{
                         // setResponse(res.data)
                         // setOpen(true)
                         openSnackbar(res.data)
                         setSubmitting(false)
+                        getStorage();
+                        getProducts();
                         goBack();
                         //Expensive design choice right here
                         // getProductStorageDetails();

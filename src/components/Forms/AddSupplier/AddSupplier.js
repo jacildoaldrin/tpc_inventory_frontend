@@ -26,6 +26,7 @@ const AddSupplier = (props) => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [notes, setNotes] = useState("");
+  const { getSuppliers } = useSuppliers();
   // const [open, setOpen] = useState(false);
 
   const handleSubmit = async (event) => {

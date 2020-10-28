@@ -51,7 +51,7 @@ export const SuppliersProvider = (props) => {
 
   return (
     <SuppliersContext.Provider
-      value={{ suppliers, getSupplierDetails, addSupplier }}
+      value={{ suppliers, getSupplierDetails, addSupplier, getSuppliers  }}
     >
       {props.children}
     </SuppliersContext.Provider>

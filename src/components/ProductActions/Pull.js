@@ -8,6 +8,7 @@ import { useProducts } from "contexts/ProductsContext";
 import { useNavigation } from 'contexts/NavigationContext'
 import { useSnackbar } from 'contexts/SnackbarContext'
 import { ChevronLeft } from '@material-ui/icons'
+import { useStorage } from 'contexts/StorageContext'
 
 const useStyles = makeStyles(theme=>({
     img: {
@@ -52,7 +53,8 @@ function Pull(props) {
     // const [open, setOpen] = React.useState(false)
     // const [response, setResponse] = React.useState('')
     const [openModal, setOpenModal] = React.useState(false)
-    const { getProductDetails } = useProducts();
+    const { getProductDetails, getProducts } = useProducts();
+    const { getStorage } = useStorage();
     const { goBack } = useNavigation();
     const { openSnackbar } = useSnackbar();
     
@@ -63,7 +65,7 @@ function Pull(props) {
             setProduct(product);
         }
         getProduct();
-    }, [])
+    }, [product_id])
 
     const getProductStorageDetails = () => {
         // console.log(`${target}/getThisProductInAllStorages/${product_id}`)
@@ -87,6 +89,8 @@ function Pull(props) {
                 // // Expensive design choice right here
                 // Not anymore
                 // getProductStorageDetails();
+                getStorage();
+                getProducts();
                 goBack();
             })
     }
