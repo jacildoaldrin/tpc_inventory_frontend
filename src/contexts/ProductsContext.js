@@ -37,6 +37,17 @@ export const ProductsProvider = (props) => {
     return cb();
   };
 
+  const editProduct = async (product_id, formdata, cb) => {
+    try {
+      await axios.put(`${target}/products/${product_id}`, formdata);
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+    await getProducts();
+    return cb();
+  };
+
   const getProducts = async () => {
     try {
       await axios
@@ -53,7 +64,7 @@ export const ProductsProvider = (props) => {
 
   return (
     <ProductsContext.Provider
-      value={{ products, getProductDetails, addProduct, getProducts }}
+      value={{ products, getProductDetails, addProduct, editProduct, getProducts }}
     >
       {props.children}
     </ProductsContext.Provider>

@@ -3,17 +3,19 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import {
   Grid,
-  Select,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Chip,
+  // Select,
+  // FormControl,
+  // InputLabel,
+  // MenuItem,
+  // Chip,
 } from "@material-ui/core";
 
 import target from "api/api.target";
 
 //context
 import { useNavigation } from "contexts/NavigationContext";
+import { useProducts } from "contexts/ProductsContext";
+import { useSnackbar } from "contexts/SnackbarContext";
 
 //assets
 import Logo from "assets/tpc_logo.jpg";
@@ -27,6 +29,9 @@ import styles from "./EditProduct.module.css";
 
 const EditProduct = () => {
   const { goBack } = useNavigation();
+  const { editProduct } = useProducts();
+  const { openSnackbar } = useSnackbar();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { product_id } = useParams();
   const [image, setImage] = useState("");
   const [newImage, setNewImage] = useState("");
@@ -45,29 +50,28 @@ const EditProduct = () => {
 
   useEffect(() => {
     const getProductDetails = async () => {
-      await axios
-        .get(`${target}/products/${product_id}`)
-        .then((res) => {
-          setImage(res.data["image"] || "");
-          setListingName(res.data["list_name"] || "");
-          setProductDescription(res.data["description"] || "");
-          setUpc(res.data["upc"] || "");
-          setSupplierCode(res.data["supplier_code"] || "");
-          setFitsSize(res.data["fits_size"] || "");
-          setDimensions(res.data["dimensions"] || "");
-          setLowStock(res.data["low_stock"] || "");
-          setOriginalCost(res.data["orig_cost"] || "");
-          setOriginalCostWithTax(res.data["orig_cost_with_tax"] || "");
-          setUnitSellingPrice(res.data["unit_sell_price"] || "");
-          setProductNotes(res.data["product_notes"] || "");
-          setPackaging(res.data["packaging"] || "");
-        });
+      await axios.get(`${target}/products/${product_id}`).then((res) => {
+        setImage(res.data["image"] || "");
+        setListingName(res.data["list_name"] || "");
+        setProductDescription(res.data["description"] || "");
+        setUpc(res.data["upc"] || "");
+        setSupplierCode(res.data["supplier_code"] || "");
+        setFitsSize(res.data["fits_size"] || "");
+        setDimensions(res.data["dimensions"] || "");
+        setLowStock(res.data["low_stock"] || "");
+        setOriginalCost(res.data["orig_cost"] || "");
+        setOriginalCostWithTax(res.data["orig_cost_with_tax"] || "");
+        setUnitSellingPrice(res.data["unit_sell_price"] || "");
+        setProductNotes(res.data["product_notes"] || "");
+        setPackaging(res.data["packaging"] || "");
+      });
     };
     getProductDetails();
   }, [product_id]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     let formData = new FormData();
     formData.append("list_name", listingName);
     formData.append("description", productDescription);
@@ -88,17 +92,21 @@ const EditProduct = () => {
       "unit_sell_price",
       unitSellingPrice === "" ? 0 : unitSellingPrice
     );
-
     formData.append("image", image);
     if (newImage !== "") {
       formData.append("newImage", newImage);
     }
-
-    axios.put(`${target}/products/${product_id}`, formData);
+    await editProduct(product_id, formData, callBack);
+    setIsSubmitting(false);
   };
 
   const handleImageFile = (event) => {
     setNewImage(event.target.files[0]);
+  };
+
+  const callBack = () => {
+    openSnackbar("Successfully edited product!!");
+    goBack();
   };
 
   return (
@@ -113,11 +121,7 @@ const EditProduct = () => {
           <div className={"product-image"}>
             {!newImage ? (
               <img
-                src={
-                  image === ""
-                    ? Logo
-                    : `${target}/images/${image}`
-                }
+                src={image === "" ? Logo : `${target}/images/${image}`}
                 className={styles["image"]}
                 alt={image}
               />
@@ -312,9 +316,19 @@ const EditProduct = () => {
             </Grid>
           </div>
           <div className={styles["buttons"]}>
-            <button className={styles["button"]}>Submit</button>
-            <button className={styles["button"]} onClick={() => goBack()}>
-              Cancel
+            <button
+              type="submit"
+              className={styles["button"]}
+              disabled={isSubmitting}
+            >
+              EDIT
+            </button>
+            <button
+              type="button"
+              className={styles["button"]}
+              onClick={() => goBack()}
+            >
+              CANCEL
             </button>
           </div>
         </div>
