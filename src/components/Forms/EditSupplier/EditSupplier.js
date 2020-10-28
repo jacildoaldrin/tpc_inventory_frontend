@@ -41,7 +41,7 @@ const EditSupplier = (props) => {
       supplier_contact: contact,
       supplier_notes: notes,
     };
-    if (name != " ") {
+    if (name != "") {
       await editSupplier(supplier_id, supplier, snackbar);
     } else {
       console.log("Please fill out required field");
