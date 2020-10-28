@@ -136,6 +136,7 @@ const AddProduct = () => {
     );
     formData.append("image", imageFile);
     await addProduct(formData, callBack);
+    setIsSubmitting(false);
   };
 
   const callBack = () => {
