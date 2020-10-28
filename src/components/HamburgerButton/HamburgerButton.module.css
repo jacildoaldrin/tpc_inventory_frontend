@@ -56,8 +56,10 @@
 
 @media (max-width: 1100px) {
   .menu-btn {
+    top: 20px;
+    left: 85%;
     display: flex;
-    position: relative;
+    position: fixed;
     flex-flow: column;
     justify-content: center;
     align-items: center;

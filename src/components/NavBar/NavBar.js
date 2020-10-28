@@ -9,13 +9,12 @@ import Logo from "assets/tpc_logo.jpg";
 import UserImage from "assets/luka.jpg";
 
 //components
-import HamburgerButton from "../HamburgerButton/HamburgerButton";
 import NavBarNavigationItems from "./NavBarNavigationItems/NavBarNavigationItems";
 
 import styles from "./NavBar.module.css";
 import { NavLink } from "react-router-dom";
 
-const NavBar = (props) => {
+const NavBar = () => {
   const { logout } = useAuth();
 
   return (
@@ -36,11 +35,6 @@ const NavBar = (props) => {
             &nbsp;Logout
           </h1>
         </div>
-        <HamburgerButton
-          toggled={props.toggled}
-          open={props.open}
-          close={props.close}
-        />
       </div>
     </div>
   );
