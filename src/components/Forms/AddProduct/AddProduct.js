@@ -139,7 +139,7 @@ const AddProduct = () => {
   };
 
   const callBack = () => {
-    openSnackbar("Successfully added a new product!")
+    openSnackbar("Successfully added a new product!");
     goBack();
   };
 
@@ -355,10 +355,18 @@ const AddProduct = () => {
             </Grid>
           </div>
           <div className={styles["buttons"]}>
-            <button className={styles["button"]} disabled={isSubmitting}>
+            <button
+              type="submit"
+              className={styles["button"]}
+              disabled={isSubmitting}
+            >
               ADD
             </button>
-            <button className={styles["button"]} onClick={() => goBack()}>
+            <button
+              type="button"
+              className={styles["button"]}
+              onClick={() => goBack()}
+            >
               CANCEL
             </button>
           </div>
