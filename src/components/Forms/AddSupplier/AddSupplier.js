@@ -14,6 +14,7 @@ import InputArea from "components/InputArea/InputArea";
 // axios
 import axios from "axios";
 import target from "api/api.target";
+import { useSuppliers } from "contexts/SuppliersContext";
 
 const AddSupplier = (props) => {
   let history = useHistory();
@@ -23,6 +24,7 @@ const AddSupplier = (props) => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [notes, setNotes] = useState("");
+  const { getSuppliers } = useSuppliers();
   // const [open, setOpen] = useState(false);
 
   const handleSubmit = (event) => {
@@ -41,6 +43,7 @@ const AddSupplier = (props) => {
         (response) => {
           console.log(response);
           console.log("Successfully created Supplier");
+          getSuppliers();
           history.goBack();
         },
         (error) => {

@@ -37,7 +37,7 @@ export const SuppliersProvider = (props) => {
   }, []);
 
   return (
-    <SuppliersContext.Provider value={{ suppliers, getSupplierDetails }}>
+    <SuppliersContext.Provider value={{ suppliers, getSupplierDetails, getSuppliers }}>
       {props.children}
     </SuppliersContext.Provider>
   );
