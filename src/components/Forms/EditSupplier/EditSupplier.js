@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 // material
-import { TextField, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import ApartmentIcon from "@material-ui/icons/Apartment";
 
 // components
 import LeftChevron from "components/LeftChevron/LeftChevron";
-import styles from "./AddSupplier.module.css";
+import styles from "./EditSupplier.module.css";
 import InputField from "components/InputField/InputField";
 import InputArea from "components/InputArea/InputArea";
 
@@ -16,17 +16,20 @@ import { useNavigation } from "contexts/NavigationContext";
 import { useSuppliers } from "contexts/SuppliersContext";
 import { useSnackbar } from "contexts/SnackbarContext";
 
-const AddSupplier = (props) => {
+const EditSupplier = (props) => {
   const { goBack } = useNavigation();
-  const { addSupplier } = useSuppliers();
+  const { supplier_id } = useParams();
+
   const { openSnackbar } = useSnackbar();
+  const [supplier, setSupplier] = useState({});
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [notes, setNotes] = useState("");
-  const { getSuppliers } = useSuppliers();
+  const { editSupplier, getSupplierDetails } = useSuppliers();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,18 +41,38 @@ const AddSupplier = (props) => {
       supplier_contact: contact,
       supplier_notes: notes,
     };
-
     if (name != null) {
-      await addSupplier(supplier, snackbar);
+      await editSupplier(supplier_id, supplier, snackbar);
     } else {
       console.log("Please fill out required field");
     }
   };
 
   const snackbar = () => {
-    openSnackbar("Successfully added a new supplier!");
+    openSnackbar("Successfully edited supplier!");
     goBack();
   };
+
+  async function getSupplier() {
+    let supplier = await getSupplierDetails(supplier_id);
+    setSupplier(supplier);
+    setSupplierFields(supplier);
+  }
+
+  const setSupplierFields = (supplier) => {
+    if (supplier) {
+      setName(supplier["supplier_name"] || "");
+      setEmail(supplier["supplier_email"] || "");
+      setPhone(supplier["supplier_phone"] || "");
+      setAddress(supplier["supplier_address"] || "");
+      setContact(supplier["supplier_contact"] || "");
+      setNotes(supplier["supplier_notes"] || "");
+    }
+  };
+
+  useEffect(() => {
+    getSupplier();
+  }, [supplier_id]);
 
   return (
     <div className={styles["container"]}>
@@ -60,7 +83,7 @@ const AddSupplier = (props) => {
       >
         <div className={styles["form-header"]}>
           <ApartmentIcon style={{ fontSize: "40px" }} />
-          <b>&nbsp; ADD SUPPLIER</b>
+          <b>&nbsp; EDIT SUPPLIER</b>
         </div>
         <div className={styles["form-body"]}>
           <Grid container spacing={3}>
@@ -124,4 +147,4 @@ const AddSupplier = (props) => {
   );
 };
 
-export default AddSupplier;
+export default EditSupplier;

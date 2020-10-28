@@ -10,6 +10,7 @@ import AddButton from "components/AddButton/AddButton";
 
 //form
 import AddSupplier from "components/Forms/AddSupplier/AddSupplier";
+import EditSupplier from "components/Forms/EditSupplier/EditSupplier";
 
 import styles from "./Suppliers.module.css";
 import SupplierDetails from "components/Details/SupplierDetails/SupplierDetails";
@@ -28,6 +29,9 @@ const Suppliers = () => {
         </Route>
         <Route path={`${match.url}/add-supplier`}>
           <AddSupplier />
+        </Route>
+        <Route path={`${match.url}/edit-supplier/:supplier_id`}>
+          <EditSupplier />
         </Route>
         <Route path={`${match.url}/supplier-details/:supplier_id`}>
           <SupplierDetails />

@@ -75,43 +75,29 @@ function SupplierDetails() {
   const classes = useStyles();
   const { supplier_id } = useParams();
   const [supplier, setSupplier] = useState({});
-  const { goBack } = useNavigation();
+  const { goBack, viewDetails } = useNavigation();
   const { getSupplierDetails } = useSuppliers();
 
-  async function getProduct() {
+  async function getSupplier() {
     let supplier = await getSupplierDetails(supplier_id);
     setSupplier(supplier);
   }
 
   useEffect(() => {
-    getProduct();
+    getSupplier();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supplier_id]);
 
   return (
     <>
       <Container className={classes.container}>
-        <Grid
-          container
-          justify="space-between"
-          alignItems="center"
-          // className={classes.underline}
-        >
+        <Grid container justify="space-between" alignItems="center">
           <Grid item xs={2} sm={1}>
             <ButtonBase onClick={goBack}>
               <ChevronLeftIcon className={classes.chevron} />
             </ButtonBase>
           </Grid>
-          <Grid item container xs={10} justify="flex-end">
-            {/* <Typography
-              variant="h5"
-              className={classes.mainProdName}
-              align="right"
-              style={{ marginRight: "5vw" }}
-            >
-              {supplier.supplier_name}
-            </Typography> */}
-          </Grid>
+          <Grid item container xs={10} justify="flex-end"></Grid>
         </Grid>
 
         {/* -------Paper */}
@@ -220,20 +206,15 @@ function SupplierDetails() {
             </Grid>
 
             {/* ------- right column */}
-            <Grid
-              item
-              xs={12}
-              sm={3}
-              // container
-              className={classes.rightColumn}
-              // spacing={1}
-              // justify="center"
-            >
+            <Grid item xs={12} sm={3} className={classes.rightColumn}>
               <Grid item xs={10}>
                 <Button
                   fullWidth
                   variant="contained"
                   className={classes.button}
+                  onClick={() =>
+                    viewDetails(`/suppliers/edit-supplier/${supplier_id}`)
+                  }
                 >
                   Update
                 </Button>
