@@ -106,9 +106,6 @@ const SuppliersTable = (props) => {
               <TableCell align="left" width="15%">
                 <b>Notes</b>
               </TableCell>
-              <TableCell align="center" width="5%">
-                <b>Action</b>
-              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -148,9 +145,6 @@ const SuppliersTable = (props) => {
                     {row["supplier_notes"] === null
                       ? "N/A"
                       : row["supplier_notes"]}
-                  </TableCell>
-                  <TableCell align="center">
-                    <MoreVertIcon />
                   </TableCell>
                 </TableRow>
               ))}
