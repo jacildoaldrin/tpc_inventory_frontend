@@ -22,7 +22,7 @@ export const SnackbarProvider = (props) => {
             <Snackbar 
                 anchorOrigin={{
                     vertical: 'bottom',
-                    horizontal: 'left'
+                    horizontal: 'center'
                 }}
                 open={open}
                 autoHideDuration={5000}
