@@ -22,22 +22,7 @@ export const ProductsProvider = (props) => {
     return data;
   };
 
-  const addProduct = async (formdata, cb) => {
-    try {
-      await axios
-        .post(`${target}/products`, formdata, {
-          "content-type": "multipart/form-data",
-        })
-        .then((res) => console.log(res));
-    } catch (err) {
-      console.log(err);
-      return;
-    }
-    await getProducts();
-    return cb();
-  };
-
-  const getProducts = async () => {
+  async function getProducts() {
     try {
       await axios
         .get(`${target}/products`)
@@ -45,16 +30,14 @@ export const ProductsProvider = (props) => {
     } catch (err) {
       console.log(err);
     }
-  };
+  }
 
   useEffect(() => {
     getProducts();
   }, []);
 
   return (
-    <ProductsContext.Provider
-      value={{ products, getProductDetails, addProduct }}
-    >
+    <ProductsContext.Provider value={{ products, getProductDetails }}>
       {props.children}
     </ProductsContext.Provider>
   );

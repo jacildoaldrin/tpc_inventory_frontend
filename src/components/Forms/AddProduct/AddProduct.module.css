@@ -62,10 +62,13 @@
 .button {
   padding: 10px 0;
   width: 40%;
-  font-size: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  background: none;
   border-radius: 5px;
   border: 1px solid #8c8c8c;
   box-sizing: border-box;
+  box-shadow: 0 0 3px darkgrey;
   transition: 0.3s ease-in;
 }
 
@@ -107,9 +110,5 @@
   .right-inner-container {
     width: 100%;
     padding: 0;
-  }
-
-  .image{
-    width: 70%;
   }
 }
