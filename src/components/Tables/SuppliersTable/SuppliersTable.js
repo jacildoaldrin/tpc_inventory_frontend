@@ -46,41 +46,16 @@ const SuppliersTable = (props) => {
   if (searchTerm) {
     result = suppliers.filter((supplier) => {
       var digits = supplier.id.toString();
+      var search = searchTerm.toLowerCase();
       if (digits.includes(searchTerm)) return supplier;
-      else if (
-        supplier.supplier_name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      else if (supplier.supplier_name?.toLowerCase().includes(search))
         return true;
-      else if (
-        supplier.supplier_email !== null &&
-        supplier.supplier_email !== " "
-      ) {
-        if (
-          supplier.supplier_email
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
-        )
-          return true;
-      } else if (
-        supplier.supplier_contact !== null &&
-        supplier.supplier_contact !== " "
-      ) {
-        if (
-          supplier.supplier_contact
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
-        )
-          return true;
-      } else if (
-        supplier.supplier_notes !== null &&
-        supplier.supplier_notes !== " "
-      )
-        if (
-          supplier.supplier_notes
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
-        )
-          return true;
+      else if (supplier.supplier_email?.toLowerCase().includes(search)) {
+        return true;
+      } else if (supplier.supplier_contact?.toLowerCase().includes(search)) {
+        return true;
+      } else if (supplier.supplier_notes?.toLowerCase().includes(search))
+        return true;
     });
   }
 
