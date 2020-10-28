@@ -11,12 +11,15 @@ import styles from "./AddSupplier.module.css";
 import InputField from "components/InputField/InputField";
 import InputArea from "components/InputArea/InputArea";
 
-// axios
-import axios from "axios";
-import target from "api/api.target";
+// context
+import { useNavigation } from "contexts/NavigationContext";
+import { useSuppliers } from "contexts/SuppliersContext";
+import { useSnackbar } from "contexts/SnackbarContext";
 
 const AddSupplier = (props) => {
-  let history = useHistory();
+  const { goBack } = useNavigation();
+  const { addSupplier } = useSuppliers();
+  const { openSnackbar } = useSnackbar();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
@@ -25,7 +28,7 @@ const AddSupplier = (props) => {
   const [notes, setNotes] = useState("");
   // const [open, setOpen] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     let supplier = {
       supplier_name: name,
@@ -37,33 +40,19 @@ const AddSupplier = (props) => {
     };
 
     if (name != null) {
-      axios.post(`${target}/suppliers/`, supplier).then(
-        (response) => {
-          console.log(response);
-          console.log("Successfully created Supplier");
-          history.goBack();
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      await addSupplier(supplier, snackbar);
     } else {
       console.log("Please fill out required field");
     }
   };
 
+  const snackbar = () => {
+    openSnackbar("Successfully added a new supplier!");
+    goBack();
+  };
+
   return (
     <div className={styles["container"]}>
-      {/* <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        open={open}
-        autoHideDuration={5000}
-        onClose={() => setOpen(false)}
-        message="successful"
-      /> */}
       <LeftChevron />
       <form
         className={styles["form"]}
@@ -126,10 +115,7 @@ const AddSupplier = (props) => {
           <button className={styles["form-button"]} type="submit">
             SUBMIT
           </button>
-          <button
-            className={styles["form-button"]}
-            onClick={() => history.goBack()}
-          >
+          <button className={styles["form-button"]} onClick={() => goBack()}>
             CANCEL
           </button>
         </div>
