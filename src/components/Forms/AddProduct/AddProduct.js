@@ -7,6 +7,7 @@ import {
   InputLabel,
   MenuItem,
   Chip,
+  CircularProgress,
 } from "@material-ui/core";
 import LeftChevron from "components/LeftChevron/LeftChevron";
 
@@ -135,6 +136,7 @@ const AddProduct = () => {
       unitSellingPrice === "" ? 0 : unitSellingPrice
     );
     formData.append("image", imageFile);
+    
     await addProduct(formData, callBack);
     setIsSubmitting(false);
   };
@@ -361,7 +363,7 @@ const AddProduct = () => {
               className={styles["button"]}
               disabled={isSubmitting}
             >
-              ADD
+              {isSubmitting ? <CircularProgress size={12} /> : "ADD"}
             </button>
             <button
               type="button"

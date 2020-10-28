@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import {
   Grid,
   // Select,
@@ -8,6 +7,7 @@ import {
   // InputLabel,
   // MenuItem,
   // Chip,
+  CircularProgress,
 } from "@material-ui/core";
 
 import target from "api/api.target";
@@ -29,7 +29,7 @@ import styles from "./EditProduct.module.css";
 
 const EditProduct = () => {
   const { goBack } = useNavigation();
-  const { editProduct } = useProducts();
+  const { getProductDetails, editProduct } = useProducts();
   const { openSnackbar } = useSnackbar();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { product_id } = useParams();
@@ -49,24 +49,23 @@ const EditProduct = () => {
   const [productNotes, setProductNotes] = useState("");
 
   useEffect(() => {
-    const getProductDetails = async () => {
-      await axios.get(`${target}/products/${product_id}`).then((res) => {
-        setImage(res.data["image"] || "");
-        setListingName(res.data["list_name"] || "");
-        setProductDescription(res.data["description"] || "");
-        setUpc(res.data["upc"] || "");
-        setSupplierCode(res.data["supplier_code"] || "");
-        setFitsSize(res.data["fits_size"] || "");
-        setDimensions(res.data["dimensions"] || "");
-        setLowStock(res.data["low_stock"] || "");
-        setOriginalCost(res.data["orig_cost"] || "");
-        setOriginalCostWithTax(res.data["orig_cost_with_tax"] || "");
-        setUnitSellingPrice(res.data["unit_sell_price"] || "");
-        setProductNotes(res.data["product_notes"] || "");
-        setPackaging(res.data["packaging"] || "");
-      });
+    const getProduct = async () => {
+      let product = await getProductDetails(product_id);
+      setImage(product["image"] || "");
+      setListingName(product["list_name"] || "");
+      setProductDescription(product["description"] || "");
+      setUpc(product["upc"] || "");
+      setSupplierCode(product["supplier_code"] || "");
+      setFitsSize(product["fits_size"] || "");
+      setDimensions(product["dimensions"] || "");
+      setLowStock(product["low_stock"] || "");
+      setOriginalCost(product["orig_cost"] || "");
+      setOriginalCostWithTax(product["orig_cost_with_tax"] || "");
+      setUnitSellingPrice(product["unit_sell_price"] || "");
+      setProductNotes(product["product_notes"] || "");
+      setPackaging(product["packaging"] || "");
     };
-    getProductDetails();
+    getProduct();
   }, [product_id]);
 
   const handleSubmit = async (event) => {
@@ -321,7 +320,7 @@ const EditProduct = () => {
               className={styles["button"]}
               disabled={isSubmitting}
             >
-              EDIT
+              {isSubmitting ? <CircularProgress size={12} /> : "EDIT"}
             </button>
             <button
               type="button"
