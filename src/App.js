@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route} from "react-router-dom";
-import { MuiThemeProvider } from "@material-ui/core";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import "./App.css";
 
 //context
@@ -31,6 +31,12 @@ const App = () => {
   //     history.replace("/");
   //   }
   // }, [history, currUser]);
+
+  const MuiTheme = createMuiTheme({
+    typography: {
+     "fontFamily": `"Montserrat", "Helvetica", "Arial", sans-serif`,
+    }
+  });
 
   return (
     <MuiThemeProvider theme={MuiTheme}>

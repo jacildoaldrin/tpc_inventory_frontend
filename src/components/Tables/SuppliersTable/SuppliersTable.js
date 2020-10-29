@@ -88,10 +88,10 @@ const SuppliersTable = (props) => {
               <TableCell align="center" width="5%">
                 <b>ID</b>
               </TableCell>
-              <TableCell align="left" width="10%">
+              <TableCell align="left" width="15%">
                 <b>Name</b>
               </TableCell>
-              <TableCell align="left" width="10%">
+              <TableCell align="left" width="15%">
                 <b>Email</b>
               </TableCell>
               {/* <TableCell align="left" width="10%">

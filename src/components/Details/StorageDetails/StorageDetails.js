@@ -16,6 +16,12 @@ const useStyles = makeStyles({
     chevron: {
       fontSize: "10vh",
     },
+    label: {
+        color: "#406E16",
+    },
+    header: {
+        fontWeight: "bold"
+    }
 })
 
 function StorageDetails() {
@@ -49,26 +55,12 @@ function StorageDetails() {
                 
                 </Grid>
                 <Grid item xs={6} md={3} container justify="center" alignItems="center">
-                    <Typography variant="h6">Location:</Typography>
+                    <Typography variant="h6" className={classes.label}>Location:&nbsp;</Typography>
                     <Typography variant="h6">{thisStorage?.location}</Typography>
                 </Grid>
                 <Grid item xs={6} md={3} container justify="center" alignItems="center">
-                    <Typography variant="h6">Bin:</Typography>
+                    <Typography variant="h6" className={classes.label}>Bin:&nbsp;</Typography>
                     <Typography variant="h6">{thisStorage?.bin}</Typography>
-                </Grid>
-                <Grid item xs={12} md={3} container justify="flex-end" alignItems="center">
-                    <TextField
-                    // fullWidth={true}
-                    className={classes.searchbar}
-                    margin="dense"
-                    variant="outlined"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                              <Search style={{ color: "rgba(0, 0, 0, 0.4)" }} />
-                            </InputAdornment>
-                        ),
-                    }} />
                 </Grid>
             </Grid>
             <TableContainer>
@@ -76,9 +68,9 @@ function StorageDetails() {
                     <TableHead>
                         <TableRow>
                             <TableCell></TableCell> 
-                            <TableCell>Product Code</TableCell> 
-                            <TableCell>Description</TableCell>
-                            <TableCell>Quantity</TableCell>
+                            <TableCell className={classes.header}>Code</TableCell> 
+                            <TableCell className={classes.header}>Description</TableCell>
+                            <TableCell className={classes.header}>Qty</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
@@ -91,7 +83,7 @@ function StorageDetails() {
                                         <TableCell onClick={()=>viewDetails(`/products/product-details/${product["_id"]}`)}></TableCell>
                                         <TableCell onClick={()=>viewDetails(`/products/product-details/${product["_id"]}`)}>{product._id}</TableCell>
                                         <TableCell onClick={()=>viewDetails(`/products/product-details/${product["_id"]}`)}>{product.description}</TableCell>
-                                        <TableCell onClick={()=>viewDetails(`/products/product-details/${product["_id"]}`)}>{product.quantity}</TableCell>
+                                        <TableCell onClick={()=>viewDetails(`/products/product-details/${product["_id"]}`)} >{product.quantity}</TableCell>
                                         <TableCell onClick={()=>viewDetails(`/storages/storage/${storage_id}/pull/${product._id}`)}><Button variant="contained">PULL</Button></TableCell>
                                 </TableRow>
                             else return null
