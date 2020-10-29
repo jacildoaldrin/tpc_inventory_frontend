@@ -1,6 +1,6 @@
 import React from "react";
-import { Switch, Route} from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+import { Switch, Route } from "react-router-dom";
+import { MuiThemeProvider } from "@material-ui/core";
 import "./App.css";
 
 //context
@@ -32,26 +32,20 @@ const App = () => {
   //   }
   // }, [history, currUser]);
 
-  const MuiTheme = createMuiTheme({
-    typography: {
-     "fontFamily": `"Montserrat", "Helvetica", "Arial", sans-serif`,
-    }
-  });
-
   return (
     <MuiThemeProvider theme={MuiTheme}>
       <Switch>
         {/* {currUser !== null ? ( */}
-          <Layout>
-            <Route exact path="/" component={Dashboard} />
-            <Route path="/orders" component={Orders} />
-            <Route path="/transactions" component={Transactions} />
-            <Route path="/products" component={Products} />
-            <Route path="/suppliers" component={Suppliers} />
-            <Route path="/storages" component={Storage} />
-          </Layout>
+        <Layout>
+          <Route exact path="/" component={Dashboard} />
+          <Route path="/orders" component={Orders} />
+          <Route path="/transactions" component={Transactions} />
+          <Route path="/products" component={Products} />
+          <Route path="/suppliers" component={Suppliers} />
+          <Route path="/storages" component={Storage} />
+        </Layout>
         {/* ) : ( */}
-          {/* <Login /> */}
+        {/* <Login /> */}
         {/* )} */}
       </Switch>
     </MuiThemeProvider>

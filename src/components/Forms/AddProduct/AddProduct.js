@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
+  Button,
   Grid,
   Select,
   FormControl,
@@ -136,9 +137,13 @@ const AddProduct = () => {
       unitSellingPrice === "" ? 0 : unitSellingPrice
     );
     formData.append("image", imageFile);
-    
-    await addProduct(formData, callBack);
+
+    // await addProduct(formData, callBack);
+      setTimeout(() => {
     setIsSubmitting(false);
+
+      }, 3000)
+
   };
 
   const callBack = () => {
@@ -358,20 +363,12 @@ const AddProduct = () => {
             </Grid>
           </div>
           <div className={styles["buttons"]}>
-            <button
-              type="submit"
-              className={styles["button"]}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? <CircularProgress size={12} /> : "ADD"}
-            </button>
-            <button
-              type="button"
-              className={styles["button"]}
-              onClick={() => goBack()}
-            >
+            <Button type="submit" disabled={isSubmitting} size="large" variant="contained" style={{minWidth: "200px"}}>
+              {isSubmitting ? <CircularProgress size={16} /> : "ADD"}
+            </Button>
+            <Button type="button" size="large" variant="contained" style={{minWidth: "200px"}} onClick={() => goBack()}>
               CANCEL
-            </button>
+            </Button>
           </div>
         </div>
       </form>
