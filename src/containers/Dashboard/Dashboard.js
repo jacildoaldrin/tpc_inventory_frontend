@@ -23,9 +23,8 @@ const Dashboard = () => {
             fullWidth
             className={styles["grid-button"]}
             style={{
-              backgroundColor: "#DEFDD7",
-              color: "black",
-              fontWeight: "bold",
+              backgroundColor: "#406E16",
+              color: "white",
               height: "60px",
               fontSize: "20px",
               paddingTop: "10px",
@@ -40,15 +39,14 @@ const Dashboard = () => {
           <Button
             className={styles["grid-button"]}
             fullWidth
-            variant="outlined"
             style={{
-              backgroundColor: "#DEFDD7",
-              color: "black",
-              fontWeight: "bold",
+              backgroundColor: "#406E16",
+              color: "white",
               height: "60px",
               fontSize: "20px",
               paddingTop: "10px",
             }}
+            variant="contained"
             onClick={() => history.push("/suppliers")}
           >
             SUPPLIERS
@@ -58,17 +56,14 @@ const Dashboard = () => {
           <Button
             className={styles["grid-button"]}
             fullWidth
-            variant="outlined"
             style={{
-              backgroundColor: "white",
-              borderColor: "green",
-              borderWidth: "medium",
-              color: "green",
-              fontWeight: "bold",
+              backgroundColor: "#406E16",
+              color: "white",
               height: "60px",
               fontSize: "20px",
               paddingTop: "10px",
             }}
+            variant="contained"
             onClick={() => history.push("/storages")}
           >
             STORAGES

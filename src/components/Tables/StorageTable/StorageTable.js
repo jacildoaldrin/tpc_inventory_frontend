@@ -70,10 +70,10 @@ function StorageTable() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Location</TableCell>
-                            <TableCell>Bin</TableCell>
-                            <TableCell>Total Items</TableCell>
-                            <TableCell>Actions</TableCell>
+                            <TableCell align="center">Location</TableCell>
+                            <TableCell align="center">Bin</TableCell>
+                            <TableCell align="center">Total Items</TableCell>
+                            <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -86,9 +86,9 @@ function StorageTable() {
                             return <TableRow
                                 onClick={()=>viewDetails(`storages/storage-details/${row.id}`)}
                                 key={row.id}>
-                                    <TableCell align="left">{row.location}</TableCell>
-                                    <TableCell align="left">{row.bin}</TableCell>
-                                    <TableCell align="left">{row.total_items}</TableCell>
+                                    <TableCell align="center">{row.location}</TableCell>
+                                    <TableCell align="center">{row.bin}</TableCell>
+                                    <TableCell align="center">{row.total_items}</TableCell>
                                     <TableCell align="center"><MoreVert /></TableCell>
                             </TableRow>
                             else return null

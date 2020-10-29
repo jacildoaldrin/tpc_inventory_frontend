@@ -53,13 +53,14 @@ function Pull(props) {
     // const [open, setOpen] = React.useState(false)
     // const [response, setResponse] = React.useState('')
     const [openModal, setOpenModal] = React.useState(false)
-    const { getProductDetails, getProducts } = useProducts();
+    const { getProductDetails, getProducts, products } = useProducts();
     const { getStorage } = useStorage();
     const { goBack } = useNavigation();
     const { openSnackbar } = useSnackbar();
     
     useEffect(() => {
         //get product details
+        console.log(products)
         async function getProduct() {
             let product = await getProductDetails(product_id);
             setProduct(product);

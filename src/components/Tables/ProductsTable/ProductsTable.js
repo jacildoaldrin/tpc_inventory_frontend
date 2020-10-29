@@ -91,37 +91,31 @@ const ProductsTable = () => {
         </div>
       </div>
       <TableContainer className={styles["container"]}>
-        <Table className={styles["table"]} aria-label="simple table">
+        <Table className={styles["table"]} aria-label="simple table" size="small">
           <TableHead className={styles["table-header"]}>
             <TableRow>
               <TableCell align="center" width="5%" />
-              <TableCell align="center" width="5%">
-                <b>Product Code</b>
-              </TableCell>
-              <TableCell align="left" width="20%">
+              <TableCell align="left" width="30%">
                 <b>Product Description</b>
               </TableCell>
-              <TableCell align="left" width="5%">
+              <TableCell align="center" width="15%">
+                <b>Product Code</b>
+              </TableCell>
+              <TableCell align="center" width="20%">
                 <b>UPC</b>
               </TableCell>
-              {/* <TableCell align="left" width="15%">
-                <b>Last Modified</b>
-              </TableCell> */}
-              <TableCell align="left" width="5%">
-                <b>Quantity</b>
+              <TableCell align="center" width="20%">
+                <b>Supplier Code</b>
               </TableCell>
-              <TableCell align="left" width="5%">
-                <b>Unit Total Cost</b>
+              {/* <TableCell align="left" width="5%">
+                <b>Quantity</b>
               </TableCell>
               <TableCell align="left" width="5%">
                 <b>Unit Sell Price</b>
               </TableCell>
               <TableCell align="left" width="5%">
                 <b>Category</b>
-              </TableCell>
-              <TableCell align="center" width="5%">
-                <b>Supplier</b>
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -149,22 +143,18 @@ const ProductsTable = () => {
                       }}
                     />
                   </TableCell>
-                  <TableCell align="center">{row["_id"]}</TableCell>
                   <TableCell align="left">{row["description"]}</TableCell>
-                  <TableCell align="left">{row["upc"]}</TableCell>
+                  <TableCell align="center">{row["_id"]}</TableCell>
+                  <TableCell align="center">{row["upc"]}</TableCell>
+                  <TableCell align="center">{row["supplier_code"]}</TableCell>
                   {/* <TableCell align="left">
-                    {Moment(row["date_added"]).format("MMMM D, YYYY, HH:MM a")}
-                  </TableCell>
-                  <TableCell align="left">
                     {Moment(row["date_modified"]).format(
                       "MMMM D, YYYY, HH:MM a"
                     )}
                   </TableCell> */}
-                  <TableCell align="left">{row["stock_qty"]}</TableCell>
-                  <TableCell align="left">{row["cost_with_tax"]}</TableCell>
+                  {/* <TableCell align="left">{row["stock_qty"]}</TableCell>
                   <TableCell align="left">{row["unit_sell_price"]}</TableCell>
-                  <TableCell align="left">{row["category_name"]}</TableCell>
-                  <TableCell align="center">{row["supplier_code"]}</TableCell>
+                  <TableCell align="left">{row["category_name"]}</TableCell> */}
                 </TableRow>
               ))}
           </TableBody>

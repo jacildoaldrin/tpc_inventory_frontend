@@ -114,7 +114,7 @@ function SupplierDetails() {
             </Grid>
             <Grid item xs={12} sm={9}>
               <Grid container className={classes.leftColumn}>
-                <Grid item container xs={12} spacing={10}>
+                {/* <Grid item container xs={12} spacing={10}>
                   <Grid item xs={4} className={classes.label}>
                     <Typography>Supplier Id:</Typography>
                   </Grid>
@@ -123,7 +123,7 @@ function SupplierDetails() {
                       {supplier.id === null ? "-" : supplier.id}
                     </Typography>
                   </Grid>
-                </Grid>
+                </Grid> */}
 
                 <Grid item container xs={12} sm={6}>
                   <Grid item xs={4} className={classes.label}>
@@ -232,11 +232,13 @@ function SupplierDetails() {
 
               <Grid item xs={10}>
                 <Button
+                  type="button"
                   fullWidth
                   variant="contained"
                   className={classes.button}
+                  onClick={goBack}
                 >
-                  Cancel
+                  Back
                 </Button>
               </Grid>
             </Grid>
