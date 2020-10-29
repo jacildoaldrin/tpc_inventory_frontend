@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
+  Button,
   Grid,
   // Select,
   // FormControl,
@@ -315,20 +316,12 @@ const EditProduct = () => {
             </Grid>
           </div>
           <div className={styles["buttons"]}>
-            <button
-              type="submit"
-              className={styles["button"]}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? <CircularProgress size={12} /> : "SAVE"}
-            </button>
-            <button
-              type="button"
-              className={styles["button"]}
-              onClick={() => goBack()}
-            >
+            <Button type="submit" disabled={isSubmitting} size="large" variant="contained" style={{minWidth: "200px"}}>
+              {isSubmitting ? <CircularProgress size={16} /> : "SAVE"}
+            </Button>
+            <Button type="button" size="large" variant="contained" style={{minWidth: "200px"}} onClick={() => goBack()}>
               CANCEL
-            </button>
+            </Button>
           </div>
         </div>
       </form>

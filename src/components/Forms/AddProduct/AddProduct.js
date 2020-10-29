@@ -137,13 +137,8 @@ const AddProduct = () => {
       unitSellingPrice === "" ? 0 : unitSellingPrice
     );
     formData.append("image", imageFile);
-
-    // await addProduct(formData, callBack);
-      setTimeout(() => {
+    await addProduct(formData, callBack);
     setIsSubmitting(false);
-
-      }, 3000)
-
   };
 
   const callBack = () => {
