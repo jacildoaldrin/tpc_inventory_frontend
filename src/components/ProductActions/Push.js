@@ -80,8 +80,9 @@ function Push() {
         const quantity = document.getElementById('quantity').value
         // console.log("loc:", loc)
         // console.log("bin:", bin)
-        // console.log("qty:", qty)
-        if (location.length !== 0 && bin.length !== 0 && quantity > -1){
+        console.log("qty:")
+        console.log(quantity)
+        if (location.length !== 0 && bin.length !== 0 && quantity > -1 && quantity !== ""){
             setTimeout(()=> {
                 Axios.post(`${target}/storages/push`, { location, bin, product_id, quantity })
                     .then(res=>{
