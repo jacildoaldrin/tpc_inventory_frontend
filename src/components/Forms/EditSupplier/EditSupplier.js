@@ -137,7 +137,11 @@ const EditSupplier = (props) => {
           <button className={styles["form-button"]} type="submit">
             SUBMIT
           </button>
-          <button className={styles["form-button"]} onClick={() => goBack()}>
+          <button
+            type="button"
+            className={styles["form-button"]}
+            onClick={() => goBack()}
+          >
             CANCEL
           </button>
         </div>

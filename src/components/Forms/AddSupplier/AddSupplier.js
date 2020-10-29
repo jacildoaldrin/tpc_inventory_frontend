@@ -111,10 +111,14 @@ const AddSupplier = (props) => {
           </Grid>
         </div>
         <div className={styles["form-footer"]}>
-          <button className={styles["form-button"]} type="submit">
+          <button type="submit" className={styles["form-button"]}>
             SUBMIT
           </button>
-          <button className={styles["form-button"]} onClick={() => goBack()}>
+          <button
+            type="button"
+            className={styles["form-button"]}
+            onClick={() => goBack()}
+          >
             CANCEL
           </button>
         </div>
