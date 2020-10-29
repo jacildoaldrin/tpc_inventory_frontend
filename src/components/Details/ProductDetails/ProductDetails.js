@@ -230,7 +230,7 @@ const ProductDetails = () => {
             {/*PLACE OTHER STUFF HERE those $$$ and QTY ones*/}
             {/**/}
             {/************************************************************************************/}
-            <Hidden smDown>
+            {/* <Hidden smDown>
               <Grid container>
                 <Grid item xs={12} className={classes.underline}>
                   <Typography variant="h6">Product numbers</Typography>
@@ -300,7 +300,7 @@ const ProductDetails = () => {
                   <Typography>{product.product_notes}</Typography>
                 </Grid>
               </Grid>
-            </Hidden>
+            </Hidden> */}
           </Grid>
           <Grid item container xs={12}>
             <Grid xs={12} item className={`${classes.underline} ${classes.mt2rem}`}>
