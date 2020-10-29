@@ -67,7 +67,7 @@ const EditSupplier = (props) => {
   useEffect(() => {
     async function getSupplier() {
       let supplier = await getSupplierDetails(supplier_id);
-      setSupplier(await getSupplierDetails(supplier_id));
+      setSupplier(supplier);
       setSupplierFields(supplier);
     }
     getSupplier();
