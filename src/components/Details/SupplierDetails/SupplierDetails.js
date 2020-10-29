@@ -7,6 +7,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 //context
 import { useSuppliers } from "contexts/SuppliersContext";
 import { useNavigation } from "contexts/NavigationContext";
+import { useSnackbar } from "contexts/SnackbarContext";
 
 // material
 import {
@@ -73,17 +74,33 @@ const useStyles = makeStyles((theme) => ({
 
 function SupplierDetails() {
   const classes = useStyles();
+  const { openSnackbar } = useSnackbar();
+
   const { supplier_id } = useParams();
   const [supplier, setSupplier] = useState({});
   const { goBack, viewDetails } = useNavigation();
-  const { getSupplierDetails } = useSuppliers();
+  const { getSupplierDetails, removeSupplier } = useSuppliers();
 
-  async function getSupplier() {
-    let supplier = await getSupplierDetails(supplier_id);
-    setSupplier(supplier);
-  }
+  const remSupplier = async () => {
+    console.log(`Remove supplier ${supplier_id}`);
+    if (supplier_id != null) {
+      await removeSupplier(supplier_id, snackbar);
+    } else {
+      console.log("Please choose a supplier to delete");
+    }
+  };
+
+  const snackbar = () => {
+    openSnackbar(
+      `Successfully removed Supplier ID: ${supplier_id} with name: ${supplier.supplier_name}`
+    );
+    goBack();
+  };
 
   useEffect(() => {
+    async function getSupplier() {
+      setSupplier(await getSupplierDetails(supplier_id));
+    }
     getSupplier();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supplier_id]);
@@ -118,7 +135,7 @@ function SupplierDetails() {
                   <Grid item xs={4} className={classes.label}>
                     <Typography>Supplier Id:</Typography>
                   </Grid>
-                  <Grid item xs={2}>
+                  <Grid item xs={4}>
                     <Typography className={classes.details}>
                       {supplier.id === null ? "-" : supplier.id}
                     </Typography>
@@ -225,6 +242,7 @@ function SupplierDetails() {
                   fullWidth
                   variant="contained"
                   className={classes.button}
+                  onClick={remSupplier}
                 >
                   Remove
                 </Button>

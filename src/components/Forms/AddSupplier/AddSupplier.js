@@ -39,7 +39,7 @@ const AddSupplier = (props) => {
       supplier_notes: notes,
     };
 
-    if (name != null) {
+    if (name != "") {
       await addSupplier(supplier, snackbar);
     } else {
       console.log("Please fill out required field");
