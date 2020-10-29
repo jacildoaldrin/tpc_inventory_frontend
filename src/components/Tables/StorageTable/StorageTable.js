@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     },
     selectFilter: {
         marginRight: "16px",
-        width: "160px"
+        width: "120px"
     },
     titleContainer: {
         marginTop: "10px"
@@ -20,8 +20,17 @@ const useStyles = makeStyles(theme => ({
         overflow: "hidden"
     },
     chevron: {
-      fontSize: "10vh",
+        fontSize: "10vh",
     },
+    header: {
+        fontWeight: "bold",
+    },
+    // tableSize: {
+    //     maxWidth: "1000px",
+    //     alignItems: "center",
+    //     justify: "center",
+    //     direction: "column"
+    // }
 }))
 
 
@@ -47,7 +56,7 @@ function StorageTable() {
     const classes = useStyles();
 
     return (
-        <Paper>
+        <Paper className={classes.tableSize}>
             <Grid container alignItems="center" justify="space-between" className={classes.titleContainer}>
                 <ButtonBase onClick={goBack}><ChevronLeft className={classes.chevron} />
                     <Typography variant="h5" className={classes.title}>Storage</Typography>
@@ -70,10 +79,10 @@ function StorageTable() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Location</TableCell>
-                            <TableCell>Bin</TableCell>
-                            <TableCell>Total Items</TableCell>
-                            <TableCell>Actions</TableCell>
+                            <TableCell className={classes.header} align="center">Location</TableCell>
+                            <TableCell className={classes.header} align="center">Bin</TableCell>
+                            <TableCell className={classes.header} align="center">Total Items</TableCell>
+                            <TableCell className={classes.header} align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -86,9 +95,9 @@ function StorageTable() {
                             return <TableRow
                                 onClick={()=>viewDetails(`storages/storage-details/${row.id}`)}
                                 key={row.id}>
-                                    <TableCell align="left">{row.location}</TableCell>
-                                    <TableCell align="left">{row.bin}</TableCell>
-                                    <TableCell align="left">{row.total_items}</TableCell>
+                                    <TableCell align="center">{row.location}</TableCell>
+                                    <TableCell align="center">{row.bin}</TableCell>
+                                    <TableCell align="center">{row.total_items}</TableCell>
                                     <TableCell align="center"><MoreVert /></TableCell>
                             </TableRow>
                             else return null

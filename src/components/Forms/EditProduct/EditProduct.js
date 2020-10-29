@@ -320,7 +320,7 @@ const EditProduct = () => {
               className={styles["button"]}
               disabled={isSubmitting}
             >
-              {isSubmitting ? <CircularProgress size={12} /> : "EDIT"}
+              {isSubmitting ? <CircularProgress size={12} /> : "SAVE"}
             </button>
             <button
               type="button"
