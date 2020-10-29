@@ -64,13 +64,12 @@ const EditSupplier = (props) => {
     }
   };
 
-  async function getSupplier() {
-    let supplier = await getSupplierDetails(supplier_id);
-    setSupplier(supplier);
-    setSupplierFields(supplier);
-  }
-
   useEffect(() => {
+    async function getSupplier() {
+      let supplier = await getSupplierDetails(supplier_id);
+      setSupplier(supplier);
+      setSupplierFields(supplier);
+    }
     getSupplier();
   }, [supplier_id]);
 

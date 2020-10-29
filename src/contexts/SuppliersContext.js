@@ -35,6 +35,19 @@ export const SuppliersProvider = (props) => {
     }
   };
 
+  const removeSupplier = async (id, cb) => {
+    try {
+      await axios.delete(`${target}/suppliers/${id}`).then((res) => {
+        console.log(res);
+      });
+      await getSuppliers();
+      return cb();
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+  };
+
   const editSupplier = async (supplier_id, supplierdata, cb) => {
     try {
       await axios
@@ -72,6 +85,7 @@ export const SuppliersProvider = (props) => {
         addSupplier,
         getSuppliers,
         editSupplier,
+        removeSupplier,
       }}
     >
       {props.children}
