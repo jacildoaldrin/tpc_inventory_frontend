@@ -83,7 +83,7 @@ function SupplierDetails() {
 
   const remSupplier = async () => {
     console.log(`Remove supplier ${supplier_id}`);
-    if (supplier_id != null) {
+    if (supplier_id) {
       await removeSupplier(supplier_id, snackbar);
     } else {
       console.log("Please choose a supplier to delete");
