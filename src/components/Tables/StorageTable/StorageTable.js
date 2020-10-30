@@ -67,7 +67,7 @@ function StorageTable() {
                     value={select}
                     onChange={(e)=>setSelect(e.target.value)}>
                     <MenuItem value="----">
-                        ----
+                        --all--
                     </MenuItem>
                     {uniqueLocations?.map((row) => (
                     <MenuItem key={row} value={row}>
