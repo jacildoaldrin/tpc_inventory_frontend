@@ -114,6 +114,7 @@ function Pull(props) {
                     // // Expensive design choice right here
                     // Not anymore
                     // getProductStorageDetails();
+                    getStorage();
                     goBack();
                 })
         }

@@ -42,6 +42,7 @@ const ProductsTable = () => {
   };
 
   const handleSearchTermChange = (event) => {
+    if(page !== 0) setPage(0);
     setSearchTerm(event.target.value);
   };
 
@@ -165,7 +166,7 @@ const ProductsTable = () => {
         component="div"
         rowsPerPageOptions={[5, 10, 15]}
         rowsPerPage={rowsPerPage}
-        count={products.length}
+        count={result.length}
         page={page}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={onChangeRowsPerPage}
