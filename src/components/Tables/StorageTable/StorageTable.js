@@ -42,7 +42,7 @@ function StorageTable() {
     const { viewDetails, goBack } = useNavigation();
     const uniqueLocations = [...new Set(storage.filter(item=>(item.total_items > 0)).map(item=>item.location))]
 
-    const handleChangePage = (newPage) => {
+    const handleChangePage = (event, newPage) => {
         setPage(newPage);
     }
 
