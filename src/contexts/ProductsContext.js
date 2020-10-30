@@ -51,7 +51,9 @@ export const ProductsProvider = (props) => {
   const getProducts = async () => {
     try {
       await axios
-        .get(`${target}/products`)
+        .get(`${target}/products`, {headers: {
+          authorization: "Bearer " + localStorage.getItem("@token")
+        }})
         .then((response) => setProducts(response.data));
     } catch (err) {
       console.log(err);

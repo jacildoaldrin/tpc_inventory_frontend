@@ -12,15 +12,21 @@ export const AuthProvider = (props) => {
   const [loading, setLoading] = useState(true);
 
   const login = async (email, password) => {
-    await auth
-      .signInWithEmailAndPassword(email, password)
-      .then(async (res) => {
+    await auth.signInWithEmailAndPassword(email, password).then(
+      async (res) => {
         const token = await auth?.currentUser?.getIdToken(true);
-      });
+        localStorage.setItem("@token", token);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   };
 
-  const logout = () => {
-    auth.signOut();
+  const logout = async () => {
+    await auth.signOut().then((res) => {
+      localStorage.removeItem("@token");
+    });
   };
 
   const value = {
@@ -30,7 +36,9 @@ export const AuthProvider = (props) => {
   };
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      let token = await user.getIdToken(true);
+      console.log(token);
       setCurrUser(user);
       setLoading(false);
     });
