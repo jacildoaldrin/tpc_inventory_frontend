@@ -55,6 +55,11 @@ function StorageTable() {
 
     const classes = useStyles();
 
+    const result = storage?.filter(sto => {
+        if(select === '----') return true
+        else  return sto.location === select
+    }).filter(item=>(item.total_items > 0))
+
     return (
         <Paper className={classes.tableSize}>
             <Grid container alignItems="center" justify="space-between" className={classes.titleContainer}>
@@ -65,7 +70,10 @@ function StorageTable() {
                     select
                     className={classes.selectFilter}
                     value={select}
-                    onChange={(e)=>setSelect(e.target.value)}>
+                    onChange={(e)=> {
+                        if(page !== 0) setPage(0);
+                        setSelect(e.target.value)
+                    }}>
                     <MenuItem value="----">
                         --all--
                     </MenuItem>
@@ -82,14 +90,10 @@ function StorageTable() {
                             <TableCell className={classes.header} align="center">Location</TableCell>
                             <TableCell className={classes.header} align="center">Bin</TableCell>
                             <TableCell className={classes.header} align="center">Total Items</TableCell>
-                            <TableCell className={classes.header} align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {storage?.filter(sto => {
-                                if(select === '----') return true
-                                else  return sto.location === select
-                            }).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        {result?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map(row => {
                             if (row.total_items > 0)
                             return <TableRow
@@ -97,8 +101,7 @@ function StorageTable() {
                                 key={row.id}>
                                     <TableCell align="center">{row.location}</TableCell>
                                     <TableCell align="center">{row.bin}</TableCell>
-                                    <TableCell align="center">{row.total_items}</TableCell>
-                                    <TableCell align="center"><MoreVert /></TableCell>
+                                    <TableCell align="center">{row.total_items}</TableCell> 
                             </TableRow>
                             else return null
                         })}
@@ -110,7 +113,7 @@ function StorageTable() {
                     component="div"
                     rowsPerPageOptions={[5,10,15]}
                     rowsPerPage={rowsPerPage}
-                    count={storage.length}
+                    count={result.length}
                     page={page}
                     onChangePage={handleChangePage}
                     onChangeRowsPerPage={onChangeRowsPerPage}
