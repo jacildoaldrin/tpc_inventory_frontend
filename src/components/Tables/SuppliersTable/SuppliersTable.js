@@ -85,13 +85,10 @@ const SuppliersTable = (props) => {
         <Table className={styles["table"]} aria-label="simple table">
           <TableHead className={styles["table-header"]}>
             <TableRow>
-              <TableCell align="center" width="5%">
-                <b>ID</b>
-              </TableCell>
               <TableCell align="left" width="15%">
                 <b>Name</b>
               </TableCell>
-              <TableCell align="left" width="15%">
+              <TableCell align="left" width="20%">
                 <b>Email</b>
               </TableCell>
               {/* <TableCell align="left" width="10%">
@@ -100,10 +97,10 @@ const SuppliersTable = (props) => {
             <TableCell align="left" width="20%">
               <b>Address</b>
             </TableCell> */}
-              <TableCell align="left" width="10%">
+              <TableCell align="left" width="20%">
                 <b>Contact</b>
               </TableCell>
-              <TableCell align="left" width="15%">
+              <TableCell align="left" width="20%">
                 <b>Notes</b>
               </TableCell>
             </TableRow>
@@ -119,7 +116,6 @@ const SuppliersTable = (props) => {
                     viewDetails(`suppliers/supplier-details/${row["id"]}`)
                   }
                 >
-                  <TableCell align="center">{row["id"]}</TableCell>
                   <TableCell align="left">{row["supplier_name"]}</TableCell>
                   <TableCell align="left">
                     {row["supplier_email"] === null
