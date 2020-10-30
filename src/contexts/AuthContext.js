@@ -12,7 +12,11 @@ export const AuthProvider = (props) => {
   const [loading, setLoading] = useState(true);
 
   const login = async (email, password) => {
-    await auth.signInWithEmailAndPassword(email, password);
+    await auth
+      .signInWithEmailAndPassword(email, password)
+      .then(async (res) => {
+        const token = await auth?.currentUser?.getIdToken(true);
+      });
   };
 
   const logout = () => {
@@ -30,7 +34,7 @@ export const AuthProvider = (props) => {
       setCurrUser(user);
       setLoading(false);
     });
-    
+
     return unsubscribe;
   }, []);
 
