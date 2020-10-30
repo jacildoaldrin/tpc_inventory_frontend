@@ -75,6 +75,7 @@ const ProductsTable = () => {
         <div>
           <div className={styles["search-bar"]}>
             <TextField
+              placeholder="search"
               value={searchTerm}
               onChange={handleSearchTermChange}
               fullWidth={true}
