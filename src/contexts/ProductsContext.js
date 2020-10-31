@@ -28,7 +28,7 @@ export const ProductsProvider = (props) => {
         .post(`${target}/products`, formdata, {
           "content-type": "multipart/form-data",
         })
-        .then((res) => console.log(res));
+        .then((res) => console.log(res.data));
     } catch (err) {
       console.log(err);
       return;
