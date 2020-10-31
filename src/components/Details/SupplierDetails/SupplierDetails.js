@@ -125,6 +125,14 @@ function SupplierDetails(props) {
                 </Typography>
               </Grid>
               <Grid item container justify="space-between">
+                <Typography className={classes.txtGreen}>Username: </Typography>
+                <Typography>
+                  {supplier.tpc_username !== null
+                    ? supplier.tpc_username
+                    : "N/A"}
+                </Typography>
+              </Grid>
+              <Grid item container justify="space-between">
                 <Typography className={classes.txtGreen}>Contact: </Typography>
                 <Typography>
                   {supplier.supplier_contact !== null
