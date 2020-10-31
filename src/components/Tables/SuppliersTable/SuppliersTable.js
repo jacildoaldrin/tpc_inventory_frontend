@@ -50,15 +50,16 @@ const SuppliersTable = (props) => {
       if (digits.includes(searchTerm)) return supplier;
       else if (supplier.supplier_name?.toLowerCase().includes(search))
         return true;
-      else if (supplier.supplier_email?.toLowerCase().includes(search)) {
+      else if (supplier.supplier_website?.toLowerCase().includes(search))
         return true;
-      } else if (supplier.supplier_contact?.toLowerCase().includes(search)) {
+      else if (supplier.supplier_email?.toLowerCase().includes(search))
         return true;
-      } else if (supplier.supplier_notes?.toLowerCase().includes(search))
+      else if (supplier.supplier_notes?.toLowerCase().includes(search))
         return true;
     });
   }
 
+  // Name - Website - Email - Notes
   return (
     <Paper>
       <div className={styles["table-toolbar"]}>
@@ -89,16 +90,10 @@ const SuppliersTable = (props) => {
                 <b>Name</b>
               </TableCell>
               <TableCell align="left" width="20%">
-                <b>Email</b>
+                <b>Website</b>
               </TableCell>
-              {/* <TableCell align="left" width="10%">
-              <b>Phone #</b>
-            </TableCell>
-            <TableCell align="left" width="20%">
-              <b>Address</b>
-            </TableCell> */}
               <TableCell align="left" width="20%">
-                <b>Contact</b>
+                <b>Email</b>
               </TableCell>
               <TableCell align="left" width="20%">
                 <b>Notes</b>
@@ -118,25 +113,16 @@ const SuppliersTable = (props) => {
                 >
                   <TableCell align="left">{row["supplier_name"]}</TableCell>
                   <TableCell align="left">
+                    {row["supplier_website"] === null
+                      ? "N/A"
+                      : row["supplier_website"]}
+                  </TableCell>
+                  <TableCell align="left">
                     {row["supplier_email"] === null
                       ? "N/A"
                       : row["supplier_email"]}
                   </TableCell>
-                  {/* <TableCell align="left">
-                  {row["supplier_phone"] === null
-                    ? "N/A"
-                    : row["supplier_phone"]}
-                </TableCell>
-                <TableCell align="left">
-                  {row["supplier_address"] === null
-                    ? "N/A"
-                    : row["supplier_address"]}
-                </TableCell> */}
-                  <TableCell align="left">
-                    {row["supplier_contact"] === null
-                      ? "N/A"
-                      : row["supplier_contact"]}
-                  </TableCell>
+
                   <TableCell align="left">
                     {row["supplier_notes"] === null
                       ? "N/A"
