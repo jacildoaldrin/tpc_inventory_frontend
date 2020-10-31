@@ -13,12 +13,16 @@ import { useSnackbar } from "contexts/SnackbarContext";
 import {
   Button,
   ButtonBase,
+  CircularProgress,
   Container,
   Grid,
   makeStyles,
   Paper,
   Typography,
 } from "@material-ui/core";
+
+// components
+import Modal from "../../Modal/Modal";
 
 const useStyles = makeStyles((theme) => ({
   chevron: {
@@ -81,8 +85,13 @@ function SupplierDetails() {
   const { goBack, viewDetails } = useNavigation();
   const { getSupplierDetails, removeSupplier } = useSuppliers();
 
+  const [openModal, setOpenModal] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
   const remSupplier = async () => {
     console.log(`Remove supplier ${supplier_id}`);
+    setSubmitting(true);
+
     if (supplier_id) {
       await removeSupplier(supplier_id, snackbar);
     } else {
@@ -91,6 +100,7 @@ function SupplierDetails() {
   };
 
   const snackbar = () => {
+    setSubmitting(false);
     openSnackbar(
       `Successfully removed Supplier ID: ${supplier_id} with name: ${supplier.supplier_name}`
     );
@@ -108,6 +118,25 @@ function SupplierDetails() {
   return (
     <>
       <Container className={classes.container}>
+        <Modal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          dialogTitle="ARE YOU SURE?"
+          dialogContentText={`You are about to delete ${supplier?.supplier_name}`}
+          onClose={() => setOpenModal(false)}
+        >
+          <Button onClick={() => setOpenModal(false)} size="large">
+            Cancel
+          </Button>
+          <Button
+            onClick={remSupplier}
+            size="large"
+            variant="contained"
+            disabled={submitting}
+          >
+            {submitting ? <CircularProgress /> : "REMOVE"}
+          </Button>
+        </Modal>
         <Grid container justify="space-between" alignItems="center">
           <Grid item xs={2} sm={1}>
             <ButtonBase onClick={goBack}>
@@ -116,7 +145,6 @@ function SupplierDetails() {
           </Grid>
           <Grid item container xs={10} justify="flex-end"></Grid>
         </Grid>
-
         {/* -------Paper */}
         <Paper elevation={3}>
           <Grid container>
@@ -239,12 +267,13 @@ function SupplierDetails() {
 
               <Grid item xs={10}>
                 <Button
+                  disabled={submitting}
                   fullWidth
                   variant="contained"
                   className={classes.button}
-                  onClick={remSupplier}
+                  onClick={() => setOpenModal(true)}
                 >
-                  Remove
+                  {submitting ? <CircularProgress /> : "Remove"}
                 </Button>
               </Grid>
 
