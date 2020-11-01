@@ -94,6 +94,9 @@ const useStyles = makeStyles(theme => ({
   },
   txtGreen: {
     color: '#25a732'
+  },
+  chip:{
+    margin: "5px"
   }
 }))
 
@@ -204,11 +207,11 @@ const ProductDetails = () => {
               </Grid>
               <Grid item xs={12} container justify="space-between">
                 <Typography className={classes.txtGreen}>Collection(s): </Typography>
-                <Typography>{product.containers?.map((container, ctr) => (<Chip label={container.name} key={ctr} />))}</Typography>
+                <Grid container item>{product.collections?.map((collection, ctr) => (<Chip className={classes.chip} label={collection} key={ctr} />))}</Grid>
               </Grid>
               <Grid item xs={12} container justify="space-between">
                 <Typography className={classes.txtGreen}>Tag(s): </Typography>
-                <Typography>{product.tags?.map((tag, ctr) => (<Chip label={tag.name} key={ctr} />))}</Typography>
+                <Grid container item>{product.tags?.map((tag, ctr) => (<Chip className={classes.chip} label={tag} key={ctr} />))}</Grid>
               </Grid>
             </Grid>
           </Grid>

@@ -1,4 +1,5 @@
 import { Snackbar } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import React from 'react'
 
 const SnackbarContext = React.createContext();
@@ -29,10 +30,12 @@ export const SnackbarProvider = (props) => {
             <Snackbar 
                 anchorOrigin={anchor}
                 open={open}
-                severity={severity}
                 autoHideDuration={5000}
-                onClose={()=>setOpen(false)}
-                message={message} />
+                onClose={()=>setOpen(false)}>
+                    <Alert severity={severity}>
+                        {message}
+                    </Alert>
+                </Snackbar>
         </SnackbarContext.Provider>
     )
 }

@@ -11,6 +11,7 @@ const InputArea = (props) => {
       fullWidth
       label={props.label}
       value={props.value}
+      onKeyDown={props.onKeyDown ? props.onKeyDown : e=>{e.key === 'Enter' && e.preventDefault()}}
       onChange={(event) => props.setValue(event.target.value)}
     />
   );
