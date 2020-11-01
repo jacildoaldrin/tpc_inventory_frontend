@@ -9,6 +9,7 @@ const InputField = (props) => {
       label={props.label}
       fullWidth
       value={props.value}
+      onKeyDown={props.onKeyDown ? props.onKeyDown : e=>{e.key === 'Enter' && e.preventDefault()}}
       onChange={(event) => props.setValue(event.target.value)}
       type={props.type ? "number" : "text"}
     />
