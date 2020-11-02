@@ -11,10 +11,8 @@ import {
   TextField,
   InputAdornment,
 } from "@material-ui/core";
-import Moment from "moment";
 
 //icons
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SearchIcon from "@material-ui/icons/Search";
 
 //context
@@ -42,7 +40,7 @@ const ProductsTable = () => {
   };
 
   const handleSearchTermChange = (event) => {
-    if(page !== 0) setPage(0);
+    if (page !== 0) setPage(0);
     setSearchTerm(event.target.value);
   };
 
@@ -93,7 +91,11 @@ const ProductsTable = () => {
         </div>
       </div>
       <TableContainer className={styles["container"]}>
-        <Table className={styles["table"]} aria-label="simple table" size="small">
+        <Table
+          className={styles["table"]}
+          aria-label="simple table"
+          size="small"
+        >
           <TableHead className={styles["table-header"]}>
             <TableRow>
               <TableCell align="center" width="5%" />
@@ -122,8 +124,8 @@ const ProductsTable = () => {
           </TableHead>
           <TableBody>
             {result
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
+              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              ?.map((row) => (
                 <TableRow
                   key={row["_id"]}
                   className={styles["table-row"]}
@@ -149,14 +151,6 @@ const ProductsTable = () => {
                   <TableCell align="center">{row["_id"]}</TableCell>
                   <TableCell align="center">{row["upc"]}</TableCell>
                   <TableCell align="center">{row["supplier_code"]}</TableCell>
-                  {/* <TableCell align="left">
-                    {Moment(row["date_modified"]).format(
-                      "MMMM D, YYYY, HH:MM a"
-                    )}
-                  </TableCell> */}
-                  {/* <TableCell align="left">{row["stock_qty"]}</TableCell>
-                  <TableCell align="left">{row["unit_sell_price"]}</TableCell>
-                  <TableCell align="left">{row["category_name"]}</TableCell> */}
                 </TableRow>
               ))}
           </TableBody>

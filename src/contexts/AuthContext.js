@@ -36,9 +36,7 @@ export const AuthProvider = (props) => {
   };
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      let token = await user.getIdToken(true);
-      console.log(token);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrUser(user);
       setLoading(false);
     });
