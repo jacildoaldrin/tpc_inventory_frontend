@@ -62,7 +62,7 @@ const EditProduct = () => {
       setPackaging(product["packaging"] || "");
     };
     getProduct();
-  }, [product_id]);
+  }, [product_id, getProductDetails]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
