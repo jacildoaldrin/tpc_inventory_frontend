@@ -191,7 +191,7 @@ function Pull(props) {
                             PULL
                         </Typography>
                     </Grid>
-                    <img src={product.image ? `${target}/images/${product.image}` : img} className={classes.img} alt="product image"/>
+                    <img src={product.image ? `${target}/images/${product.image}` : img} className={classes.img} alt="product"/>
                     <Grid container item className={classes.greenBox}>
                         <Grid container item justify="space-evenly">
                             <Typography className={classes.txt}>Location:</Typography>
