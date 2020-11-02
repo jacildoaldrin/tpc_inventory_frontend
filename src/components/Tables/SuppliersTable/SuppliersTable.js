@@ -13,7 +13,6 @@ import {
 } from "@material-ui/core";
 
 //icons
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SearchIcon from "@material-ui/icons/Search";
 
 //context
@@ -56,6 +55,7 @@ const SuppliersTable = (props) => {
         return true;
       else if (supplier.supplier_notes?.toLowerCase().includes(search))
         return true;
+      return false;
     });
   }
 
