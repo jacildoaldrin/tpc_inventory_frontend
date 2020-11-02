@@ -11,10 +11,8 @@ import {
   TextField,
   InputAdornment,
 } from "@material-ui/core";
-import Moment from "moment";
 
 //icons
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SearchIcon from "@material-ui/icons/Search";
 
 //context
@@ -42,7 +40,7 @@ const ProductsTable = () => {
   };
 
   const handleSearchTermChange = (event) => {
-    if(page !== 0) setPage(0);
+    if (page !== 0) setPage(0);
     setSearchTerm(event.target.value);
   };
 
@@ -66,6 +64,7 @@ const ProductsTable = () => {
       } else if (product.stock_qty === search) return true;
       else if (product.cost_with_tax === search) return true;
       else if (product.unit_sell_price === search) return true;
+      return false;
     });
   }
 
@@ -93,7 +92,11 @@ const ProductsTable = () => {
         </div>
       </div>
       <TableContainer className={styles["container"]}>
-        <Table className={styles["table"]} aria-label="simple table" size="small">
+        <Table
+          className={styles["table"]}
+          aria-label="simple table"
+          size="small"
+        >
           <TableHead className={styles["table-header"]}>
             <TableRow>
               <TableCell align="center" width="5%" />

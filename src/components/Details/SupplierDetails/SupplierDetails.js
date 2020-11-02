@@ -185,6 +185,7 @@ function SupplierDetails(props) {
           {/* End left Col */}
 
           <Grid
+          container
             item
             xs={12}
             sm={5}
