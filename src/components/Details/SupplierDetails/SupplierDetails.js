@@ -16,7 +16,6 @@ import {
   CircularProgress,
   Container,
   Grid,
-  Paper,
   Typography,
   Hidden,
 } from "@material-ui/core";
@@ -68,6 +67,25 @@ function SupplierDetails(props) {
   return (
     <>
       <Container className={classes.mb15vh}>
+        <Modal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          dialogTitle="ARE YOU SURE?"
+          dialogContentText={`You are about to delete ${supplier?.supplier_name}`}
+          onClose={() => setOpenModal(false)}
+        >
+          <Button onClick={() => setOpenModal(false)} size="large">
+            Cancel
+          </Button>
+          <Button
+            onClick={remSupplier}
+            size="large"
+            variant="contained"
+            disabled={submitting}
+          >
+            {submitting ? <CircularProgress /> : "REMOVE"}
+          </Button>
+        </Modal>
         <Grid
           container
           justify="space-between"
@@ -184,7 +202,7 @@ function SupplierDetails(props) {
           {/* End left Col */}
 
           <Grid
-          container
+            container
             item
             xs={12}
             sm={5}
