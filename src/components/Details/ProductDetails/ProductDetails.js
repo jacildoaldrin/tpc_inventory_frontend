@@ -10,7 +10,6 @@ import { useProducts } from "contexts/ProductsContext";
 import { Button, ButtonBase, Chip, Container, Fab, Grid, Hidden, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
 import { useNavigation } from "contexts/NavigationContext";
 import target from 'api/api.target'
-import Axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   chevron: {
@@ -104,35 +103,25 @@ const ProductDetails = () => {
   const { product_id } = useParams();
   const [product, setProduct] = useState({});
   const [productStorageDetails, setProductStorageDetails] = useState(null);
-  const { getProductDetails } = useProducts();
+  const { getProductDetails, getProductStorageDetails } = useProducts();
 
   const { goBack, viewDetails } = useNavigation();
 
   const [showbtn, setshowbtn] = useState(false)
 
-  async function getProduct() {
-    let product = await getProductDetails(product_id);
-    setProduct(product);
-    // console.log(product);
-  }
-
-  const getProductStorageDetails = () => {
-    // console.log(`${target}/getThisProductInAllStorages/${product_id}`)
-    Axios.get(`${target}/storages/getThisProductInAllStorages/${product_id}`)
-    .then(res => {
-      setProductStorageDetails(res.data)
-      // console.log("getProductStorageDetails")
-      // console.log(res.data)
-    })
-    .catch(err=>console.log(err))
-  }
-
   useEffect(() => {
-    
+    const getProduct = async() => {
+      let product = await getProductDetails(product_id);
+      setProduct(product);
+    }
+    const getProductStorage = async() => {
+      let productStorage = await getProductStorageDetails(product_id);
+      setProductStorageDetails(productStorage);
+    }
     getProduct();
-    getProductStorageDetails();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product_id]);
+    getProductStorage();
+
+  }, [product_id, getProductDetails, getProductStorageDetails]);
 
   const classes = useStyles();
 
