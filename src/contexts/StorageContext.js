@@ -13,9 +13,7 @@ export const StorageProvider = (props) => {
     const [storage, setStorage] = React.useState([])
 
     const getStorage = () => {
-        Axios.get(`${target}/storages`, {headers: {
-            authorization: "Bearer " + localStorage.getItem("@token")
-        }})
+        Axios.get(`${target}/storages`)
             .then(res=>setStorage(res.data))
             .catch(err=>console.log(err))
     }

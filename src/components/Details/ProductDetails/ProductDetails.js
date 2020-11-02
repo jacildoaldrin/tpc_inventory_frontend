@@ -118,9 +118,7 @@ const ProductDetails = () => {
 
   const getProductStorageDetails = () => {
     // console.log(`${target}/getThisProductInAllStorages/${product_id}`)
-    Axios.get(`${target}/storages/getThisProductInAllStorages/${product_id}`, {headers: {
-      authorization: "Bearer " + localStorage.getItem("@token")
-    }})
+    Axios.get(`${target}/storages/getThisProductInAllStorages/${product_id}`)
     .then(res => {
       setProductStorageDetails(res.data)
       // console.log("getProductStorageDetails")
