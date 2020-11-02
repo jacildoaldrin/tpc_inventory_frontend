@@ -1,8 +1,8 @@
-import { ButtonBase, Grid, InputAdornment, makeStyles, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography } from '@material-ui/core';
+import { ButtonBase, Grid,makeStyles, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography } from '@material-ui/core';
 import { useStorage } from 'contexts/StorageContext';
-import { Search, MoreVert, ChevronLeft } from '@material-ui/icons';
+import { ChevronLeft } from '@material-ui/icons';
 import { useNavigation } from "contexts/NavigationContext";
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const useStyles = makeStyles(theme => ({
     title: {

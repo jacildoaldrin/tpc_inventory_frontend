@@ -136,7 +136,7 @@ function Push() {
                                 PUSH
                             </Typography>
                         </Grid>
-                        <img src={product.image ? `${target}/images/${product.image}` : img} className={classes.img} alt="product image"/>
+                        <img src={product.image ? `${target}/images/${product.image}` : img} className={classes.img} alt="product"/>
                         <Autocomplete
                             freeSolo
                             id="location"

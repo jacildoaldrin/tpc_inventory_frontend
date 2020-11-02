@@ -21,7 +21,6 @@ const EditSupplier = (props) => {
   const { supplier_id } = useParams();
 
   const { openSnackbar } = useSnackbar();
-  const [supplier, setSupplier] = useState({});
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -41,7 +40,7 @@ const EditSupplier = (props) => {
       supplier_contact: contact,
       supplier_notes: notes,
     };
-    if (name != "") {
+    if (name !== "") {
       await editSupplier(supplier_id, supplier, snackbar);
     } else {
       console.log("Please fill out required field");
@@ -67,11 +66,10 @@ const EditSupplier = (props) => {
   useEffect(() => {
     async function getSupplier() {
       let supplier = await getSupplierDetails(supplier_id);
-      setSupplier(supplier);
       setSupplierFields(supplier);
     }
     getSupplier();
-  }, [supplier_id]);
+  }, [supplier_id, getSupplierDetails]);
 
   return (
     <div className={styles["container"]}>

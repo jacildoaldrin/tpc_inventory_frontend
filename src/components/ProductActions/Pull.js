@@ -50,46 +50,35 @@ function Pull(props) {
     const [input, setInput] = React.useState(0);
     const [productStorageDetails, setProductStorageDetails] = React.useState(null);
     const [submitting, setSubmitting] = React.useState(false)
-    // const [open, setOpen] = React.useState(false)
-    // const [response, setResponse] = React.useState('')
     const [openModal, setOpenModal] = React.useState(false)
-    const { getProductDetails, getProducts, products } = useProducts();
+    const { getProductDetails, getProducts } = useProducts();
     const { getStorage } = useStorage();
     const { goBack } = useNavigation();
     const { openSnackbar } = useSnackbar();
+    const classes = useStyles()
     
     useEffect(() => {
-        //get product details
-        console.log(products)
-        async function getProduct() {
-            let product = await getProductDetails(product_id);
-            setProduct(product);
-        }
-        getProduct();
-    }, [product_id])
-
-    const getProductStorageDetails = () => {
-        // console.log(`${target}/getThisProductInAllStorages/${product_id}`)
+        //get product details and product storage details
         Axios.get(`${target}/storages/getThisProductInAllStorages/${product_id}`)
         .then(res => {
             const sto_id = storage_id
             const result = res.data.find(({storage_id}) =>storage_id === parseInt(sto_id))
             setProductStorageDetails(result)
-            // console.log(result)
         })
         .catch(err=>console.log(err))
-    }
+
+        const getProduct = async() => {
+            let product = await getProductDetails(product_id);
+            setProduct(product);
+        }
+        getProduct();
+    }, [product_id, storage_id, getProductDetails])
 
     const submitAll = () => {
         Axios.patch(`${target}/storages/pull`, {product_id, storage_id, quantity: productStorageDetails?.quantity})
             .then(res=>{
-                // setResponse(res.data)
-                // setOpen(true)
                 openSnackbar(res.data)
                 setSubmitting(false)
-                // // Expensive design choice right here
-                // Not anymore
-                // getProductStorageDetails();
                 getStorage();
                 getProducts();
                 goBack();
@@ -99,33 +88,18 @@ function Pull(props) {
     const submit = () => {
         if (input <= productStorageDetails.quantity && input > 0){
             setSubmitting(true)
-            // console.log(input)
-            // setTimeout(()=>{
-                // setResponse('OK!')
-                // setOpen(true)
-                // setSubmitting(false)
-            // }, 3000)
             Axios.patch(`${target}/storages/pull`, {product_id, storage_id, quantity: input})
                 .then(res=>{
-                    // setResponse(res.data)
-                    // setOpen(true)
                     openSnackbar(res.data)
                     setSubmitting(false)
-                    // // Expensive design choice right here
-                    // Not anymore
-                    // getProductStorageDetails();
                     getStorage();
                     goBack();
                 })
         }
         else if (input > productStorageDetails.quantity) {
             openSnackbar('You are pulling way too many items!')
-            // setResponse('You are pulling way too much!')
-            // setOpen(true)
         }
         else {
-            // setResponse(`Even god might not be able to do that!`)
-            // setOpen(true)
             openSnackbar('Please enter valid qty!')
         }
     }
@@ -137,17 +111,7 @@ function Pull(props) {
     const onKeyDown = (e) => {
         if(e.keyCode === '13') submit();
     }
-
-    React.useEffect(()=>{
-        // needed if you want to load image
-        // getProduct();
-        getProductStorageDetails();
-    }, [storage_id])
-
-
-    const classes = useStyles()
-
-
+    
     return (
         <>
             <Dialog open={openModal} onClose={()=>setOpenModal(false)}>
@@ -191,7 +155,7 @@ function Pull(props) {
                             PULL
                         </Typography>
                     </Grid>
-                    <img src={product.image ? `${target}/images/${product.image}` : img} className={classes.img} alt="product image"/>
+                    <img src={product.image ? `${target}/images/${product.image}` : img} className={classes.img} alt="product"/>
                     <Grid container item className={classes.greenBox}>
                         <Grid container item justify="space-evenly">
                             <Typography className={classes.txt}>Location:</Typography>

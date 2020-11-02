@@ -64,6 +64,7 @@ const ProductsTable = () => {
       } else if (product.stock_qty === search) return true;
       else if (product.cost_with_tax === search) return true;
       else if (product.unit_sell_price === search) return true;
+      return false;
     });
   }
 

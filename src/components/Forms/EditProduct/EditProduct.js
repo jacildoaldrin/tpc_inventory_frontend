@@ -3,11 +3,6 @@ import { useParams } from "react-router-dom";
 import {
   Button,
   Grid,
-  // Select,
-  // FormControl,
-  // InputLabel,
-  // MenuItem,
-  // Chip,
   CircularProgress,
 } from "@material-ui/core";
 
@@ -67,7 +62,7 @@ const EditProduct = () => {
       setPackaging(product["packaging"] || "");
     };
     getProduct();
-  }, [product_id]);
+  }, [product_id, getProductDetails]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

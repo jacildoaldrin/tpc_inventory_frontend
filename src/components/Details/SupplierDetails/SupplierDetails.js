@@ -63,8 +63,7 @@ function SupplierDetails(props) {
       setSupplier(await getSupplierDetails(supplier_id));
     }
     getSupplier();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [supplier_id]);
+  }, [supplier_id, getSupplierDetails]);
 
   return (
     <>
@@ -185,6 +184,7 @@ function SupplierDetails(props) {
           {/* End left Col */}
 
           <Grid
+          container
             item
             xs={12}
             sm={5}

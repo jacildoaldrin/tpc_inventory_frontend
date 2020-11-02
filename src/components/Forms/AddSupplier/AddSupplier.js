@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 
 // material
-import { TextField, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import ApartmentIcon from "@material-ui/icons/Apartment";
 
 // components
@@ -26,7 +25,6 @@ const AddSupplier = (props) => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [notes, setNotes] = useState("");
-  const { getSuppliers } = useSuppliers();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,7 +37,7 @@ const AddSupplier = (props) => {
       supplier_notes: notes,
     };
 
-    if (name != "") {
+    if (name !== "") {
       await addSupplier(supplier, snackbar);
     } else {
       console.log("Please fill out required field");
