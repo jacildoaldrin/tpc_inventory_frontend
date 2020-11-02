@@ -21,7 +21,6 @@ const EditSupplier = (props) => {
   const { supplier_id } = useParams();
 
   const { openSnackbar } = useSnackbar();
-  const [supplier, setSupplier] = useState({});
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -67,7 +66,6 @@ const EditSupplier = (props) => {
   useEffect(() => {
     async function getSupplier() {
       let supplier = await getSupplierDetails(supplier_id);
-      setSupplier(supplier);
       setSupplierFields(supplier);
     }
     getSupplier();

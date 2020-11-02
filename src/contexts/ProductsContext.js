@@ -22,6 +22,19 @@ export const ProductsProvider = (props) => {
     return data;
   };
 
+  const getProductStorageDetails = async (id) => {
+    let data = null;
+    try {
+      let response = await axios.get(
+        `${target}/storages/getThisProductInAllStorages/${id}`
+      );
+      data = response.data;
+    } catch (err) {
+      console.log(err);
+    }
+    return data;
+  };
+
   const addProduct = async (formdata, cb) => {
     try {
       await axios
@@ -51,9 +64,11 @@ export const ProductsProvider = (props) => {
   const getProducts = async () => {
     try {
       await axios
-        .get(`${target}/products`, {headers: {
-          authorization: "Bearer " + localStorage.getItem("@token")
-        }})
+        .get(`${target}/products`, {
+          headers: {
+            authorization: "Bearer " + localStorage.getItem("@token"),
+          },
+        })
         .then((response) => setProducts(response.data));
     } catch (err) {
       console.log(err);
@@ -66,7 +81,14 @@ export const ProductsProvider = (props) => {
 
   return (
     <ProductsContext.Provider
-      value={{ products, getProductDetails, addProduct, editProduct, getProducts }}
+      value={{
+        products,
+        getProductDetails,
+        getProductStorageDetails,
+        addProduct,
+        editProduct,
+        getProducts,
+      }}
     >
       {props.children}
     </ProductsContext.Provider>
