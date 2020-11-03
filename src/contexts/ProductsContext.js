@@ -75,6 +75,36 @@ export const ProductsProvider = (props) => {
     }
   };
 
+  const getCollections = async () => {
+    let data = null;
+    try {
+      let res = await axios.get(`${target}/collections`, {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("@token"),
+        },
+      });
+      data = res.data;
+    } catch (err) {
+      console.log(err);
+    }
+    return data;
+  };
+
+  const getTags = async () => {
+    let data = null;
+    try {
+      let res = await axios.get(`${target}/tags`, {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("@token"),
+        },
+      });
+      data = res.data;
+    } catch (err) {
+      console.log(err);
+    }
+    return data;
+  };
+
   useEffect(() => {
     getProducts();
   }, []);
@@ -88,6 +118,8 @@ export const ProductsProvider = (props) => {
         addProduct,
         editProduct,
         getProducts,
+        getCollections,
+        getTags
       }}
     >
       {props.children}
