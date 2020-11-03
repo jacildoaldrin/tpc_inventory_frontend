@@ -12,7 +12,7 @@ export const useStorage = () => {
 export const StorageProvider = (props) => {
     const [storage, setStorage] = React.useState([])
 
-    const getStorage = () => {
+    const getStorages = () => {
         Axios.get(`${target}/storages`)
             .then(res=>setStorage(res.data))
             .catch(err=>console.log(err))
@@ -30,11 +30,11 @@ export const StorageProvider = (props) => {
     }    
     
     React.useEffect(() => {
-        getStorage()
+        getStorages()
     }, [])
 
     return (
-        <StorageContext.Provider value={{ storage, getStorage, getProductsInStorage }}>
+        <StorageContext.Provider value={{ storage, getStorages, getProductsInStorage }}>
             {props.children}
         </StorageContext.Provider>
     )

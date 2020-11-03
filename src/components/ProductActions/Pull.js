@@ -52,7 +52,7 @@ function Pull(props) {
     const [submitting, setSubmitting] = React.useState(false)
     const [openModal, setOpenModal] = React.useState(false)
     const { getProductDetails, getProducts } = useProducts();
-    const { getStorage } = useStorage();
+    const { getStorages } = useStorage();
     const { goBack } = useNavigation();
     const { openSnackbar } = useSnackbar();
     const classes = useStyles()
@@ -79,7 +79,7 @@ function Pull(props) {
             .then(res=>{
                 openSnackbar(res.data)
                 setSubmitting(false)
-                getStorage();
+                getStorages();
                 getProducts();
                 goBack();
             })
@@ -92,7 +92,7 @@ function Pull(props) {
                 .then(res=>{
                     openSnackbar(res.data)
                     setSubmitting(false)
-                    getStorage();
+                    getStorages();
                     goBack();
                 })
         }
