@@ -18,12 +18,23 @@ export const StorageProvider = (props) => {
             .catch(err=>console.log(err))
     }
 
+    const getProductsInStorage = async(id) => {
+        let data = null;
+        try{
+            let res = await Axios.get(`${target}/storages/productsInStorage/${id}`);
+            data = res.data;
+        }catch(err){
+            console.log(err)
+        }
+        return data;
+    }    
+    
     React.useEffect(() => {
         getStorage()
     }, [])
 
     return (
-        <StorageContext.Provider value={{ storage, getStorage }}>
+        <StorageContext.Provider value={{ storage, getStorage, getProductsInStorage }}>
             {props.children}
         </StorageContext.Provider>
     )

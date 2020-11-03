@@ -5,6 +5,7 @@ import Axios from 'axios'
 import React from 'react'
 import { useParams } from "react-router-dom";
 import { useNavigation } from "contexts/NavigationContext";
+import { useStorage } from "contexts/StorageContext";
 
 const useStyles = makeStyles({
     head: {
@@ -25,22 +26,20 @@ const useStyles = makeStyles({
 })
 
 function StorageDetails() {
+    const {getProductsInStorage} = useStorage();
     const { storage_id } = useParams();
     const [productsHere, setProductsHere] = React.useState([])
     const [thisStorage, setThisStorage] = React.useState(null)
     const { viewDetails, goBack } = useNavigation();
 
     React.useEffect(()=>{
-        Axios.get(`${target}/storages/productsInStorage/${storage_id}`)
-            .then(res=>{
-                setProductsHere(res.data)
-                console.log(res.data)
-            })
-            .catch(err=>console.log(err))
+        (async() => {
+            setProductsHere(await getProductsInStorage(storage_id))
+        })()
         Axios.get(`${target}/storages/${storage_id}`)
             .then(res=>setThisStorage(res.data))
             .catch(err=>console.log(err))
-    }, [storage_id])
+    }, [storage_id, getProductsInStorage])
 
     const classes = useStyles();
 
