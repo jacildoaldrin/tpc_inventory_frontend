@@ -1,7 +1,5 @@
 import { Button, ButtonBase, Grid, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core';
 import { ChevronLeft } from '@material-ui/icons';
-import target from 'api/api.target'
-import Axios from 'axios'
 import React from 'react'
 import { useParams } from "react-router-dom";
 import { useNavigation } from "contexts/NavigationContext";
@@ -26,7 +24,7 @@ const useStyles = makeStyles({
 })
 
 function StorageDetails() {
-    const {getProductsInStorage} = useStorage();
+    const { getStorage, getProductsInStorage } = useStorage();
     const { storage_id } = useParams();
     const [productsHere, setProductsHere] = React.useState([])
     const [thisStorage, setThisStorage] = React.useState(null)
@@ -34,12 +32,10 @@ function StorageDetails() {
 
     React.useEffect(()=>{
         (async() => {
-            setProductsHere(await getProductsInStorage(storage_id))
+            setProductsHere(await getProductsInStorage(storage_id));
+            setThisStorage(await getStorage(storage_id));
         })()
-        Axios.get(`${target}/storages/${storage_id}`)
-            .then(res=>setThisStorage(res.data))
-            .catch(err=>console.log(err))
-    }, [storage_id, getProductsInStorage])
+    }, [storage_id, getStorage, getProductsInStorage])
 
     const classes = useStyles();
 

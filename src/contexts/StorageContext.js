@@ -8,9 +8,19 @@ export const useStorage = () => {
     return React.useContext(StorageContext)
 }
 
-
 export const StorageProvider = (props) => {
     const [storage, setStorage] = React.useState([])
+
+    const getStorage = async(id) => {
+        let data = null;
+        try{
+            let res = Axios.get(`${target}/storages/${id}`);
+            data = res.data;
+        }catch(err){
+            console.log(err)
+        }
+        return data;
+    }
 
     const getStorages = () => {
         Axios.get(`${target}/storages`)
@@ -34,7 +44,7 @@ export const StorageProvider = (props) => {
     }, [])
 
     return (
-        <StorageContext.Provider value={{ storage, getStorages, getProductsInStorage }}>
+        <StorageContext.Provider value={{ storage, getStorage, getStorages, getProductsInStorage }}>
             {props.children}
         </StorageContext.Provider>
     )
