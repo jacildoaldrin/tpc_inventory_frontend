@@ -110,17 +110,10 @@ const ProductDetails = () => {
   const [showbtn, setshowbtn] = useState(false)
 
   useEffect(() => {
-    const getProduct = async() => {
-      let product = await getProductDetails(product_id);
-      setProduct(product);
-    }
-    const getProductStorage = async() => {
-      let productStorage = await getProductStorageDetails(product_id);
-      setProductStorageDetails(productStorage);
-    }
-    getProduct();
-    getProductStorage();
-
+    (async() => {
+      setProduct(await getProductDetails(product_id))
+      setProductStorageDetails(await getProductStorageDetails(product_id))
+    })();
   }, [product_id, getProductDetails, getProductStorageDetails]);
 
   const classes = useStyles();
