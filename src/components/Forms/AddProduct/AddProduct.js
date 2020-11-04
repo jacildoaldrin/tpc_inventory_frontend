@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import {
   Button,
   Grid,
-  // Select,
-  // FormControl,
-  // InputLabel,
-  // MenuItem,
   Chip,
   CircularProgress,
-  TextField
+  TextField,
 } from "@material-ui/core";
 import LeftChevron from "components/LeftChevron/LeftChevron";
-
-import target from "api/api.target";
 
 //context
 import { useNavigation } from "contexts/NavigationContext";
@@ -32,7 +25,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const AddProduct = () => {
   const { goBack } = useNavigation();
-  const { addProduct } = useProducts();
+  const { addProduct, getCollections, getTags } = useProducts();
   const { openSnackbar } = useSnackbar();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [unitSellingPrice, setUnitSellingPrice] = useState("");
@@ -60,18 +53,23 @@ const AddProduct = () => {
   const [tagList, setTagList] = useState([]);
 
   const pushTag = () => {
-    // console.log(document.getElementById("tagInput").value)
-    if(document.getElementById("tagInput").value !== "")
-      setTags([...new Set([...tags, document.getElementById("tagInput").value])])
-    document.getElementById("tagInput").value = ""
-  }
+    if (document.getElementById("tagInput").value !== "")
+      setTags([
+        ...new Set([...tags, document.getElementById("tagInput").value]),
+      ]);
+    document.getElementById("tagInput").value = "";
+  };
 
   const pushCollection = () => {
-    // console.log(document.getElementById("collectionInput").value)
-    if(document.getElementById("collectionInput").value !== "")
-      setCollections([...new Set([...collections, document.getElementById("collectionInput").value])])
-    document.getElementById("collectionInput").value = ""
-  }
+    if (document.getElementById("collectionInput").value !== "")
+      setCollections([
+        ...new Set([
+          ...collections,
+          document.getElementById("collectionInput").value,
+        ]),
+      ]);
+    document.getElementById("collectionInput").value = "";
+  };
 
   const handleImageFile = (event) => {
     setImageFile(event.target.files[0]);
@@ -96,17 +94,15 @@ const AddProduct = () => {
       "orig_cost_with_tax",
       originalCostWithTax === "" ? 0 : originalCostWithTax
     );
-    // formData.append("tags", tags)
-    tags.map(tag=>formData.append('tags[]', tag))
-    // formData.append("collections", collections)
-    collections.map(collection=>formData.append('collections[]', collection))
+    tags.map((tag) => formData.append("tags[]", tag));
+    collections.map((collection) =>
+      formData.append("collections[]", collection)
+    );
 
     formData.append(
       "unit_sell_price",
       unitSellingPrice === "" ? 0 : unitSellingPrice
     );
-    console.log(tags)
-    console.log(collections)
     formData.append("image", imageFile);
     await addProduct(formData, callBack);
     setIsSubmitting(false);
@@ -118,16 +114,11 @@ const AddProduct = () => {
   };
 
   useEffect(() => {
-    async function getCollections() {
-      let res = await axios.get(`${target}/collections`);
-      setCollectionList(res.data);
-    }
-    axios.get(`${target}/tags`).then(res=>{
-      setTagList(res.data)
-      // console.log(res.data)
-    })
-    getCollections();
-  }, []);
+    (async () => {
+      setCollectionList(await getCollections());
+      setTagList(await getTags());
+    })();
+  }, [getCollections, getTags]);
 
   return (
     <div className={styles["add-product"]}>
@@ -237,28 +228,32 @@ const AddProduct = () => {
               <Grid container item xs={12} alignItems="center">
                 <Grid item xs={6}>
                   <Autocomplete
-                    id="tagInput" 
+                    id="tagInput"
                     options={tagList}
                     clearOnBlur={false}
                     clearOnEscape={true}
-                    getOptionLabel={eachTag=>eachTag.tag_name}
-                    renderInput={(params)=><TextField 
-                                              {...params}
-                                              id="tagInput2"
-                                              label="Tag(s)" 
-                                              variant="outlined"
-                                              onKeyDown={(e)=>{
-                                                if(e.key === 'Enter') {
-                                                  pushTag();
-                                                  e.preventDefault();
-                                                }
-                                              }}
-                                              />}
-                    />
+                    getOptionLabel={(eachTag) => eachTag.tag_name}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        id="tagInput2"
+                        label="Tag(s)"
+                        variant="outlined"
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            pushTag();
+                            e.preventDefault();
+                          }
+                        }}
+                      />
+                    )}
+                  />
                 </Grid>
-                <Grid item xs={1}/>
+                <Grid item xs={1} />
                 <Grid item xs={4}>
-                  <Button onClick={pushTag} variant="contained">Add Tag</Button>
+                  <Button onClick={pushTag} variant="contained">
+                    Add Tag
+                  </Button>
                 </Grid>
                 <Grid item xs={12}>
                   <h6 style={{ paddingTop: "5px" }}>
@@ -267,75 +262,43 @@ const AddProduct = () => {
                       <Chip
                         key={idx}
                         label={item}
-                        onDelete={() => setTags(tags.filter(tag => tag !== item))}
+                        onDelete={() =>
+                          setTags(tags.filter((tag) => tag !== item))
+                        }
                         className={styles["chip"]}
                       />
                     ))}
                   </h6>
                 </Grid>
               </Grid>
-              {/* <Grid container item xs={12}>
-                <Grid item xs={6}>
-                  <FormControl fullWidth variant="outlined">
-                  <InputLabel
-                    id="tags-label"
-                    className={styles["dropdown-label"]}
-                  >
-                    Tag(s)
-                  </InputLabel>
-                  <Select
-                    labelId="tags-label"
-                    value={tag}
-                    open={openTag}
-                    onChange={handleChangeTag}
-                    onOpen={handleOpenTag}
-                    onClose={handleCloseTag}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    {tagList.map(tagChoice => <MenuItem key={tagChoice.id} value={tagChoice.tag_name}>{tagChoice.tag_name}</MenuItem>)}
-                  </Select>
-                </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <h6 style={{ paddingTop: "5px" }}>
-                    Tag(s):
-                    {tags.map((tag, idx) => (
-                      <Chip
-                        key={idx}
-                        label={tag}
-                        onDelete={() => handleRemoveTag(idx)}
-                        className={styles["chip"]}
-                      />
-                    ))}
-                  </h6>
-                </Grid>
-              </Grid> */}
               <Grid container item xs={12} alignItems="center">
                 <Grid item xs={6}>
                   <Autocomplete
-                    id="collectionInput" 
+                    id="collectionInput"
                     options={collectionList}
                     clearOnBlur={false}
                     clearOnEscape={true}
-                    getOptionLabel={eachTag=>eachTag.collection_name}
-                    renderInput={(params)=><TextField 
-                                              {...params}
-                                              label="Collection(s)" 
-                                              variant="outlined"
-                                              onKeyDown={(e)=>{
-                                                if(e.key === 'Enter') {
-                                                  pushCollection();
-                                                  e.preventDefault();
-                                                }
-                                              }}
-                                              />}
-                    />
+                    getOptionLabel={(eachTag) => eachTag.collection_name}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Collection(s)"
+                        variant="outlined"
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            pushCollection();
+                            e.preventDefault();
+                          }
+                        }}
+                      />
+                    )}
+                  />
                 </Grid>
-                <Grid item xs={1}/>
+                <Grid item xs={1} />
                 <Grid item xs={5}>
-                  <Button onClick={pushCollection} variant="contained">Add Collection</Button>
+                  <Button onClick={pushCollection} variant="contained">
+                    Add Collection
+                  </Button>
                 </Grid>
                 <Grid item xs={12}>
                   <h6 style={{ paddingTop: "5px" }}>
@@ -346,7 +309,11 @@ const AddProduct = () => {
                         label={item}
                         onDelete={() => {
                           // console.log('del')
-                          setCollections([...collections.filter(collection => collection !== item)])
+                          setCollections([
+                            ...collections.filter(
+                              (collection) => collection !== item
+                            ),
+                          ]);
                         }}
                         className={styles["chip"]}
                       />
@@ -354,9 +321,6 @@ const AddProduct = () => {
                   </h6>
                 </Grid>
               </Grid>
-
-
-
               <Grid item xs={12} sm={6}>
                 <InputField
                   label={"Low Stock"}
@@ -382,10 +346,22 @@ const AddProduct = () => {
             </Grid>
           </div>
           <div className={styles["buttons"]}>
-            <Button type="submit" disabled={isSubmitting} size="large" variant="contained" style={{minWidth: "200px"}}>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              size="large"
+              variant="contained"
+              style={{ minWidth: "200px" }}
+            >
               {isSubmitting ? <CircularProgress size={16} /> : "ADD"}
             </Button>
-            <Button type="button" size="large" variant="contained" style={{minWidth: "200px"}} onClick={() => goBack()}>
+            <Button
+              type="button"
+              size="large"
+              variant="contained"
+              style={{ minWidth: "200px" }}
+              onClick={() => goBack()}
+            >
               CANCEL
             </Button>
           </div>

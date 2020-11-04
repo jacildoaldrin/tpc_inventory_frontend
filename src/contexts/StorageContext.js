@@ -8,22 +8,43 @@ export const useStorage = () => {
     return React.useContext(StorageContext)
 }
 
-
 export const StorageProvider = (props) => {
     const [storage, setStorage] = React.useState([])
 
-    const getStorage = () => {
+    const getStorage = async(id) => {
+        let data = null;
+        try{
+            let res = Axios.get(`${target}/storages/${id}`);
+            data = res.data;
+        }catch(err){
+            console.log(err)
+        }
+        return data;
+    }
+
+    const getStorages = () => {
         Axios.get(`${target}/storages`)
             .then(res=>setStorage(res.data))
             .catch(err=>console.log(err))
     }
 
+    const getProductsInStorage = async(id) => {
+        let data = null;
+        try{
+            let res = await Axios.get(`${target}/storages/productsInStorage/${id}`);
+            data = res.data;
+        }catch(err){
+            console.log(err)
+        }
+        return data;
+    }    
+    
     React.useEffect(() => {
-        getStorage()
+        getStorages()
     }, [])
 
     return (
-        <StorageContext.Provider value={{ storage, getStorage }}>
+        <StorageContext.Provider value={{ storage, getStorage, getStorages, getProductsInStorage }}>
             {props.children}
         </StorageContext.Provider>
     )
