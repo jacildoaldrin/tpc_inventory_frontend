@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import target from "api/api.target";
+import { useSpinner } from "./SpinnerContext"
 
 const ProductsContext = React.createContext();
 
@@ -10,6 +11,7 @@ export const useProducts = () => {
 
 export const ProductsProvider = (props) => {
   const [products, setProducts] = useState([]);
+  // const { setIsLoading } = useSpinner();
 
   const getProductDetails = async (id) => {
     let data = null;
@@ -76,7 +78,12 @@ export const ProductsProvider = (props) => {
   };
 
   useEffect(() => {
+    // setIsLoading(true)
     getProducts();
+    // setIsLoading(false)
+    // return () => {
+      // setIsLoading(false)
+    // }
   }, []);
 
   return (
