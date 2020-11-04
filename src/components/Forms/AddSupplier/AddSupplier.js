@@ -97,13 +97,6 @@ const AddSupplier = (props) => {
                 <Grid item xs={12} spacing={1} container>
                   <Grid item container justify="space-between">
                     <InputField
-                      label={"Username"}
-                      value={username}
-                      setValue={setUsername}
-                    />
-                  </Grid>
-                  <Grid item container justify="space-between">
-                    <InputField
                       required
                       label={"Supplier Name"}
                       value={name}
@@ -117,6 +110,14 @@ const AddSupplier = (props) => {
                       setValue={setWebsite}
                     />
                   </Grid>
+                  <Grid item container justify="space-between">
+                    <InputField
+                      label={"Website Username"}
+                      value={username}
+                      setValue={setUsername}
+                    />
+                  </Grid>
+
                   <Grid item container justify="space-between">
                     <InputField
                       label={"Contact Name"}
