@@ -7,7 +7,6 @@ import {
   Chip,
   TextField,
 } from "@material-ui/core";
-import axios from "axios"
 
 import target from "api/api.target";
 
@@ -29,7 +28,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const EditProduct = () => {
   const { goBack } = useNavigation();
-  const { getProductDetails, editProduct, getProducts } = useProducts();
+  const { getProductDetails, editProduct, getProducts, getCollections, getTags } = useProducts();
   const { openSnackbar } = useSnackbar();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { product_id } = useParams();
@@ -69,7 +68,7 @@ const EditProduct = () => {
   }
 
   useEffect(() => {
-    const getProduct = async () => {
+    (async() => {
       let product = await getProductDetails(product_id);
       setImage(product["image"] || "");
       setListingName(product["list_name"] || "");
@@ -86,19 +85,12 @@ const EditProduct = () => {
       setPackaging(product["packaging"] || "");
       setTags([...product.tags]);
       setCollections([...product.collections]);
-    };
-    getProduct();
-    async function getCollections() {
-      let res = await axios.get(`${target}/collections`);
-      setCollectionList(res.data);
-    }
-    axios.get(`${target}/tags`).then(res=>{
-      setTagList(res.data)
-    })
-    getCollections();
-  }, [product_id, getProductDetails]);
+      setCollectionList(await getCollections());
+      setTagList(await getTags());
+    })()
+  }, [product_id, getProductDetails, getCollections, getTags]);
 
-
+console.log("rendering....")
     
   const handleSubmit = async (event) => {
     event.preventDefault();
