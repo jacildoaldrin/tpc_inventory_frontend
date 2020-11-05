@@ -52,6 +52,8 @@
 }
 
 .logout {
+  display: flex;
+  align-items: center;
   font-size: 14px;
   color: rgb(56, 56, 56);
   transition: color 0.3s ease;

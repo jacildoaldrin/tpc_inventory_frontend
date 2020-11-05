@@ -15,7 +15,7 @@ import styles from "./NavBar.module.css";
 import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
-  const { logout } = useAuth();
+  const { currUser, logout } = useAuth();
 
   return (
     <div className={styles["navbar"]}>
@@ -29,10 +29,9 @@ const NavBar = () => {
       <div className={styles["right-container"]}>
         <img src={UserImage} alt="user" className={styles["user-image"]} />
         <div className={styles["user-info"]}>
-          <h1 className={styles["name"]}>Duka Loncic</h1>
+          <h1 className={styles["name"]}>{currUser.email}</h1>
           <h1 className={styles["logout"]} onClick={() => logout()}>
-            <ExitToAppOutlinedIcon fontSize="small" />
-            &nbsp;Logout
+            <ExitToAppOutlinedIcon fontSize="small" />Logout
           </h1>
         </div>
       </div>
