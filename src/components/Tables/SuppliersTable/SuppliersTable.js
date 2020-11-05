@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -10,10 +10,15 @@ import {
   TablePagination,
   TextField,
   InputAdornment,
+  IconButton,
 } from "@material-ui/core";
+
+// themes
+import useStyles from "../tableThemes";
 
 //icons
 import SearchIcon from "@material-ui/icons/Search";
+import ClearIcon from "@material-ui/icons/Clear";
 
 //context
 import { useSuppliers } from "contexts/SuppliersContext";
@@ -22,11 +27,17 @@ import { useNavigation } from "contexts/NavigationContext";
 import styles from "./SuppliersTable.module.css";
 
 const SuppliersTable = (props) => {
+  const classes = useStyles();
   const { suppliers } = useSuppliers();
   const { viewDetails } = useNavigation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    var term = localStorage.getItem("searchSupTerm");
+    setSearchTerm(term);
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -39,6 +50,12 @@ const SuppliersTable = (props) => {
 
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
+    localStorage.setItem("searchSupTerm", event.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchTerm("");
+    localStorage.setItem("searchProdTerm", "");
   };
 
   let result = suppliers;
@@ -78,6 +95,13 @@ const SuppliersTable = (props) => {
                 ),
               }}
             />
+            <IconButton
+              size="small"
+              className={classes.margin}
+              onClick={clearSearch}
+            >
+              <ClearIcon fontSize="inherit" />
+            </IconButton>
           </div>
           <div className={styles["sort"]}></div>
         </div>

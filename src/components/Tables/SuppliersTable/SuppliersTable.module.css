@@ -19,6 +19,7 @@
 }
 
 .search-bar {
+  display: flex;
   transition: 0.3s ease-in-out;
   width: 200px;
 }
