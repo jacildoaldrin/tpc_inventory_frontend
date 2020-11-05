@@ -14,7 +14,9 @@ export const ProductsProvider = (props) => {
   const getProductDetails = async (id) => {
     let data = null;
     try {
-      let response = await axios.get(`${target}/products/${id}`);
+      let response = await axios.get(`${target}/products/${id}`, {
+        headers: { authorization: "Bearer " + localStorage.getItem("@token") },
+      });
       data = response.data;
     } catch (err) {
       console.log(err);
@@ -26,7 +28,12 @@ export const ProductsProvider = (props) => {
     let data = null;
     try {
       let response = await axios.get(
-        `${target}/storages/getThisProductInAllStorages/${id}`
+        `${target}/storages/getThisProductInAllStorages/${id}`,
+        {
+          headers: {
+            authorization: "Bearer " + localStorage.getItem("@token"),
+          },
+        }
       );
       data = response.data;
     } catch (err) {
@@ -39,6 +46,9 @@ export const ProductsProvider = (props) => {
     try {
       await axios
         .post(`${target}/products`, formdata, {
+          headers: {
+            authorization: "Bearer " + localStorage.getItem("@token"),
+          },
           "content-type": "multipart/form-data",
         })
         .then((res) => console.log(res.data));
@@ -52,7 +62,9 @@ export const ProductsProvider = (props) => {
 
   const editProduct = async (product_id, formdata, cb) => {
     try {
-      await axios.put(`${target}/products/${product_id}`, formdata);
+      await axios.put(`${target}/products/${product_id}`, formdata, {
+        headers: { authorization: "Bearer " + localStorage.getItem("@token") },
+      });
     } catch (err) {
       console.log(err);
       return;
@@ -119,7 +131,7 @@ export const ProductsProvider = (props) => {
         editProduct,
         getProducts,
         getCollections,
-        getTags
+        getTags,
       }}
     >
       {props.children}
