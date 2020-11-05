@@ -39,8 +39,8 @@ export const AuthProvider = (props) => {
     if(localStorage.getItem("@token")){
       localStorage.removeItem("@token");
     }
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      user.getIdToken(true).then(res => localStorage.setItem("@token", res));
+    const unsubscribe = auth.onAuthStateChanged(async(user) => {
+      await user.getIdToken(true).then(res => localStorage.setItem("@token", res));
       setCurrUser(user);
       setLoading(false);
     });
