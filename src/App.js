@@ -13,7 +13,7 @@ import Layout from "containers/Layout/Layout";
 //pages
 import Dashboard from "containers/Dashboard/Dashboard";
 import Orders from "containers/Orders/Orders";
-import Transactions from "containers/Transactions/Transactions";
+import Restocks from "containers/Restocks/Restocks";
 import Products from "containers/Products/Products";
 import Suppliers from "containers/Suppliers/Suppliers";
 import Storage from "containers/Storage/Storage";
@@ -39,7 +39,7 @@ const App = () => {
         <Layout>
           <Route exact path="/" component={Dashboard} />
           <Route path="/orders" component={Orders} />
-          <Route path="/transactions" component={Transactions} />
+          <Route path="/restocks" component={Restocks} />
           <Route path="/products" component={Products} />
           <Route path="/suppliers" component={Suppliers} />
           <Route path="/storages" component={Storage} />
