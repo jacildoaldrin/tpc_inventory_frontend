@@ -56,7 +56,7 @@ export const ProductsProvider = (props) => {
       console.log(err);
       return;
     }
-    await getProducts();
+    getProducts();
     return cb();
   };
 
@@ -69,13 +69,13 @@ export const ProductsProvider = (props) => {
       console.log(err);
       return;
     }
-    await getProducts();
+    getProducts();
     return cb();
   };
 
-  const getProducts = async () => {
+  const getProducts = () => {
     try {
-      await axios
+      axios
         .get(`${target}/products`, {
           headers: {
             authorization: "Bearer " + localStorage.getItem("@token"),
