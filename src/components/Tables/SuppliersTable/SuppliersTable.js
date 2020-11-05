@@ -55,7 +55,7 @@ const SuppliersTable = (props) => {
 
   const clearSearch = () => {
     setSearchTerm("");
-    localStorage.setItem("searchProdTerm", "");
+    localStorage.setItem("searchSupTerm", "");
   };
 
   let result = suppliers;
