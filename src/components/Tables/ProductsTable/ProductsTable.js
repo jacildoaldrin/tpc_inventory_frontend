@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -10,10 +10,15 @@ import {
   TablePagination,
   TextField,
   InputAdornment,
+  IconButton,
 } from "@material-ui/core";
+
+// themes
+import useStyles from "../tableThemes";
 
 //icons
 import SearchIcon from "@material-ui/icons/Search";
+import ClearIcon from "@material-ui/icons/Clear";
 
 //context
 import { useProducts } from "contexts/ProductsContext";
@@ -24,11 +29,17 @@ import target from "api/api.target";
 import img from "assets/tpc_logo.jpg";
 
 const ProductsTable = () => {
+  const classes = useStyles();
   const { products } = useProducts();
   const { viewDetails } = useNavigation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    var term = localStorage.getItem("searchProdTerm");
+    setSearchTerm(term);
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -42,6 +53,12 @@ const ProductsTable = () => {
   const handleSearchTermChange = (event) => {
     if (page !== 0) setPage(0);
     setSearchTerm(event.target.value);
+    localStorage.setItem("searchProdTerm", event.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchTerm("");
+    localStorage.setItem("searchProdTerm", "");
   };
 
   let result = products;
@@ -87,6 +104,13 @@ const ProductsTable = () => {
                 ),
               }}
             />
+            <IconButton
+              size="small"
+              className={classes.margin}
+              onClick={clearSearch}
+            >
+              <ClearIcon fontSize="inherit" />
+            </IconButton>
           </div>
           <div className={styles["sort"]}></div>
         </div>
@@ -130,9 +154,10 @@ const ProductsTable = () => {
                 <TableRow
                   key={row["_id"]}
                   className={styles["table-row"]}
-                  onClick={() =>
-                    viewDetails(`products/product-details/${row["_id"]}`)
-                  }
+                  onClick={() => {
+                    localStorage.setItem("searchTerm", searchTerm);
+                    viewDetails(`products/product-details/${row["_id"]}`);
+                  }}
                 >
                   <TableCell align="center">
                     <img

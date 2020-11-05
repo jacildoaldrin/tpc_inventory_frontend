@@ -30,6 +30,7 @@
 .search-bar {
   transition: 0.3s ease-in-out;
   width: 200px;
+  display: flex;
 }
 
 @media (max-width: 500px) {
