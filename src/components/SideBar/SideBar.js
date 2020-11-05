@@ -3,6 +3,9 @@ import React from "react";
 //assets
 import UserImage from "assets/luka.jpg";
 
+//context
+import { useAuth } from "contexts/AuthContext";
+
 //component
 import Backdrop from "../Backdrop/Backdrop";
 import SideBarNavigationItems from "./SideBarNavigationItems/SideBarNavigationItems";
@@ -10,6 +13,8 @@ import SideBarNavigationItems from "./SideBarNavigationItems/SideBarNavigationIt
 import styles from "./SideBar.module.css";
 
 const SideBar = (props) => {
+  const { currUser } = useAuth();
+
   return (
     <>
       <Backdrop show={props.toggled} close={props.close} />
@@ -23,10 +28,9 @@ const SideBar = (props) => {
         <div className={styles["container"]}>
           <div className={styles["user-info"]}>
             <img src={UserImage} alt="user" className={styles["user-image"]} />
-            <h1 className={styles["user-name"]}>Duka Loncic</h1>
-            <h1 className={styles["user-email"]}>duka.loncic@gmail.com</h1>
+            <h1 className={styles["user-email"]}>{currUser.email}</h1>
           </div>
-          <SideBarNavigationItems close={props.close}/>
+          <SideBarNavigationItems close={props.close} />
         </div>
       </div>
     </>
