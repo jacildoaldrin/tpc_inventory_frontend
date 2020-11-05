@@ -7,7 +7,6 @@ import {
   Chip,
   TextField,
 } from "@material-ui/core";
-import axios from "axios"
 
 import target from "api/api.target";
 
@@ -29,7 +28,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const EditProduct = () => {
   const { goBack } = useNavigation();
-  const { getProductDetails, editProduct, getProducts } = useProducts();
+  const { getProductDetails, editProduct, getProducts, getCollections, getTags } = useProducts();
   const { openSnackbar } = useSnackbar();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { product_id } = useParams();
@@ -57,21 +56,19 @@ const EditProduct = () => {
   const [tagList, setTagList] = useState([]);
 
   const pushTag = () => {
-    // console.log(document.getElementById("tagInput").value)
     if(document.getElementById("tagInput").value !== "")
       setTags([...new Set([...tags, document.getElementById("tagInput").value])])
     document.getElementById("tagInput").value = ""
   }
 
   const pushCollection = () => {
-    // console.log(document.getElementById("collectionInput").value)
     if(document.getElementById("collectionInput").value !== "")
       setCollections([...new Set([...collections, document.getElementById("collectionInput").value])])
     document.getElementById("collectionInput").value = ""
   }
 
   useEffect(() => {
-    const getProduct = async () => {
+    (async() => {
       let product = await getProductDetails(product_id);
       setImage(product["image"] || "");
       setListingName(product["list_name"] || "");
@@ -88,19 +85,13 @@ const EditProduct = () => {
       setPackaging(product["packaging"] || "");
       setTags([...product.tags]);
       setCollections([...product.collections]);
-    };
-    getProduct();
-    async function getCollections() {
-      let res = await axios.get(`${target}/collections`);
-      setCollectionList(res.data);
-    }
-    axios.get(`${target}/tags`).then(res=>{
-      setTagList(res.data)
-      // console.log(res.data)
-    })
-    getCollections();
-  }, [product_id, getProductDetails]);
+      setCollectionList(await getCollections());
+      setTagList(await getTags());
+    })()
+  }, [product_id, getProductDetails, getCollections, getTags]);
 
+console.log("rendering....")
+    
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitting(true);
@@ -125,9 +116,7 @@ const EditProduct = () => {
       unitSellingPrice === "" ? 0 : unitSellingPrice
     );
 
-    // formData.append("tags", tags)
     tags.map(tag=>formData.append('tags[]', tag))
-    // formData.append("collections", collections)
     collections.map(collection=>formData.append('collections[]', collection))
     
     formData.append("image", image);
@@ -257,9 +246,6 @@ const EditProduct = () => {
                 />
               </Grid>
 
-
-
-
               <Grid container item xs={12} alignItems="center">
                 <Grid item xs={6}>
                   <Autocomplete
@@ -301,8 +287,6 @@ const EditProduct = () => {
                 </Grid>
               </Grid>
 
-
-
               <Grid container item xs={12} alignItems="center">
                 <Grid item xs={6}>
                   <Autocomplete
@@ -336,7 +320,6 @@ const EditProduct = () => {
                         key={idx}
                         label={item}
                         onDelete={() => {
-                          // console.log('del')
                           setCollections([...collections.filter(collection => collection !== item)])
                         }}
                         className={styles["chip"]}
@@ -345,10 +328,6 @@ const EditProduct = () => {
                   </h6>
                 </Grid>
               </Grid>
-
-
-
-
 
               <Grid item xs={12} sm={6}>
                 <InputField
