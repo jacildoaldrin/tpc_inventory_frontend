@@ -57,7 +57,9 @@ function Push() {
 
     useEffect(() => {
         //get locations
-        Axios.get(`${target}/storages/locations`)
+        Axios.get(`${target}/storages/locations`, {headers: {
+            authorization: "Bearer " + localStorage.getItem("@token"),
+          }})
         .then(res=> {
             setStorageLocations(res.data)
         })
@@ -84,7 +86,9 @@ function Push() {
         console.log(quantity)
         if (location.length !== 0 && bin.length !== 0 && quantity > -1 && quantity !== ""){
             setTimeout(()=> {
-                Axios.post(`${target}/storages/push`, { location, bin, product_id, quantity })
+                Axios.post(`${target}/storages/push`, { location, bin, product_id, quantity }, {headers: {
+                    authorization: "Bearer " + localStorage.getItem("@token"),
+                  }})
                     .then(res=>{
                         // setResponse(res.data)
                         // setOpen(true)

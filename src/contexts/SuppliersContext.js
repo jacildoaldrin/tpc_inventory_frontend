@@ -14,7 +14,9 @@ export const SuppliersProvider = (props) => {
   const getSupplierDetails = async (id) => {
     let data = null;
     try {
-      let response = await axios.get(`${target}/suppliers/${id}`);
+      let response = await axios.get(`${target}/suppliers/${id}`, {headers: {
+        authorization: "Bearer " + localStorage.getItem("@token"),
+      }});
       data = response.data;
     } catch (err) {
       console.log(err);
@@ -24,7 +26,9 @@ export const SuppliersProvider = (props) => {
 
   const addSupplier = async (supplierdata, cb) => {
     try {
-      await axios.post(`${target}/suppliers/`, supplierdata).then((res) => {
+      await axios.post(`${target}/suppliers/`, supplierdata, {headers: {
+        authorization: "Bearer " + localStorage.getItem("@token"),
+      }}).then((res) => {
         console.log(res);
       });
       await getSuppliers();
@@ -37,7 +41,9 @@ export const SuppliersProvider = (props) => {
 
   const removeSupplier = async (id, cb) => {
     try {
-      await axios.delete(`${target}/suppliers/${id}`).then((res) => {
+      await axios.delete(`${target}/suppliers/${id}`, {headers: {
+        authorization: "Bearer " + localStorage.getItem("@token"),
+      }}).then((res) => {
         console.log(res);
       });
       await getSuppliers();
@@ -51,7 +57,9 @@ export const SuppliersProvider = (props) => {
   const editSupplier = async (supplier_id, supplierdata, cb) => {
     try {
       await axios
-        .put(`${target}/suppliers/${supplier_id}`, supplierdata)
+        .put(`${target}/suppliers/${supplier_id}`, supplierdata, {headers: {
+          authorization: "Bearer " + localStorage.getItem("@token"),
+        }})
         .then((res) => {
           console.log(res);
         });
@@ -66,7 +74,9 @@ export const SuppliersProvider = (props) => {
   async function getSuppliers() {
     try {
       await axios
-        .get(`${target}/suppliers`)
+        .get(`${target}/suppliers`, {headers: {
+          authorization: "Bearer " + localStorage.getItem("@token"),
+        }})
         .then((response) => setSuppliers(response.data));
     } catch (err) {
       console.log(err);

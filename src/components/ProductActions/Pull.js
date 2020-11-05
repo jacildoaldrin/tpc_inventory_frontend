@@ -59,7 +59,9 @@ function Pull(props) {
     
     useEffect(() => {
         //get product details and product storage details
-        Axios.get(`${target}/storages/getThisProductInAllStorages/${product_id}`)
+        Axios.get(`${target}/storages/getThisProductInAllStorages/${product_id}`, {headers: {
+            authorization: "Bearer " + localStorage.getItem("@token"),
+          }})
         .then(res => {
             const sto_id = storage_id
             const result = res.data.find(({storage_id}) =>storage_id === parseInt(sto_id))
@@ -75,7 +77,9 @@ function Pull(props) {
     }, [product_id, storage_id, getProductDetails])
 
     const submitAll = () => {
-        Axios.patch(`${target}/storages/pull`, {product_id, storage_id, quantity: productStorageDetails?.quantity})
+        Axios.patch(`${target}/storages/pull`, {product_id, storage_id, quantity: productStorageDetails?.quantity}, {headers: {
+            authorization: "Bearer " + localStorage.getItem("@token"),
+          }})
             .then(res=>{
                 openSnackbar(res.data)
                 setSubmitting(false)
@@ -88,7 +92,9 @@ function Pull(props) {
     const submit = () => {
         if (input <= productStorageDetails.quantity && input > 0){
             setSubmitting(true)
-            Axios.patch(`${target}/storages/pull`, {product_id, storage_id, quantity: input})
+            Axios.patch(`${target}/storages/pull`, {product_id, storage_id, quantity: input}, {headers: {
+                authorization: "Bearer " + localStorage.getItem("@token"),
+              }})
                 .then(res=>{
                     openSnackbar(res.data)
                     setSubmitting(false)

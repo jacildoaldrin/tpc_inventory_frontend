@@ -14,7 +14,9 @@ export const StorageProvider = (props) => {
     const getStorage = async(id) => {
         let data = null;
         try{
-            let res = Axios.get(`${target}/storages/${id}`);
+            let res = Axios.get(`${target}/storages/${id}`, {headers: {
+                authorization: "Bearer " + localStorage.getItem("@token"),
+              }});
             data = res.data;
         }catch(err){
             console.log(err)
@@ -23,7 +25,9 @@ export const StorageProvider = (props) => {
     }
 
     const getStorages = () => {
-        Axios.get(`${target}/storages`)
+        Axios.get(`${target}/storages`, {headers: {
+            authorization: "Bearer " + localStorage.getItem("@token"),
+          }})
             .then(res=>setStorage(res.data))
             .catch(err=>console.log(err))
     }
@@ -31,7 +35,9 @@ export const StorageProvider = (props) => {
     const getProductsInStorage = async(id) => {
         let data = null;
         try{
-            let res = await Axios.get(`${target}/storages/productsInStorage/${id}`);
+            let res = await Axios.get(`${target}/storages/productsInStorage/${id}`, {headers: {
+                authorization: "Bearer " + localStorage.getItem("@token"),
+              }});
             data = res.data;
         }catch(err){
             console.log(err)
