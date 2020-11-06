@@ -3,16 +3,7 @@ import React from "react";
 import styles from "./Backdrop.module.css";
 
 const Backdrop = (props) => {
-  return (
-    <div
-      className={
-        props.show
-          ? `${styles["backdrop"]} ${styles["visible"]}`
-          : styles["backdrop"]
-      }
-      onClick={() => props.close()}
-    />
-  );
+  return props.show ? <div className={styles["backdrop"]} onClick={() => props.close()} />: null;
 };
 
 export default Backdrop;
