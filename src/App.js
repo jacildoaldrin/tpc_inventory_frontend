@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import { MuiThemeProvider } from "@material-ui/core";
 import "./App.css";
@@ -35,18 +35,18 @@ const App = () => {
   return (
     <MuiThemeProvider theme={MuiTheme}>
       <Switch>
-        {/* {currUser !== null ? ( */}
-        <Layout>
-          <Route exact path="/" component={Dashboard} />
-          <Route path="/orders" component={Orders} />
-          <Route path="/restocks" component={Restocks} />
-          <Route path="/products" component={Products} />
-          <Route path="/suppliers" component={Suppliers} />
-          <Route path="/storages" component={Storage} />
-        </Layout>
-        {/* ) : ( */}
-        {/* <Login /> */}
-        {/* )} */}
+        {currUser !== null ? (
+          <Layout>
+            <Route exact path="/" component={Dashboard} />
+            <Route path="/orders" component={Orders} />
+            <Route path="/restocks" component={Restocks} />
+            <Route path="/products" component={Products} />
+            <Route path="/suppliers" component={Suppliers} />
+            <Route path="/storages" component={Storage} />
+          </Layout>
+        ) : (
+          <Login />
+        )}
       </Switch>
     </MuiThemeProvider>
   );
