@@ -114,6 +114,8 @@ const AddProduct = () => {
   };
 
   useEffect(() => {
+    localStorage.setItem("searchProdTerm", "");
+
     (async () => {
       setCollectionList(await getCollections());
       setTagList(await getTags());
