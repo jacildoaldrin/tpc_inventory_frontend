@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // material
 import { Button, CircularProgress, Grid, Hidden } from "@material-ui/core";
@@ -62,6 +62,10 @@ const AddSupplier = (props) => {
     openSnackbar("Successfully added new supplier.");
     goBack();
   };
+
+  useEffect(() => {
+    localStorage.setItem("searchSupTerm", "");
+  }, []);
 
   return (
     <>
