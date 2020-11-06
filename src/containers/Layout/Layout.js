@@ -23,6 +23,8 @@ const Layout = (props) => {
     setToggled(false);
   };
 
+  document.body.style.overflow = toggled ? "hidden" : "unset";
+
   return (
     <NavigationProvider>
       <SnackbarProvider>
