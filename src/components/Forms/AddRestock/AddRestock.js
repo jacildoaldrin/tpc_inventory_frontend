@@ -22,6 +22,7 @@ import {
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from "@material-ui/core";
@@ -31,6 +32,23 @@ import InputField from "components/InputField/InputField";
 
 // modal
 // import Modal from "../../Modal/Modal";
+
+const sample = [
+  { _id: 1, description: "item-1" },
+  { _id: 2, description: "item-2" },
+  { _id: 3, description: "item-3" },
+  { _id: 4, description: "item-4" },
+  { _id: 5, description: "item-5" },
+  { _id: 6, description: "item-6" },
+  { _id: 13, description: "item-1" },
+  { _id: 14, description: "item-1" },
+  { _id: 15, description: "item-1" },
+  { _id: 16, description: "item-1" },
+  { _id: 23, description: "item-1" },
+  { _id: 24, description: "item-1" },
+  { _id: 25, description: "item-1" },
+  { _id: 26, description: "item-26" },
+];
 
 function AddRestock() {
   //image states
@@ -42,12 +60,50 @@ function AddRestock() {
   const [openModal, setOpenModal] = useState(false);
 
   const [modalType, setModalType] = useState(false);
+  const [page, setPage] = React.useState(0);
+
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const openModalHandler = (type) => {
     setModalType(type);
     setOpenModal(true);
   };
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  let modalContent = sample
+    ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+    .map((row) => (
+      <TableRow
+        key={row["_id"]}
+        className={styles["table-row"]}
+        onClick={() => {
+          setProduct(row["_id"]);
+        }}
+      >
+        <TableCell align="center">
+          <img
+            alt="img"
+            src={row["image"] ? `${target}/images/${row["image"]}` : img}
+            // src={`${target}/images/${row["image"]}`}
+            style={{
+              width: "50px",
+              height: "50px",
+              borderRadius: "50%",
+            }}
+          />
+        </TableCell>
+        <TableCell align="left">{row["description"]}</TableCell>
+        {/* <TableCell align="center">{row["_id"]}</TableCell> */}
+      </TableRow>
+    ));
   return (
     <div
       style={{
@@ -231,74 +287,34 @@ function AddRestock() {
 
             <TableContainer
               // style={{ maxHeight: "700px" }}
-              style={{ maxHeight: "350px" }}
+              style={{ maxHeight: "400px" }}
               className={styles["container"]}
+              // maxHeight="true"
+              // fullHeight="true"
             >
               <Table
                 // className={styles["table"]}
+                style={{ maxHeight: "200px" }}
                 aria-label="simple table"
-                // size="small"
-                // stickyHeader
+                size="small"
               >
-                <TableHead className={styles["table-header"]}>
-                  {/* <TableRow>
-                    <TableCell align="center" width="1%" />
-                    <TableCell align="left" width="19%">
-                      <InputField required label={"Product"} value={product} />
-                    </TableCell>
-                  </TableRow> */}
-                </TableHead>
-                <TableBody>
-                  {[
-                    { _id: 1, description: "item-1" },
-                    { _id: 2, description: "item-2" },
-                    { _id: 3, description: "item-3" },
-                    { _id: 4, description: "item-4" },
-                    { _id: 5, description: "item-5" },
-                    { _id: 6, description: "item-6" },
-                    { _id: 13, description: "item-1" },
-                    { _id: 14, description: "item-1" },
-                    { _id: 15, description: "item-1" },
-                    { _id: 16, description: "item-1" },
-                    { _id: 23, description: "item-1" },
-                    { _id: 24, description: "item-1" },
-                    { _id: 25, description: "item-1" },
-                    { _id: 26, description: "item-1" },
-                  ]?.map((row) => (
-                    <TableRow
-                      key={row["_id"]}
-                      className={styles["table-row"]}
-                      onClick={() => {
-                        setProduct(row["_id"]);
-                      }}
-                    >
-                      <TableCell align="center">
-                        <img
-                          alt="img"
-                          src={
-                            row["image"]
-                              ? `${target}/images/${row["image"]}`
-                              : img
-                          }
-                          // src={`${target}/images/${row["image"]}`}
-                          style={{
-                            width: "50px",
-                            height: "50px",
-                            borderRadius: "50%",
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell align="left">{row["description"]}</TableCell>
-                      {/* <TableCell align="center">{row["_id"]}</TableCell> */}
-                    </TableRow>
-                  ))}
-                </TableBody>
+                <TableHead className={styles["table-header"]}></TableHead>
+                <TableBody>{modalContent}</TableBody>
               </Table>
             </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 100]}
+              component="div"
+              count={sample.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
           </DialogContentText>
           <DialogActions>
             <Button onClick={() => setOpenModal(false)} size="large">
-              Cancel
+              CANCEL
             </Button>
             <Button size="large" variant="contained">
               CONFIRM
