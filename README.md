@@ -8,10 +8,10 @@ SETUP FIREBASE ON FRONTEND:
     ![web-app-add image here](./doc/frontend/3.png)
 
 4.) Now choose a name for your app
-    ![web-app-add-choose-image here](.doc/frontend/4.png)
+    [choose image here](.doc/frontend/4.png)
 
 5.) After your app has been added, you'll be given the config for your firebase app, which were going to store in our ENV file on the frontend directory.
-    ![web-app-add-config](.doc/frontend/5.png)
+    [web-app-add-config](.doc/frontend/5.png)
 
 6.) Next, we need to setup the firebase authentication, all you have to do is click Authentication, click "set up sign in method", click email/password, enable then save.
     ![add-auth](.doc/frontend/6-1.png)
