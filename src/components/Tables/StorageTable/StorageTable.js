@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
         width: "120px"
     },
     titleContainer: {
-        marginTop: "10px"
+        marginTop: "57px"
     },
     paginationContainer: {
         overflow: "hidden"
@@ -25,12 +25,14 @@ const useStyles = makeStyles(theme => ({
     header: {
         fontWeight: "bold",
     },
-    // tableSize: {
-    //     maxWidth: "1000px",
-    //     alignItems: "center",
-    //     justify: "center",
-    //     direction: "column"
-    // }
+    tableSize: {
+        maxWidth: "600px",
+        alignItems: "center",
+        marginLeft: "auto",
+        marginRight: "auto"
+        // justify: "center",
+        // direction: "column"
+    }
 }))
 
 
