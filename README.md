@@ -61,7 +61,7 @@
 4.) click "Generate new Private Key"
     ![generate private key](./doc/backend/2-2.png)
 
-5.) click confirm
+5.) click generate private key
     ![generate private key confirm](./doc/backend/2-3.png)
 
 6.) then verify that the file was downloaded successfully
