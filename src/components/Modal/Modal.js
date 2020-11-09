@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 
-import DialogRestock from "./DialogContextCustom/DialogRestock";
+// import DialogRestock from "./DialogContextCustom/DialogRestock";
 
 function Modal({
   openModal,
@@ -19,9 +19,9 @@ function Modal({
 }) {
   let content = <DialogContentText>{dialogContentText}</DialogContentText>;
 
-  if (custom === "restock") {
-    content = <DialogRestock custom={custom} />;
-  }
+  // if (custom === "restock") {
+  //   content = <DialogRestock custom={custom} />;
+  // }
 
   return (
     <Dialog open={openModal} onClose={() => setOpenModal(false)}>
