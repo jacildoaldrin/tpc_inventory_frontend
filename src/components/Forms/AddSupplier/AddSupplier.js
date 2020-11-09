@@ -44,8 +44,8 @@ const AddSupplier = (props) => {
       supplier_address: address,
       supplier_contact: contact,
       supplier_notes: notes,
-      // supplier_website: website,
-      // tpc_username: username,
+      supplier_website: website,
+      tpc_username: username,
     };
 
     if (name !== "") {

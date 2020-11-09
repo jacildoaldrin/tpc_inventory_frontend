@@ -31,7 +31,7 @@ export const SuppliersProvider = (props) => {
       }}).then((res) => {
         console.log(res);
       });
-      await getSuppliers();
+      getSuppliers();
       return cb();
     } catch (err) {
       console.log(err);
@@ -46,7 +46,7 @@ export const SuppliersProvider = (props) => {
       }}).then((res) => {
         console.log(res);
       });
-      await getSuppliers();
+      getSuppliers();
       return cb();
     } catch (err) {
       console.log(err);
@@ -63,7 +63,7 @@ export const SuppliersProvider = (props) => {
         .then((res) => {
           console.log(res);
         });
-      await getSuppliers();
+      getSuppliers();
       return cb();
     } catch (err) {
       console.log(err);
@@ -71,9 +71,9 @@ export const SuppliersProvider = (props) => {
     }
   };
 
-  async function getSuppliers() {
+  function getSuppliers() {
     try {
-      await axios
+      axios
         .get(`${target}/suppliers`, {headers: {
           authorization: "Bearer " + localStorage.getItem("@token"),
         }})
