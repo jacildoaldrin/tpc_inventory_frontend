@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import LeftChevron from "components/LeftChevron/LeftChevron";
 import target from "api/api.target";
@@ -24,17 +24,73 @@ import { useProducts } from "contexts/ProductsContext";
 import { useSuppliers } from "contexts/SuppliersContext";
 import ModalProducts from "components/Modal/ModalProducts";
 import ModalSuppliers from "components/Modal/ModalSuppliers";
+import Axios from "axios";
 
 function AddRestock() {
   const { products } = useProducts();
   const { suppliers } = useSuppliers();
-
   const { goBack } = useNavigation();
-
-  const [product, setProduct] = useState("");
-  const [supplier, setSupplier] = useState("");
   const [openModalProducts, setOpenModalProducts] = useState(false);
   const [openModalSuppliers, setOpenModalSuppliers] = useState(false);
+
+  // restock form
+  const [product, setProduct] = useState("");
+  const [supplier, setSupplier] = useState("");
+  const [unitCost, setUnitCost] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [costWithTax, setCostWithTax] = useState(0);
+  const [totalCost, setTotalCost] = useState(0);
+  const [notes, setNotes] = useState("");
+
+  const submitRestockHandler = () => {
+    var restockData = {
+      product_id: parseInt(product._id),
+      supplier_id: parseInt(supplier.id),
+      quantity: parseInt(quantity),
+      unit_cost: parseFloat(unitCost),
+      cost_with_tax: parseFloat(costWithTax),
+      total_cost: parseFloat(totalCost),
+      notes: notes,
+    };
+
+    if (product._id && supplier.id && unitCost && quantity) {
+      console.log(restockData);
+      if (addRestock(restockData)) {
+        goBack();
+      }
+    }
+  };
+
+  const addRestock = async (formdata) => {
+    try {
+      await Axios.post(`${target}/restocks`, formdata).then((res) =>
+        console.log(res.data)
+      );
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+  };
+
+  useEffect(() => {
+    const onValueChange = () => {
+      console.log(unitCost);
+
+      let calcWithTax = 0;
+      let totalC = 0;
+      if (unitCost && quantity) {
+        let tax = unitCost * parseFloat(0.15);
+        console.log(tax);
+
+        calcWithTax = unitCost + tax;
+        totalC = quantity * calcWithTax;
+        setTotalCost(totalC);
+        setCostWithTax(calcWithTax);
+      }
+    };
+
+    onValueChange();
+  }, [unitCost, quantity]);
 
   return (
     <div
@@ -48,16 +104,12 @@ function AddRestock() {
         elevation={3}
         style={{
           padding: "20px 10px",
-          // marginTop: "20px",
           backgroundColor: "#fbfbfb",
         }}
       >
         <h1 className={styles["header"]}>ADD RESTOCK</h1>
 
-        <form
-          className={styles["container"]}
-          // onSubmit={(event) => handleSubmit(event)}
-        >
+        <form className={styles["container"]}>
           <div className={styles["left-inner-container"]}>
             <div className={"product-image"}>
               <img
@@ -77,8 +129,10 @@ function AddRestock() {
                 <Grid item xs={12} sm={7}>
                   <InputField
                     required
-                    // label={"Product"}
                     value={product?.description}
+                    label={product.description ? "" : "Product Description"}
+                    setValue={setProduct}
+                    disabled
                   />
                 </Grid>
                 <Grid item xs={12} sm={5} align="right">
@@ -105,8 +159,10 @@ function AddRestock() {
                 <Grid item xs={12} sm={7}>
                   <InputField
                     required
-                    // label={"Supplier"}
+                    label={supplier.supplier_name ? "" : "Supplier Name"}
                     value={supplier?.supplier_name}
+                    setValue={setSupplier}
+                    disabled
                   />
                 </Grid>
                 <Grid item xs={12} sm={5} align="right">
@@ -132,8 +188,8 @@ function AddRestock() {
                   <InputField
                     required
                     label={"Unit Cost"}
-                    // value={unitSellingPrice}
-                    // setValue={setUnitSellingPrice}
+                    value={unitCost}
+                    setValue={setUnitCost}
                     type="number"
                   />
                 </Grid>
@@ -146,15 +202,15 @@ function AddRestock() {
                   justify="space-between"
                 >
                   <Typography>Cost with Tax:</Typography>
-                  <Typography>$ 0.0</Typography>
+                  <Typography>$ {costWithTax}</Typography>
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
                   <InputField
                     required
                     label={"Quantity"}
-                    // value={originalCostWithTax}
-                    // setValue={setOriginalCostWithTax}
+                    value={quantity}
+                    setValue={setQuantity}
                     type="number"
                   />
                 </Grid>
@@ -167,18 +223,22 @@ function AddRestock() {
                   justify="space-between"
                 >
                   <Typography>Total Cost:</Typography>
-                  <Typography>$ 0.0</Typography>
+                  <Typography>$ {totalCost}</Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <InputArea
                     label={"Notes"}
-                    // value={originalCostWithTax}
-                    // setValue={setOriginalCostWithTax}
+                    value={notes}
+                    setValue={setNotes}
                     type="number"
                   />
                 </Grid>
                 <Grid item xs={6} align="center">
-                  <Button size="large" variant="contained">
+                  <Button
+                    size="large"
+                    variant="contained"
+                    onClick={() => submitRestockHandler()}
+                  >
                     CONFIRM
                   </Button>
                 </Grid>

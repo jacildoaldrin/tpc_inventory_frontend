@@ -23,7 +23,8 @@ export const RestocksProvider = (props) => {
 
   useEffect(() => {
     getRestocks();
-  }, []);
+  }, [restocks]);
+
   return (
     <RestocksContext.Provider
       value={{
