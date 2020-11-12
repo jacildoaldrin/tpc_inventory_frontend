@@ -21,8 +21,13 @@ import { useSuppliers } from "contexts/SuppliersContext";
 import ModalProducts from "components/Modal/ModalProducts";
 import ModalSuppliers from "components/Modal/ModalSuppliers";
 import Axios from "axios";
+import { useRestocks } from "contexts/RestocksContext";
+import { useSnackbar } from "contexts/SnackbarContext";
 
 function AddRestock() {
+  const { addRestock } = useRestocks();
+  const { openSnackbar } = useSnackbar();
+
   const { products } = useProducts();
   const { suppliers } = useSuppliers();
   const { goBack } = useNavigation();
@@ -51,22 +56,25 @@ function AddRestock() {
     };
 
     if (validForm) {
-      if (addRestock(restockData)) {
-        goBack();
-      }
+      addRestock(restockData, callBack);
     }
   };
 
-  const addRestock = async (formdata) => {
-    try {
-      await Axios.post(`${target}/restocks`, formdata).then((res) =>
-        console.log(res.data)
-      );
-    } catch (err) {
-      console.log(err);
-      return;
-    }
+  const callBack = () => {
+    openSnackbar("Successfully added a new restock!");
+    goBack();
   };
+
+  // const addRestock = async (formdata) => {
+  //   try {
+  //     await Axios.post(`${target}/restocks`, formdata).then((res) =>
+  //       console.log(res.data)
+  //     );
+  //   } catch (err) {
+  //     console.log(err);
+  //     return;
+  //   }
+  // };
 
   useEffect(() => {
     const onValueChange = () => {
