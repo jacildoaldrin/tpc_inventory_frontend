@@ -11,10 +11,6 @@ import styles from "./AddRestock.module.css";
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import InputArea from "components/InputArea/InputArea";
 import InputField from "components/InputField/InputField";
-// import Autocomplete from "@material-ui/lab/Autocomplete";
-
-// modal
-// import Modal from "../../Modal/Modal";
 
 // navigation
 import { useNavigation } from "contexts/NavigationContext";
@@ -41,6 +37,7 @@ function AddRestock() {
   const [costWithTax, setCostWithTax] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [notes, setNotes] = useState("");
+  const [validForm, setValidForm] = useState(false);
 
   const submitRestockHandler = () => {
     var restockData = {
@@ -53,8 +50,7 @@ function AddRestock() {
       notes: notes,
     };
 
-    if (product._id && supplier.id && unitCost && quantity) {
-      console.log(restockData);
+    if (validForm) {
       if (addRestock(restockData)) {
         goBack();
       }
@@ -74,23 +70,29 @@ function AddRestock() {
 
   useEffect(() => {
     const onValueChange = () => {
-      console.log(unitCost);
-
       let calcWithTax = 0;
       let totalC = 0;
-      if (unitCost && quantity) {
-        let tax = unitCost * parseFloat(0.15);
-        console.log(tax);
 
-        calcWithTax = unitCost + tax;
-        totalC = quantity * calcWithTax;
+      if (unitCost > 0 && quantity > 0) {
+        let tax = parseFloat(unitCost) * parseFloat(0.15);
+        calcWithTax = parseFloat(unitCost) + tax;
+        totalC = parseInt(quantity) * calcWithTax;
         setTotalCost(totalC);
         setCostWithTax(calcWithTax);
       }
+      return;
     };
 
     onValueChange();
   }, [unitCost, quantity]);
+
+  useEffect(() => {
+    const onFormCheck = () => {
+      if (product._id && supplier.id && unitCost > 0 && quantity > 0)
+        setValidForm(true);
+    };
+    onFormCheck();
+  }, [product, supplier, unitCost, quantity]);
 
   return (
     <div
@@ -123,17 +125,17 @@ function AddRestock() {
                 align="left"
                 style={{ paddingTop: "10px" }}
               >
-                Product ID: {product._id}
+                Product ID: {product?._id}
               </Typography>
               <Grid container spacing={1} className={styles["grid"]}>
                 <Grid item xs={12} sm={7}>
-                  <InputField
-                    required
-                    value={product?.description}
-                    label={product.description ? "" : "Product Description"}
-                    setValue={setProduct}
-                    disabled
-                  />
+                  <Typography
+                    variant="h6"
+                    align="left"
+                    style={{ paddingTop: "10px" }}
+                  >
+                    Description: {product?.description}
+                  </Typography>
                 </Grid>
                 <Grid item xs={12} sm={5} align="right">
                   <Button
@@ -152,18 +154,18 @@ function AddRestock() {
                     align="left"
                     style={{ paddingTop: "10px" }}
                   >
-                    Supplier Code: {supplier.id}
+                    Product Code: {supplier?.id}
                   </Typography>
                 </Grid>
 
                 <Grid item xs={12} sm={7}>
-                  <InputField
-                    required
-                    label={supplier.supplier_name ? "" : "Supplier Name"}
-                    value={supplier?.supplier_name}
-                    setValue={setSupplier}
-                    disabled
-                  />
+                  <Typography
+                    variant="h6"
+                    align="left"
+                    style={{ paddingTop: "10px" }}
+                  >
+                    Name: {supplier?.supplier_name}
+                  </Typography>
                 </Grid>
                 <Grid item xs={12} sm={5} align="right">
                   <Button
@@ -235,6 +237,7 @@ function AddRestock() {
                 </Grid>
                 <Grid item xs={6} align="center">
                   <Button
+                    disabled={validForm ? false : true}
                     size="large"
                     variant="contained"
                     onClick={() => submitRestockHandler()}
