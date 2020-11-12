@@ -121,7 +121,6 @@ const RestocksTable = () => {
         >
           <TableHead className={styles["table-header"]}>
             <TableRow>
-              <TableCell align="center" width="5%" />
               <TableCell align="left" width="10%">
                 <b>Product ID</b>
               </TableCell>

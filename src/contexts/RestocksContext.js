@@ -21,13 +21,28 @@ export const RestocksProvider = (props) => {
     }
   }
 
+  const addRestock = async (formdata, cb) => {
+    try {
+      await axios
+        .post(`${target}/restocks`, formdata)
+        .then((res) => console.log(res.data));
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+    getRestocks();
+    return cb();
+  };
+
   useEffect(() => {
     getRestocks();
   }, []);
+
   return (
     <RestocksContext.Provider
       value={{
         restocks,
+        addRestock,
       }}
     >
       {props.children}
