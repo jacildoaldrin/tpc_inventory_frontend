@@ -42,7 +42,6 @@ function AddRestock() {
   const [costWithTax, setCostWithTax] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [notes, setNotes] = useState("");
-  const [validForm, setValidForm] = useState(false);
 
   const submitRestockHandler = () => {
     var restockData = {
@@ -55,7 +54,7 @@ function AddRestock() {
       notes: notes,
     };
 
-    if (validForm) {
+    if (product._id && supplier.id && unitCost > 0 && quantity > 0) {
       addRestock(restockData, callBack);
     }
   };
@@ -64,17 +63,6 @@ function AddRestock() {
     openSnackbar("Successfully added a new restock!");
     goBack();
   };
-
-  // const addRestock = async (formdata) => {
-  //   try {
-  //     await Axios.post(`${target}/restocks`, formdata).then((res) =>
-  //       console.log(res.data)
-  //     );
-  //   } catch (err) {
-  //     console.log(err);
-  //     return;
-  //   }
-  // };
 
   useEffect(() => {
     const onValueChange = () => {
@@ -93,14 +81,6 @@ function AddRestock() {
 
     onValueChange();
   }, [unitCost, quantity]);
-
-  useEffect(() => {
-    const onFormCheck = () => {
-      if (product._id && supplier.id && unitCost > 0 && quantity > 0)
-        setValidForm(true);
-    };
-    onFormCheck();
-  }, [product, supplier, unitCost, quantity]);
 
   return (
     <div
@@ -245,7 +225,11 @@ function AddRestock() {
                 </Grid>
                 <Grid item xs={6} align="center">
                   <Button
-                    disabled={validForm ? false : true}
+                    disabled={
+                      product._id && supplier.id && unitCost > 0 && quantity > 0
+                        ? false
+                        : true
+                    }
                     size="large"
                     variant="contained"
                     onClick={() => submitRestockHandler()}
