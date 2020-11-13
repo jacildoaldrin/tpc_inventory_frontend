@@ -5,6 +5,7 @@ import "./App.css";
 
 //context
 // import { useAuth } from "contexts/AuthContext";
+import SpinnerProvider from "contexts/SpinnerContext"
 
 //containers
 // import Login from "containers/Login/Login";
@@ -37,12 +38,14 @@ const App = () => {
       <Switch>
         {/* {currUser !== null ? ( */}
         <Layout>
-          <Route exact path="/" component={Dashboard} />
-          <Route path="/orders" component={Orders} />
-          <Route path="/restocks" component={Restocks} />
-          <Route path="/products" component={Products} />
-          <Route path="/suppliers" component={Suppliers} />
-          <Route path="/storages" component={Storage} />
+          <SpinnerProvider>
+            <Route exact path="/" component={Dashboard} />
+            <Route path="/orders" component={Orders} />
+            <Route path="/transactions" component={Transactions} />
+            <Route path="/products" component={Products} />
+            <Route path="/suppliers" component={Suppliers} />
+            <Route path="/storages" component={Storage} />
+          </SpinnerProvider>
         </Layout>
         {/* ) : ( */}
         {/* <Login /> */}
