@@ -7,23 +7,31 @@ export const useSpinner = () => {
     return React.useContext(SpinnerContext)
 }
 
-function StorageProvider(props) {
+export default function SpinnerProvider(props) {
     const [isLoading, setIsLoading] = React.useState(false)
     return (
         <SpinnerContext.Provider value={{setIsLoading}}>
-            {isLoading ? 
-            
-            <Grid container direction="column" style={{height: "100%"}} justify="center">
+            <Grid 
+                container 
+                direction="column" 
+                style={{
+                    height: "100%",
+                    display: isLoading ? "initial" : "none"
+                }} 
+                justify="center">
                 <Grid container item justify="center">
                     <CircularProgress />
                 </Grid>
                 <Grid container item justify="center">Loading...</Grid>
                 {/* <Grid container item justify="center"></Grid> */}
             </Grid>
-             
-            : props.children}
+            <div 
+                style={{
+                    display: !isLoading ? "initial" : "none"
+                }} >
+                {props.children}
+            </div>
         </SpinnerContext.Provider>
     )
 }
 
-export default StorageProvider

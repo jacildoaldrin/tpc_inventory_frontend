@@ -38,14 +38,14 @@ const App = () => {
       <Switch>
         {/* {currUser !== null ? ( */}
         <Layout>
-          {/* <SpinnerProvider> */}
+          <SpinnerProvider>
             <Route exact path="/" component={Dashboard} />
             <Route path="/orders" component={Orders} />
             <Route path="/transactions" component={Transactions} />
             <Route path="/products" component={Products} />
             <Route path="/suppliers" component={Suppliers} />
             <Route path="/storages" component={Storage} />
-          {/* </SpinnerProvider> */}
+          </SpinnerProvider>
         </Layout>
         {/* ) : ( */}
         {/* <Login /> */}

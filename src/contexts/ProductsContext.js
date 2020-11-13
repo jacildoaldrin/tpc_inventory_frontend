@@ -11,7 +11,7 @@ export const useProducts = () => {
 
 export const ProductsProvider = (props) => {
   const [products, setProducts] = useState([]);
-  // const { setIsLoading } = useSpinner();
+  const { setIsLoading } = useSpinner();
 
   const getProductDetails = async (id) => {
     let data = null;
@@ -64,6 +64,7 @@ export const ProductsProvider = (props) => {
   };
 
   const getProducts = async () => {
+    setIsLoading(true)
     try {
       await axios
         .get(`${target}/products`, {
@@ -71,9 +72,13 @@ export const ProductsProvider = (props) => {
             authorization: "Bearer " + localStorage.getItem("@token"),
           },
         })
-        .then((response) => setProducts(response.data));
+        .then((response) => {setProducts(response.data)});
     } catch (err) {
       console.log(err);
+    } finally {
+      setTimeout(()=>{
+        setIsLoading(false)
+      }, 1000)
     }
   };
 
