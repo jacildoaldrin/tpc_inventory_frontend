@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import LeftChevron from "components/LeftChevron/LeftChevron";
 import target from "api/api.target";
@@ -112,7 +112,7 @@ function AddRestock() {
                 align="left"
                 style={{ paddingTop: "10px" }}
               >
-                Product ID: {product?._id}
+                Product ID: <u>{product?._id}</u>
               </Typography>
               <Grid container spacing={1} className={styles["grid"]}>
                 <Grid item xs={12} sm={7}>
@@ -141,7 +141,7 @@ function AddRestock() {
                     align="left"
                     style={{ paddingTop: "10px" }}
                   >
-                    Product Code: {supplier?.id}
+                    Product Code: <u>{supplier?.id}</u>
                   </Typography>
                 </Grid>
 
