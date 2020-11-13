@@ -6,7 +6,7 @@ import {
   DialogContentText,
   DialogTitle,
   Grid,
-  IconButton,
+  // IconButton,
   InputAdornment,
   Table,
   TableBody,
@@ -26,7 +26,7 @@ import modalStyles from "./ModalTableMakeStyles";
 // import styles from "./Modal.module.css";
 
 import SearchIcon from "@material-ui/icons/Search";
-import ClearIcon from "@material-ui/icons/Clear";
+// import ClearIcon from "@material-ui/icons/Clear";
 
 function ModalSuppliers({
   setSupplier,
@@ -51,7 +51,6 @@ function ModalSuppliers({
 
   const handleSearchTerm = (event) => {
     if (page !== 0) setPage(0);
-    console.log(event.target.value);
     setKeySupSearch(event.target.value);
   };
 
