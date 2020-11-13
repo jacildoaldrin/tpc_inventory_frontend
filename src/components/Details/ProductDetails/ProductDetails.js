@@ -311,7 +311,7 @@ const ProductDetails = () => {
                   </TableHead>
                   <TableBody>
                     {productStorageDetails?.map(row => {
-                      console.log(row)
+                      console.log(row.quantity)
                       if(row.quantity > 0)
                       return <TableRow key={row.id}>
                         <TableCell align="center">{row.location}</TableCell>
