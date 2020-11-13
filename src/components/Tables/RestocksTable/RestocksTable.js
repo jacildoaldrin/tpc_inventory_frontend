@@ -26,7 +26,6 @@ import { useNavigation } from "contexts/NavigationContext";
 
 import styles from "./RestocksTable.module.css";
 import moment from "moment";
-import has from "lodash/has";
 
 const RestocksTable = () => {
   const classes = useStyles();

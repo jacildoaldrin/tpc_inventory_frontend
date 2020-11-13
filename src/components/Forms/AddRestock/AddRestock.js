@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import LeftChevron from "components/LeftChevron/LeftChevron";
 import target from "api/api.target";
@@ -20,7 +20,6 @@ import { useProducts } from "contexts/ProductsContext";
 import { useSuppliers } from "contexts/SuppliersContext";
 import ModalProducts from "components/Modal/ModalProducts";
 import ModalSuppliers from "components/Modal/ModalSuppliers";
-import Axios from "axios";
 import { useRestocks } from "contexts/RestocksContext";
 import { useSnackbar } from "contexts/SnackbarContext";
 
