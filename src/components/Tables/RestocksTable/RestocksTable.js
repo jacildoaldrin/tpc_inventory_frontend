@@ -21,16 +21,15 @@ import SearchIcon from "@material-ui/icons/Search";
 import ClearIcon from "@material-ui/icons/Clear";
 
 //context
-import { useProducts } from "contexts/ProductsContext";
+import { useRestocks } from "contexts/RestocksContext";
 import { useNavigation } from "contexts/NavigationContext";
 
-import styles from "./ProductsTable.module.css";
-import target from "api/api.target";
-import img from "assets/tpc_logo.jpg";
+import styles from "./RestocksTable.module.css";
+import moment from "moment";
 
-const ProductsTable = () => {
+const RestocksTable = () => {
   const classes = useStyles();
-  const { products } = useProducts();
+  const { restocks } = useRestocks();
   const { viewDetails } = useNavigation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -61,26 +60,30 @@ const ProductsTable = () => {
     localStorage.setItem("searchProdTerm", "");
   };
 
-  let result = products;
+  let result = restocks;
   if (searchTerm) {
-    result = products.filter((product) => {
-      var digits = product._id.toString();
+    result = restocks.filter((restock) => {
+      // var digits = restock.product_id.toString();
       var search = searchTerm.toLowerCase();
-      if (digits?.includes(search)) {
+      if (restock.product_id.toString()?.includes(search)) return true;
+      else if (restock.notes?.toString().toLowerCase().includes(search))
         return true;
-      } else if (product.upc?.toString().toLowerCase().includes(search)) {
+      else if (
+        moment(restock.date)
+          .format("MMMM D, YYYY, HH:MM a")
+          ?.toString()
+          .toLowerCase()
+          .includes(search)
+      )
         return true;
-      } else if (
-        product.supplier_code?.toString().toLowerCase().includes(search)
-      ) {
+      else if (restock.supplier_code?.toString().toLowerCase().includes(search))
         return true;
-      } else if (product.description?.toLowerCase().includes(search)) {
+      else if (restock.description?.toLowerCase().includes(search)) return true;
+      else if (restock.category_name?.toLowerCase().includes(search))
         return true;
-      } else if (product.category_name?.toLowerCase().includes(search)) {
-        return true;
-      } else if (product.stock_qty === search) return true;
-      else if (product.cost_with_tax === search) return true;
-      else if (product.unit_sell_price === search) return true;
+      else if (restock.quantity?.toString().includes(search)) return true;
+      else if (restock.cost_with_tax?.toString().includes(search)) return true;
+      else if (restock.total_cost?.toString().includes(search)) return true;
       return false;
     });
   }
@@ -88,7 +91,7 @@ const ProductsTable = () => {
   return (
     <Paper style={{ marginBottom: "8rem" }}>
       <div className={styles["table-toolbar"]}>
-        <h1>Products</h1>
+        <h1>Restocks</h1>
         <div>
           <div className={styles["search-bar"]}>
             <TextField
@@ -123,68 +126,55 @@ const ProductsTable = () => {
         >
           <TableHead className={styles["table-header"]}>
             <TableRow>
-              <TableCell align="center" width="5%" />
-              <TableCell align="left" width="30%">
-                <b>Product Description</b>
+              <TableCell align="left" width="10%">
+                <b>Product ID</b>
               </TableCell>
-              <TableCell align="center" width="15%">
-                <b>Product Code</b>
+              <TableCell align="center" width="10%">
+                <b>Date</b>
               </TableCell>
-              <TableCell align="center" width="20%">
-                <b>UPC</b>
-              </TableCell>
-              <TableCell align="center" width="20%">
-                <b>Supplier Code</b>
-              </TableCell>
-              {/* <TableCell align="left" width="5%">
+              <TableCell align="center" width="10%">
                 <b>Quantity</b>
               </TableCell>
-              <TableCell align="left" width="5%">
-                <b>Unit Sell Price</b>
+              <TableCell align="center" width="10%">
+                <b>Unit Cost</b>
               </TableCell>
-              <TableCell align="left" width="5%">
-                <b>Category</b>
-              </TableCell> */}
+              <TableCell align="center" width="10%">
+                <b>Cost w/ Tax</b>
+              </TableCell>
+              <TableCell align="center" width="10%">
+                <b>Total Cost</b>
+              </TableCell>
+              <TableCell align="center" width="10%">
+                <b>Notes</b>
+              </TableCell>
+              <TableCell align="center" width="10%">
+                <b>Supplier ID</b>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {result
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
                 <TableRow
-                  key={row["_id"]}
+                  key={row["id"]}
                   className={styles["table-row"]}
                   onClick={() => {
                     localStorage.setItem("searchTerm", searchTerm);
-                    viewDetails(`products/product-details/${row["_id"]}`);
+                    viewDetails(`restocks/restock-details/${row["id"]}`);
                   }}
                 >
-                  <TableCell align="center">
-                    <img
-                      alt="img"
-                      src={
-                        row["image"] ? `${target}/images/${row["image"]}` : img
-                      }
-                      // src={`${target}/images/${row["image"]}`}
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                      }}
-                    />
+                  <TableCell align="center">{row["product_id"]}</TableCell>
+                  <TableCell align="left">
+                    {moment(row["date"]).format("hh:mm a, DD - MMM")}
+                    {/* "YYYY-MM-DD hh:mm" */}
                   </TableCell>
-                  <TableCell align="left">{row["description"]}</TableCell>
-                  <TableCell align="center">{row["_id"]}</TableCell>
-                  <TableCell align="center">{row["upc"]}</TableCell>
-                  <TableCell align="center">{row["supplier_code"]}</TableCell>
-                  {/* <TableCell align="left">
-                    {Moment(row["date_modified"]).format(
-                      "MMMM D, YYYY, HH:MM a"
-                    )}
-                  </TableCell> */}
-                  {/* <TableCell align="left">{row["stock_qty"]}</TableCell>
-                  <TableCell align="left">{row["unit_sell_price"]}</TableCell>
-                  <TableCell align="left">{row["category_name"]}</TableCell> */}
+                  <TableCell align="center">{row["quantity"]}</TableCell>
+                  <TableCell align="center">{row["unit_cost"]}</TableCell>
+                  <TableCell align="center">{row["cost_with_tax"]}</TableCell>
+                  <TableCell align="center">{row["total_cost"]}</TableCell>
+                  <TableCell align="center">{row["notes"]}</TableCell>
+                  <TableCell align="center">{row["supplier_id"]}</TableCell>
                 </TableRow>
               ))}
           </TableBody>
@@ -203,4 +193,4 @@ const ProductsTable = () => {
   );
 };
 
-export default ProductsTable;
+export default RestocksTable;

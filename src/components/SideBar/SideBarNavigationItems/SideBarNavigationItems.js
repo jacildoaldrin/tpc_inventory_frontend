@@ -35,9 +35,9 @@ const SideBarNavigationItems = (props) => {
           <ListAltIcon />
         </SideBarNavigationItem>
         <SideBarNavigationItem
-          name="TRANSACTIONS"
+          name="RESTOCKS"
           click={() => handleClick()}
-          route="/transactions"
+          route="/restocks"
         >
           <ReorderIcon />
         </SideBarNavigationItem>

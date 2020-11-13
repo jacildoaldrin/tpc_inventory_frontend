@@ -27,7 +27,7 @@ export const SuppliersProvider = (props) => {
       await axios.post(`${target}/suppliers/`, supplierdata).then((res) => {
         console.log(res);
       });
-      await getSuppliers();
+      getSuppliers();
       return cb();
     } catch (err) {
       console.log(err);
@@ -40,7 +40,7 @@ export const SuppliersProvider = (props) => {
       await axios.delete(`${target}/suppliers/${id}`).then((res) => {
         console.log(res);
       });
-      await getSuppliers();
+      getSuppliers();
       return cb();
     } catch (err) {
       console.log(err);
@@ -55,7 +55,7 @@ export const SuppliersProvider = (props) => {
         .then((res) => {
           console.log(res);
         });
-      await getSuppliers();
+      getSuppliers();
       return cb();
     } catch (err) {
       console.log(err);
@@ -63,9 +63,9 @@ export const SuppliersProvider = (props) => {
     }
   };
 
-  async function getSuppliers() {
+  function getSuppliers() {
     try {
-      await axios
+      axios
         .get(`${target}/suppliers`)
         .then((response) => setSuppliers(response.data));
     } catch (err) {
