@@ -14,6 +14,7 @@ import {
   TablePagination,
   TableRow,
   TextField,
+  Typography,
   // Typography,
 } from "@material-ui/core";
 import React from "react";
@@ -100,11 +101,17 @@ function ModalProducts({
       onClose={() => setOpenModal(false)}
     >
       <DialogTitle style={{ paddingBottom: "0px" }}>
-        <Grid container>
+        <Grid container style={{ display: "flex" }} justify="space-between">
           <Grid item xs={12} sm={5}>
-            Product ID: {product?._id}
+            <Typography
+              variant="h6"
+              align="left"
+              style={{ paddingTop: "10px" }}
+            >
+              Product ID: <u>{product?._id}</u>
+            </Typography>
           </Grid>
-          <Grid item xs={12} sm={7}>
+          <Grid item xs={12} sm={5}>
             <TextField
               required
               label={"Search"}

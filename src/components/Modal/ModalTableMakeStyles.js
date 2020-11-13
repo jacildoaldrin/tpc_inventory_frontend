@@ -1,15 +1,21 @@
 const styles = (theme) => ({
   tableRow: {
     "&$selected, &$selected:hover": {
-      backgroundColor: "#8abb7b",
+      backgroundColor: "red !important",
     },
+    marginTop: "20px",
   },
   tableCell: {
     "$selected &": {
-      color: "8abb7b",
+      color: "red !important",
     },
   },
   selected: {},
+  tbody: { fontSize: "50px" },
+  margin: {
+    margin: theme.spacing(1),
+    // padding: "5px",
+  },
 });
 
 export default styles;

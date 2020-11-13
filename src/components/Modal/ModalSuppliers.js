@@ -6,6 +6,8 @@ import {
   DialogContentText,
   DialogTitle,
   Grid,
+  IconButton,
+  InputAdornment,
   Table,
   TableBody,
   TableCell,
@@ -14,12 +16,17 @@ import {
   TablePagination,
   TableRow,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import React from "react";
 
 // styles
 import useStyles from "components/Tables/tableThemes";
 import modalStyles from "./ModalTableMakeStyles";
+// import styles from "./Modal.module.css";
+
+import SearchIcon from "@material-ui/icons/Search";
+import ClearIcon from "@material-ui/icons/Clear";
 
 function ModalSuppliers({
   setSupplier,
@@ -44,9 +51,13 @@ function ModalSuppliers({
 
   const handleSearchTerm = (event) => {
     if (page !== 0) setPage(0);
+    console.log(event.target.value);
     setKeySupSearch(event.target.value);
   };
 
+  // const clearSearch = () => {
+  //   setKeySupSearch("");
+  // };
   let result = suppliers;
 
   if (keySupSearch) {
@@ -67,14 +78,15 @@ function ModalSuppliers({
     .map((row) => (
       <TableRow
         key={row["id"]}
-        // className={styles["table-row"]}
         selected={supplier.id === row.id}
         classes={{ selected: classes.selected }}
         onClick={() => {
           setSupplier(row);
         }}
       >
-        <TableCell align="left">{row["id"]}</TableCell>
+        <TableCell style={{ padding: "16px" }} align="left">
+          {row["id"]}
+        </TableCell>
         <TableCell align="left">{row["supplier_name"]}</TableCell>
       </TableRow>
     ));
@@ -87,17 +99,47 @@ function ModalSuppliers({
       onClose={() => setOpenModal(false)}
     >
       <DialogTitle>
-        <Grid container>
+        <Grid container style={{ display: "flex" }} justify="space-between">
           <Grid item xs={12} sm={5}>
-            Supplier Code: {supplier?.id}
+            <Typography
+              variant="h6"
+              align="left"
+              style={{ paddingTop: "10px" }}
+            >
+              Supplier Code: <u>{supplier?.id}</u>
+            </Typography>
           </Grid>
-          <Grid item xs={12} sm={7}>
-            <TextField
+          <Grid item xs={12} sm={5}>
+            {/* <TextField
               required
               label={"Search"}
               value={keySupSearch}
               onChange={(e) => handleSearchTerm(e)}
+            /> */}
+            {/* <SearchField
+              key={keySupSearch}
+              handleSearchTerm={handleSearchTerm}
+            /> */}
+            <TextField
+              placeholder="search"
+              value={keySupSearch}
+              onChange={(e) => handleSearchTerm(e)}
+              fullWidth={true}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon style={{ color: "rgba(0, 0, 0, 0.4)" }} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            {/* <IconButton
+              size="small"
+              className={classes.margin}
+              onClick={clearSearch}
+            >
+              <ClearIcon fontSize="inherit" />
+            </IconButton> */}
           </Grid>
         </Grid>
       </DialogTitle>
@@ -115,7 +157,7 @@ function ModalSuppliers({
               <TableHead
               // className={styles["table-header"]}
               ></TableHead>
-              <TableBody>{modalContent}</TableBody>
+              <TableBody className={classes.tbody}>{modalContent}</TableBody>
             </Table>
           </TableContainer>
           <TablePagination
