@@ -98,7 +98,7 @@ function ModalSuppliers({
       onClose={() => setOpenModal(false)}
     >
       <DialogTitle>
-        <Grid container style={{ display: "flex" }} justify="space-between">
+        <Grid container justify="space-between">
           <Grid item xs={12} sm={5}>
             <Typography
               variant="h6"
