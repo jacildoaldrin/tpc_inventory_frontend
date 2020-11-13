@@ -83,12 +83,7 @@ export const ProductsProvider = (props) => {
   };
 
   useEffect(() => {
-    // setIsLoading(true)
     getProducts();
-    // setIsLoading(false)
-    // return () => {
-      // setIsLoading(false)
-    // }
   }, []);
 
   return (
