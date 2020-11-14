@@ -130,7 +130,7 @@ const ProductDetails = () => {
   
   return (
   <Container>
-    <Paper className={classes.pb3vh}>
+    {/* <Paper className={classes.pb3vh}> */}
     <Fab className={classes.fab} aria-haspopup="true" variant="extended" onClick={onFloatBtnClick}>
       <ArrowDropUpIcon /> Actions
     </Fab>
@@ -343,7 +343,7 @@ const ProductDetails = () => {
         </Grid>
       </Grid>
     </Grid>
-    </Paper>
+    {/* </Paper> */}
   </Container>
   );
 };
