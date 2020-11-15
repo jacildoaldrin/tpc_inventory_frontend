@@ -78,6 +78,8 @@ const ProductsTable = () => {
         return true;
       } else if (product.category_name?.toLowerCase().includes(search)) {
         return true;
+      } else if (product.list_name?.toLowerCase().includes(search)) {
+        return true;
       } else if (product.stock_qty === search) return true;
       else if (product.cost_with_tax === search) return true;
       else if (product.unit_sell_price === search) return true;
