@@ -41,7 +41,7 @@ const App = () => {
           <SpinnerProvider>
             <Route exact path="/" component={Dashboard} />
             <Route path="/orders" component={Orders} />
-            <Route path="/transactions" component={Restocks} />
+            <Route path="/restocks" component={Restocks} />
             <Route path="/products" component={Products} />
             <Route path="/suppliers" component={Suppliers} />
             <Route path="/storages" component={Storage} />
