@@ -137,9 +137,6 @@ const SuppliersTable = (props) => {
                 >
                   <TableCell align="left">{row["supplier_name"]}</TableCell>
                   <TableCell align="left">
-                    {/* {row["supplier_website"] === null
-                      ? "N/A"
-                      : row["supplier_website"]} */}
                     {row["supplier_website"]? <a href={row["supplier_website"]} target="_blank">Go to website</a> : "N/A"}
                   </TableCell>
                   <TableCell align="left">
