@@ -64,6 +64,8 @@ function SupplierDetails(props) {
     getSupplier();
   }, [supplier_id, getSupplierDetails]);
 
+  const website=supplier.supplier_website? <a href={supplier.supplier_website}>Go to website</a> : "N/A";
+
   return (
     <>
       <Container className={classes.mb15vh}>
@@ -119,12 +121,12 @@ function SupplierDetails(props) {
               >
                 <Typography variant="h6">Supplier Info</Typography>
               </Grid>
-              <Grid item container justify="space-between">
+              {/* <Grid item container justify="space-between">
                 <Typography className={classes.txtGreen}>
                   Supplier Code:{" "}
                 </Typography>
                 <Typography>{supplier.id}</Typography>
-              </Grid>
+              </Grid> */}
               <Grid item container justify="space-between">
                 <Typography className={classes.txtGreen}>Name: </Typography>
                 <Typography>
@@ -136,9 +138,10 @@ function SupplierDetails(props) {
               <Grid item container justify="space-between">
                 <Typography className={classes.txtGreen}>Website: </Typography>
                 <Typography>
-                  {supplier.supplier_website !== null
+                  {website}
+                  {/* {supplier.supplier_website !== null
                     ? supplier.supplier_website
-                    : "N/A"}
+                    : "N/A"} */}
                 </Typography>
               </Grid>
               <Grid item container justify="space-between">
