@@ -27,7 +27,6 @@ export const AuthProvider = (props) => {
     auth.signOut().then((res) => {
       localStorage.removeItem("@token");
     });
-    window.location.reload();
   };
 
   const value = {
