@@ -10,22 +10,28 @@ import { RestocksProvider } from "contexts/RestocksContext";
 import RestocksTable from "components/Tables/RestocksTable/RestocksTable";
 import AddRestock from "components/Forms/AddRestock/AddRestock";
 import AddButton from "components/AddButton/AddButton";
+import { ProductsProvider } from "contexts/ProductsContext";
+import { SuppliersProvider } from "contexts/SuppliersContext";
 
 const Restocks = () => {
   let match = useRouteMatch();
 
   return (
-    <RestocksProvider>
-      <div className={styles["restocks"]}>
-        <Route exact path={`${match.url}/`}>
-          <AddButton route={`${match.url}/add-restock`}>Restock</AddButton>
-          <RestocksTable />
-        </Route>
-        <Route path={`${match.url}/add-restock`}>
-          <AddRestock />
-        </Route>
-      </div>
-    </RestocksProvider>
+    <ProductsProvider>
+      <SuppliersProvider>
+        <RestocksProvider>
+          <div className={styles["restocks"]}>
+            <Route exact path={`${match.url}/`}>
+              <AddButton route={`${match.url}/add-restock`}>Restock</AddButton>
+              <RestocksTable />
+            </Route>
+            <Route path={`${match.url}/add-restock`}>
+              <AddRestock />
+            </Route>
+          </div>
+        </RestocksProvider>
+      </SuppliersProvider>
+    </ProductsProvider>
   );
 };
 

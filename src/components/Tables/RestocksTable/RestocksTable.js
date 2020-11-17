@@ -25,6 +25,7 @@ import { useRestocks } from "contexts/RestocksContext";
 import { useNavigation } from "contexts/NavigationContext";
 
 import styles from "./RestocksTable.module.css";
+import moment from "moment";
 
 const RestocksTable = () => {
   const classes = useStyles();
@@ -60,28 +61,32 @@ const RestocksTable = () => {
   };
 
   let result = restocks;
-  // if (searchTerm) {
-  //   result = restocks.filter((restock) => {
-  //     var digits = restock.product_id.toString();
-  //     var search = searchTerm.toLowerCase();
-  //     if (digits?.includes(search)) {
-  //       return true;
-  //     } else if (restock.upc?.toString().toLowerCase().includes(search)) {
-  //       return true;
-  //     } else if (
-  //       restock.supplier_code?.toString().toLowerCase().includes(search)
-  //     ) {
-  //       return true;
-  //     } else if (restock.description?.toLowerCase().includes(search)) {
-  //       return true;
-  //     } else if (restock.category_name?.toLowerCase().includes(search)) {
-  //       return true;
-  //     } else if (restock.stock_qty === search) return true;
-  //     else if (restock.cost_with_tax === search) return true;
-  //     else if (restock.unit_sell_price === search) return true;
-  //     return false;
-  //   });
-  // }
+  if (searchTerm) {
+    result = restocks.filter((restock) => {
+      // var digits = restock.product_id.toString();
+      var search = searchTerm.toLowerCase();
+      if (restock.product_id.toString()?.includes(search)) return true;
+      else if (restock.notes?.toString().toLowerCase().includes(search))
+        return true;
+      else if (
+        moment(restock.date)
+          .format("MMMM D, YYYY, HH:MM a")
+          ?.toString()
+          .toLowerCase()
+          .includes(search)
+      )
+        return true;
+      else if (restock.supplier_code?.toString().toLowerCase().includes(search))
+        return true;
+      else if (restock.description?.toLowerCase().includes(search)) return true;
+      else if (restock.category_name?.toLowerCase().includes(search))
+        return true;
+      else if (restock.quantity?.toString().includes(search)) return true;
+      else if (restock.cost_with_tax?.toString().includes(search)) return true;
+      else if (restock.total_cost?.toString().includes(search)) return true;
+      return false;
+    });
+  }
 
   return (
     <Paper style={{ marginBottom: "8rem" }}>
@@ -121,11 +126,10 @@ const RestocksTable = () => {
         >
           <TableHead className={styles["table-header"]}>
             <TableRow>
-              <TableCell align="center" width="5%" />
               <TableCell align="left" width="10%">
                 <b>Product ID</b>
               </TableCell>
-              <TableCell align="center" width="15%">
+              <TableCell align="center" width="10%">
                 <b>Date</b>
               </TableCell>
               <TableCell align="center" width="10%">
@@ -162,8 +166,8 @@ const RestocksTable = () => {
                 >
                   <TableCell align="center">{row["product_id"]}</TableCell>
                   <TableCell align="left">
-                    {/* {Moment(row["date"]).format("MMMM D, YYYY, HH:MM a")} */}
-                    {row["date"]}
+                    {moment(row["date"]).format("hh:mm a, DD - MMM")}
+                    {/* "YYYY-MM-DD hh:mm" */}
                   </TableCell>
                   <TableCell align="center">{row["quantity"]}</TableCell>
                   <TableCell align="center">{row["unit_cost"]}</TableCell>
