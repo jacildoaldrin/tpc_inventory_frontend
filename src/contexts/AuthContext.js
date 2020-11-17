@@ -23,10 +23,11 @@ export const AuthProvider = (props) => {
     );
   };
 
-  const logout = async () => {
-    await auth.signOut().then((res) => {
+  const logout = () => {
+    auth.signOut().then((res) => {
       localStorage.removeItem("@token");
     });
+    window.location.reload(true);
   };
 
   const value = {
@@ -40,13 +41,15 @@ export const AuthProvider = (props) => {
       localStorage.removeItem("@token");
     }
     const unsubscribe = auth.onAuthStateChanged(async(user) => {
-      await user.getIdToken(true).then(res => localStorage.setItem("@token", res));
-      setCurrUser(user);
+      if(user){
+        await user.getIdToken(true).then(res => localStorage.setItem("@token", res));
+        setCurrUser(user);
+      }
       setLoading(false);
     });
 
     return unsubscribe;
-  }, []);
+  }, [currUser]);
 
   return (
     <AuthContext.Provider value={value}>
