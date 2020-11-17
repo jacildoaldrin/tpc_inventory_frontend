@@ -136,7 +136,7 @@ function SupplierDetails(props) {
               <Grid item container justify="space-between">
                 <Typography className={classes.txtGreen}>Website: </Typography>
                 <Typography>
-                  {supplier.supplier_website? <a href={supplier.supplier_website}>Go to website</a> : "N/A"}
+                  {supplier.supplier_website? <a href={supplier.supplier_website} target="_blank">Go to website</a> : "N/A"}
                 </Typography>
               </Grid>
               <Grid item container justify="space-between">
