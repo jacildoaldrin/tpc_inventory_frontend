@@ -14,7 +14,9 @@ export const RestocksProvider = (props) => {
   async function getRestocks() {
     try {
       await axios
-        .get(`${target}/restocks`)
+        .get(`${target}/restocks`, {headers: {
+          authorization: "Bearer " + localStorage.getItem("@token")
+        }})
         .then((response) => setRestocks(response.data));
     } catch (err) {
       console.log(err);
