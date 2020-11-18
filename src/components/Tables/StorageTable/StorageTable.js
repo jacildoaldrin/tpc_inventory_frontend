@@ -7,7 +7,8 @@ import React from 'react';
 const useStyles = makeStyles(theme => ({
     title: {
         display: "inline",
-        marginRight: "8px"
+        marginRight: "8px",
+        padding: "30px",
     },
     selectFilter: {
         marginRight: "16px",
@@ -65,9 +66,10 @@ function StorageTable() {
     return (
         <Paper className={classes.tableSize}>
             <Grid container alignItems="center" justify="space-between" className={classes.titleContainer}>
-                <ButtonBase onClick={goBack}><ChevronLeft className={classes.chevron} />
-                    <Typography variant="h5" className={classes.title}>Storage</Typography>
-                </ButtonBase>
+                {/* <ButtonBase onClick={goBack}>
+                    <ChevronLeft className={classes.chevron} />
+                </ButtonBase> */}
+                <Typography variant="h5" className={classes.title}>Storage</Typography>
                 <TextField 
                     select
                     className={classes.selectFilter}
