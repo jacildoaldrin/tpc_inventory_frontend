@@ -31,9 +31,10 @@
 11.) then click Add User button
     ![add-user-button](./doc/frontend/7-2.png)
 
-12.) input their credentials then save, and that's it. Don't forget to update your ENV file.
+12.) input their credentials then save, and that's it.
     ![input-credentials](./doc/frontend/7-3.png)
 
+13.) Restart/Reload your app.
 
 
 
@@ -78,4 +79,6 @@
 
 10.) This can be found on the Service Accounts Tab in Project Settings.
     ![where to find database url](./doc/backend/4-2.png)
+
+11.) Restart / Reload your app.
 
