@@ -20,6 +20,23 @@ const Dashboard = () => {
       >
         <Grid>
           <Button
+            className={styles["grid-button"]}
+            fullWidth
+            style={{
+              backgroundColor: "#406E16",
+              color: "white",
+              height: "60px",
+              fontSize: "20px",
+              paddingTop: "10px",
+            }}
+            variant="contained"
+            onClick={() => history.push("/restocks")}
+          >
+            RESTOCKS
+          </Button>
+        </Grid>
+        <Grid>
+          <Button
             fullWidth
             className={styles["grid-button"]}
             style={{
