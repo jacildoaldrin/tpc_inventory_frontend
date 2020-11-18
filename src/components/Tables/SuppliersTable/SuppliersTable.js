@@ -36,7 +36,7 @@ const SuppliersTable = (props) => {
 
   useEffect(() => {
     var term = localStorage.getItem("searchSupTerm");
-    setSearchTerm(term);
+    if (term) setSearchTerm(term);
   }, []);
 
   const handleChangePage = (event, newPage) => {

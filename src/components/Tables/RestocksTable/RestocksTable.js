@@ -37,7 +37,7 @@ const RestocksTable = () => {
 
   useEffect(() => {
     var term = localStorage.getItem("searchProdTerm");
-    setSearchTerm(term);
+    if (term) setSearchTerm(term);
   }, []);
 
   const handleChangePage = (event, newPage) => {
