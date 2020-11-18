@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import target from "api/api.target";
+import { useSpinner } from "./SpinnerContext"
 
 const RestocksContext = React.createContext();
 
@@ -10,12 +11,17 @@ export const useRestocks = () => {
 
 export const RestocksProvider = (props) => {
   const [restocks, setRestocks] = useState([]);
+  const { setIsLoading } = useSpinner()
 
   async function getRestocks() {
+    setIsLoading(true)
     try {
       await axios
         .get(`${target}/restocks`)
-        .then((response) => setRestocks(response.data));
+        .then((response) => {
+          setIsLoading(false)
+          setRestocks(response.data)
+        });
     } catch (err) {
       console.log(err);
     }

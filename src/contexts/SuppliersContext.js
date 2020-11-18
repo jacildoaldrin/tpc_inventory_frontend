@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import target from "api/api.target";
+import { useSpinner } from "./SpinnerContext"
 
 const SuppliersContext = React.createContext();
 
@@ -10,6 +11,7 @@ export const useSuppliers = () => {
 
 export const SuppliersProvider = (props) => {
   const [suppliers, setSuppliers] = useState([]);
+  const { setIsLoading } = useSpinner()
 
   const getSupplierDetails = async (id) => {
     let data = null;
@@ -64,10 +66,16 @@ export const SuppliersProvider = (props) => {
   };
 
   function getSuppliers() {
+    setIsLoading(true)
     try {
       axios
         .get(`${target}/suppliers`)
-        .then((response) => setSuppliers(response.data));
+        .then((response) => {
+          setTimeout(() => {
+            setSuppliers(response.data)
+            setIsLoading(false)
+          }, 100)
+        });
     } catch (err) {
       console.log(err);
     }
