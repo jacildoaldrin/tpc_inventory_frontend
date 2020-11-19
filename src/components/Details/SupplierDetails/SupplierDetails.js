@@ -119,26 +119,24 @@ function SupplierDetails(props) {
               >
                 <Typography variant="h6">Supplier Info</Typography>
               </Grid>
-              <Grid item container justify="space-between">
+              {/* <Grid item container justify="space-between">
                 <Typography className={classes.txtGreen}>
                   Supplier Code:{" "}
                 </Typography>
                 <Typography>{supplier.id}</Typography>
-              </Grid>
+              </Grid> */}
               <Grid item container justify="space-between">
                 <Typography className={classes.txtGreen}>Name: </Typography>
                 <Typography>
                   {supplier.supplier_name !== null
                     ? supplier.supplier_name
-                    : "N/A"}
+                    : ""}
                 </Typography>
               </Grid>
               <Grid item container justify="space-between">
                 <Typography className={classes.txtGreen}>Website: </Typography>
                 <Typography>
-                  {supplier.supplier_website !== null
-                    ? supplier.supplier_website
-                    : "N/A"}
+                  {supplier.supplier_website? <a href={supplier.supplier_website} target="_blank" rel="noopener noreferrer">Go to website</a> : ""}
                 </Typography>
               </Grid>
               <Grid item container justify="space-between">
@@ -148,7 +146,7 @@ function SupplierDetails(props) {
                 <Typography>
                   {supplier.tpc_username !== null
                     ? supplier.tpc_username
-                    : "N/A"}
+                    : ""}
                 </Typography>
               </Grid>
               <Grid item container justify="space-between">
@@ -156,7 +154,7 @@ function SupplierDetails(props) {
                 <Typography>
                   {supplier.supplier_contact !== null
                     ? supplier.supplier_contact
-                    : "N/A"}
+                    : ""}
                 </Typography>
               </Grid>
               <Grid item container justify="space-between">
@@ -164,7 +162,7 @@ function SupplierDetails(props) {
                 <Typography>
                   {supplier.supplier_email !== null
                     ? supplier.supplier_email
-                    : "N/A"}
+                    : ""}
                 </Typography>
               </Grid>
               <Grid item container justify="space-between">
@@ -172,7 +170,7 @@ function SupplierDetails(props) {
                 <Typography>
                   {supplier.supplier_phone !== null
                     ? supplier.supplier_phone
-                    : "N/A"}
+                    : ""}
                 </Typography>
               </Grid>
               <Grid item container justify="space-between">
@@ -180,7 +178,7 @@ function SupplierDetails(props) {
                 <Typography>
                   {supplier.supplier_address !== null
                     ? supplier.supplier_address
-                    : "N/A"}
+                    : ""}
                 </Typography>
               </Grid>
               <Grid item xs={12} container>
@@ -196,7 +194,7 @@ function SupplierDetails(props) {
                 <Typography>
                   {supplier.supplier_notes !== null
                     ? supplier.supplier_notes
-                    : "N/A"}
+                    : ""}
                 </Typography>
               </Grid>
             </Grid>
