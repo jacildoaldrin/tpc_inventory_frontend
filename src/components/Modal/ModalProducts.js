@@ -22,26 +22,34 @@ import React from "react";
 import img from "assets/tpc_logo.jpg";
 import useStyles from "components/Tables/tableThemes";
 import modalStyles from "./ModalTableMakeStyles";
+import target from "api/api.target";
+import { useNavigation } from "contexts/NavigationContext"
+import { useProducts } from "contexts/ProductsContext"
 
 function ModalProducts({
   setProduct,
-  target,
+  product,
+  // target,
   openModal,
   setOpenModal,
-  products,
-  product,
+  // products,
+  storage
 }) {
   const classes = useStyles(modalStyles);
+  const { products } = useProducts()
+  const { navigateTo } = useNavigation()
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [keyProdSearch, setKeyProdSearch] = React.useState("");
+  const [selected, setSelected] = React.useState(null);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
+    // setRowsPerPage(+event.target.value);
+    setRowsPerPage(event.target.value);
     setPage(0);
   };
 
@@ -49,6 +57,18 @@ function ModalProducts({
     if (page !== 0) setPage(0);
     setKeyProdSearch(event.target.value);
   };
+
+  const onConfirm = () => {
+    // console.log(storage)
+    if (!storage) {
+      setProduct(selected)
+      setOpenModal(false)
+    }
+    else {
+      setOpenModal(false)
+      navigateTo(`/products/push/${selected._id}/${storage.id}`)
+    }
+  }
 
   let result = products;
 
@@ -70,10 +90,10 @@ function ModalProducts({
     .map((row) => (
       <TableRow
         key={row["_id"]}
-        selected={product._id === row._id}
+        selected={selected?._id === row._id}
         classes={{ selected: classes.selected }}
         onClick={() => {
-          setProduct(row);
+          setSelected(row);
         }}
       >
         <TableCell align="center">
@@ -94,7 +114,7 @@ function ModalProducts({
   // style={{ maxWidth: "700px", maxHeight: "800px" }}
   return (
     <Dialog
-      fullWidth="true"
+      fullWidth
       maxWidth="sm"
       // minWidth="sm"
       open={openModal}
@@ -122,7 +142,7 @@ function ModalProducts({
         </Grid>
       </DialogTitle>
       <DialogContent style={{ paddingTop: "0px", overflow: "hidden" }}>
-        <DialogContentText>
+        {/* <DialogContentText> */}
           <TableContainer
             style={{ maxHeight: "350px", minHeight: "350px" }}
             // className={styles["container"]}
@@ -147,7 +167,7 @@ function ModalProducts({
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
-        </DialogContentText>
+        {/* </DialogContentText> */}
         <DialogActions>
           <Button
             onClick={() => {
@@ -158,12 +178,10 @@ function ModalProducts({
             CANCEL
           </Button>
           <Button
-            disabled={product ? false : true}
+            disabled={selected ? false : true}
             size="large"
             variant="contained"
-            onClick={() => {
-              setOpenModal(false);
-            }}
+            onClick={() => onConfirm()}
           >
             CONFIRM
           </Button>
