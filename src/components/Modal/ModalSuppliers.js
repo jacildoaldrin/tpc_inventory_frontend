@@ -92,7 +92,7 @@ function ModalSuppliers({
 
   return (
     <Dialog
-      fullWidth="true"
+      fullWidth
       maxWidth="sm"
       open={openModal}
       onClose={() => setOpenModal(false)}
