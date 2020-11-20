@@ -35,7 +35,7 @@ const Products = () => {
           <ProductDetails />
         </Route>
         <StorageProvider>
-          <Route path={`${match.url}/push/:product_id`} component={Push} />
+          <Route path={`${match.url}/push/:product_id/:storage_id?`} component={Push} />
         </StorageProvider>
       </div>
     </ProductsProvider>
