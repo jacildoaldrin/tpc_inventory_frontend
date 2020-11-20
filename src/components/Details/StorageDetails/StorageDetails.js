@@ -42,7 +42,8 @@ function StorageDetails() {
             setThisStorage(await getStorage(storage_id));
             setIsLoading(false)
         })()
-    }, [storage_id, getStorage, getProductsInStorage, setIsLoading])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const classes = useStyles();
 

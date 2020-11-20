@@ -83,6 +83,7 @@ export const SuppliersProvider = (props) => {
 
   useEffect(() => {
     getSuppliers();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

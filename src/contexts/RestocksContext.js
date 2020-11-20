@@ -42,6 +42,7 @@ export const RestocksProvider = (props) => {
 
   useEffect(() => {
     getRestocks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
