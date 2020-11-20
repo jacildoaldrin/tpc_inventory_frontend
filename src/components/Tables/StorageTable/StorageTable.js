@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
     title: {
         display: "inline",
         marginRight: "8px",
-        padding: "30px"
+        padding: "30px",
     },
     selectFilter: {
         marginRight: "16px",

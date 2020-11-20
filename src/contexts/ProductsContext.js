@@ -79,7 +79,7 @@ export const ProductsProvider = (props) => {
     } finally {
       setTimeout(()=>{
         setIsLoading(false)
-      }, 1000)
+      }, 100)
     }
   };
 

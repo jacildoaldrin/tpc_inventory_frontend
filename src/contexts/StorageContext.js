@@ -1,6 +1,7 @@
 import target from 'api/api.target';
 import Axios from 'axios';
 import React from 'react'
+import { useSpinner } from "./SpinnerContext"
 
 const StorageContext = React.createContext();
 
@@ -10,7 +11,7 @@ export const useStorage = () => {
 
 export const StorageProvider = (props) => {
     const [storage, setStorage] = React.useState([])
-
+    const { setIsLoading } = useSpinner()
     const getStorage = async(id) => {
         let data = null;
         try{
@@ -23,9 +24,20 @@ export const StorageProvider = (props) => {
     }
 
     const getStorages = () => {
+        setIsLoading(true)
         Axios.get(`${target}/storages`)
-            .then(res=>setStorage(res.data))
-            .catch(err=>console.log(err))
+            .then(res=>{
+                setTimeout(()=>{
+                    setStorage(res.data)
+                    setIsLoading(false)
+                }, 100)
+            })
+            .catch(err=>{
+                setTimeout(()=>{
+                    console.log(err)
+                    setIsLoading(false)
+                }, 100)
+            })
     }
 
     const getProductsInStorage = async(id) => {
