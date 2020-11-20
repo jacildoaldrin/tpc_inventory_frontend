@@ -53,6 +53,7 @@ export const StorageProvider = (props) => {
     
     React.useEffect(() => {
         getStorages()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
