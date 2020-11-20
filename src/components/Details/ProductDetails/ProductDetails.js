@@ -331,7 +331,7 @@ const ProductDetails = () => {
               </Table>
             </TableContainer>
             <Grid item xs={12} container justify="flex-start">
-              <Grid item xs={7} md={11} md={12}>
+              <Grid item xs={7} md={11}>
                 <Button 
                   fullWidth 
                   variant="contained" 
