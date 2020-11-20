@@ -1,6 +1,6 @@
-import { ButtonBase, Grid,makeStyles, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography } from '@material-ui/core';
+import { Grid, makeStyles, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography } from '@material-ui/core';
 import { useStorage } from 'contexts/StorageContext';
-import { ChevronLeft } from '@material-ui/icons';
+// import { ChevronLeft } from '@material-ui/icons';
 import { useNavigation } from "contexts/NavigationContext";
 import React from 'react';
 
@@ -20,9 +20,9 @@ const useStyles = makeStyles(theme => ({
     paginationContainer: {
         overflow: "hidden"
     },
-    chevron: {
-        fontSize: "10vh",
-    },
+    // chevron: {
+    //     fontSize: "10vh",
+    // },
     header: {
         fontWeight: "bold",
     },
@@ -42,7 +42,7 @@ function StorageTable() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [select, setSelect] = React.useState('----');
-    const { viewDetails, goBack } = useNavigation();
+    const { viewDetails } = useNavigation();
     const uniqueLocations = [...new Set(storage.filter(item=>(item.total_items > 0)).map(item=>item.location))]
 
     const handleChangePage = (event, newPage) => {
@@ -66,10 +66,10 @@ function StorageTable() {
     return (
         <Paper className={classes.tableSize}>
             <Grid container alignItems="center" justify="space-between" className={classes.titleContainer}>
-                {/* <ButtonBase onClick={goBack}>
-                    <ChevronLeft className={classes.chevron} />
-                </ButtonBase> */}
-                <Typography variant="h5" className={classes.title}>Storage</Typography>
+                {/* <ButtonBase onClick={goBack}> */}
+                    {/* <ChevronLeft className={classes.chevron} /> */}
+                    <Typography variant="h5" className={classes.title}>Storage</Typography>
+                {/* </ButtonBase> */}
                 <TextField 
                     select
                     className={classes.selectFilter}

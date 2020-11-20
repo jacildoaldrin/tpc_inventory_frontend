@@ -137,19 +137,17 @@ const SuppliersTable = (props) => {
                 >
                   <TableCell align="left">{row["supplier_name"]}</TableCell>
                   <TableCell align="left">
-                    {row["supplier_website"] === null
-                      ? "N/A"
-                      : row["supplier_website"]}
+                    {row["supplier_website"]? <a href={row["supplier_website"]} target="_blank" rel="noopener noreferrer">Go to website</a> : ""}
                   </TableCell>
                   <TableCell align="left">
                     {row["supplier_email"] === null
-                      ? "N/A"
+                      ? ""
                       : row["supplier_email"]}
                   </TableCell>
 
                   <TableCell align="left">
                     {row["supplier_notes"] === null
-                      ? "N/A"
+                      ? ""
                       : row["supplier_notes"]}
                   </TableCell>
                 </TableRow>

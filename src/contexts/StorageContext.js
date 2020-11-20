@@ -15,7 +15,7 @@ export const StorageProvider = (props) => {
     const getStorage = async(id) => {
         let data = null;
         try{
-            let res = Axios.get(`${target}/storages/${id}`);
+            let res = await Axios.get(`${target}/storages/${id}`);
             data = res.data;
         }catch(err){
             console.log(err)
