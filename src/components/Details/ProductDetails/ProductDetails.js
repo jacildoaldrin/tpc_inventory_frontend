@@ -317,13 +317,26 @@ const ProductDetails = () => {
                       <TableCell align="center">{row.bin}</TableCell>
                       <TableCell align="center">{row.quantity}</TableCell>
                       <TableCell align="right">
-                        <Button 
-                          variant="contained" 
-                          size="small"
-                          onClick={()=>viewDetails(`/storages/storage/${row.id}/pull/${product._id}`)}>
-                          Pull
-                          </Button>
-                        </TableCell>
+                        <Grid container direction="row" alignItems="center" spacing={1}>
+                          <Grid item>
+                            <Button 
+                              variant="contained" 
+                              size="small"
+                              onClick={()=>viewDetails(`/storages/storage/${row.id}/pull/${product._id}`)}>
+                              Pull
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button 
+                              variant="contained" 
+                              size="small"
+                              // navigateTo(`/products/push/${selected._id}/${storage.id}`)
+                              onClick={()=>viewDetails(`/products/push/${product._id}/${row.id}`)}>
+                              Push
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </TableCell>
                     </TableRow>
                     else return null
                   })}
@@ -336,7 +349,7 @@ const ProductDetails = () => {
                   fullWidth 
                   variant="contained" 
                   className={classes.mt1rem}
-                  onClick={()=>viewDetails(`/products/push/${product._id}`)}>Push</Button>
+                  onClick={()=>viewDetails(`/products/push/${product._id}`)}>Push to another storage</Button>
               </Grid>
             </Grid>
           </Grid>
