@@ -51,6 +51,7 @@ function Push() {
     const { getStorages } = useStorage();
     const [ product, setProduct ] = useState({});
     const [ thisStorage, setThisStorage ] = useState(null);
+    const [bin, setBin] = useState("")
 
     const [submitting, setSubmitting] = React.useState(false)
     // const [open, setOpen] = React.useState(false)
@@ -76,6 +77,7 @@ function Push() {
             .then(res => {
                 console.log(res.data)
                 setThisStorage(res.data)
+                setBin(res.data?.bin)
             })
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -85,12 +87,13 @@ function Push() {
         e.preventDefault()
         setSubmitting(true)
         const location = document.getElementById('location').value
-        const bin = document.getElementById('bin').value
+        // const bin = document.getElementById('bin').value
         const quantity = document.getElementById('quantity').value
+
         // console.log("loc:", loc)
         // console.log("bin:", bin)
-        console.log("qty:")
-        console.log(quantity)
+        console.log("qty:", quantity)
+
         if (location.length !== 0 && bin.length !== 0 && quantity > -1 && quantity !== ""){
             setTimeout(()=> {
                 Axios.post(`${target}/storages/push`, { location, bin, product_id, quantity })
@@ -172,7 +175,9 @@ function Push() {
                             margin="dense" 
                             label="Bin"
                             id="bin"
-                            value={thisStorage ? thisStorage.bin : "" }
+                            // defaultValue={thisStorage ? thisStorage.bin : "" }
+                            value={bin}
+                            onChange={(e)=>setBin(e.target.value)}
                             onFocus={onFocus}
                             autoComplete='off'
                             />
