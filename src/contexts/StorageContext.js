@@ -11,6 +11,9 @@ export const useStorage = () => {
 
 export const StorageProvider = (props) => {
     const [storage, setStorage] = React.useState([])
+    const [page, setPage] = React.useState(0)
+    const [rowsPerPage, setRowsPerPage] = React.useState(10)
+    const [select, setSelect] = React.useState('----');
     const { setIsLoading } = useSpinner()
     const getStorage = async(id) => {
         let data = null;
@@ -57,7 +60,19 @@ export const StorageProvider = (props) => {
     }, [])
 
     return (
-        <StorageContext.Provider value={{ storage, getStorage, getStorages, getProductsInStorage }}>
+        <StorageContext.Provider 
+            value={{ 
+                storage, 
+                getStorage, 
+                getStorages, 
+                getProductsInStorage,
+                rowsPerPage,
+                setRowsPerPage,
+                page,
+                setPage,
+                select,
+                setSelect
+                }}>
             {props.children}
         </StorageContext.Provider>
     )

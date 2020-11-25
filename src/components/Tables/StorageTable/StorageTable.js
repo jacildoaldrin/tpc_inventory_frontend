@@ -38,10 +38,10 @@ const useStyles = makeStyles(theme => ({
 
 
 function StorageTable() {
-    const { storage } = useStorage();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [select, setSelect] = React.useState('----');
+    const { storage, page, setPage, rowsPerPage, setRowsPerPage, select, setSelect } = useStorage();
+    // const [page, setPage] = React.useState(0);
+    // const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    // const [select, setSelect] = React.useState('----');
     const { viewDetails } = useNavigation();
     const uniqueLocations = [...new Set(storage.filter(item=>(item.total_items > 0)).map(item=>item.location))]
 

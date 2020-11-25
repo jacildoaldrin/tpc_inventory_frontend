@@ -29,10 +29,10 @@ import moment from "moment";
 
 const RestocksTable = () => {
   const classes = useStyles();
-  const { restocks } = useRestocks();
+  const { restocks, page, setPage, rowsPerPage, setRowsPerPage } = useRestocks();
   const { viewDetails } = useNavigation();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  // const [page, setPage] = useState(0);
+  // const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {

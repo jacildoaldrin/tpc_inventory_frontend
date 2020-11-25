@@ -28,10 +28,10 @@ import styles from "./SuppliersTable.module.css";
 
 const SuppliersTable = (props) => {
   const classes = useStyles();
-  const { suppliers } = useSuppliers();
+  const { suppliers, page, setPage, rowsPerPage, setRowsPerPage } = useSuppliers();
   const { viewDetails } = useNavigation();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  // const [page, setPage] = useState(0);
+  // const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
