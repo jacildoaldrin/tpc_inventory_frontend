@@ -11,6 +11,8 @@ export const useRestocks = () => {
 
 export const RestocksProvider = (props) => {
   const [restocks, setRestocks] = useState([]);
+  const [page, setPage] = React.useState(0)
+  const [rowsPerPage, setRowsPerPage] = React.useState(10)
   const { setIsLoading } = useSpinner()
 
   async function getRestocks() {
@@ -50,6 +52,10 @@ export const RestocksProvider = (props) => {
       value={{
         restocks,
         addRestock,
+        rowsPerPage,
+        setRowsPerPage,
+        page,
+        setPage,
       }}
     >
       {props.children}

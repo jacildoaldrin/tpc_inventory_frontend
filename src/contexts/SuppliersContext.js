@@ -11,6 +11,8 @@ export const useSuppliers = () => {
 
 export const SuppliersProvider = (props) => {
   const [suppliers, setSuppliers] = useState([]);
+  const [page, setPage] = React.useState(0)
+  const [rowsPerPage, setRowsPerPage] = React.useState(10)
   const { setIsLoading } = useSpinner()
 
   const getSupplierDetails = async (id) => {
@@ -95,6 +97,10 @@ export const SuppliersProvider = (props) => {
         getSuppliers,
         editSupplier,
         removeSupplier,
+        rowsPerPage,
+        setRowsPerPage,
+        page,
+        setPage,
       }}
     >
       {props.children}
