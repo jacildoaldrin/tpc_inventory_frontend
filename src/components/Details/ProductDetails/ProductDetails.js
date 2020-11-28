@@ -17,6 +17,12 @@ const useStyles = makeStyles(theme => ({
       padding: "0 1vw"
     },
   },
+  buttonPushPull: {
+    [theme.breakpoints.down("xs")]: {
+      padding: "4px 4px",
+      minWidth: "48px"
+    },
+  },
   chevron: {
     fontSize: "10vh",
   },
@@ -319,20 +325,20 @@ const ProductDetails = () => {
                       <TableCell align="right">
                         <Grid container direction="row" alignItems="center" spacing={1}>
                           <Grid item>
-                            <Button 
-                              variant="contained" 
-                              size="small"
-                              onClick={()=>viewDetails(`/storages/storage/${row.id}/pull/${product._id}`)}>
-                              Pull
-                            </Button>
-                          </Grid>
-                          <Grid item>
-                            <Button 
+                            <Button className={classes.buttonPushPull}
                               variant="contained" 
                               size="small"
                               // navigateTo(`/products/push/${selected._id}/${storage.id}`)
                               onClick={()=>viewDetails(`/products/push/${product._id}/${row.id}`)}>
                               Push
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button className={classes.buttonPushPull}
+                              variant="contained" 
+                              size="small"
+                              onClick={()=>viewDetails(`/storages/storage/${row.id}/pull/${product._id}`)}>
+                              Pull
                             </Button>
                           </Grid>
                         </Grid>
@@ -349,7 +355,7 @@ const ProductDetails = () => {
                   fullWidth 
                   variant="contained" 
                   className={classes.mt1rem}
-                  onClick={()=>viewDetails(`/products/push/${product._id}`)}>Push to another storage</Button>
+                  onClick={()=>viewDetails(`/products/push/${product._id}`)}>Push to new</Button>
               </Grid>
             </Grid>
           </Grid>
