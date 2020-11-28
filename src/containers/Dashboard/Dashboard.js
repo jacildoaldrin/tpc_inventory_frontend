@@ -18,7 +18,7 @@ const Dashboard = () => {
         alignItems="center"
         spacing={2}
       >
-        <Grid>
+        {/* <Grid>
           <Button
             className={styles["grid-button"]}
             fullWidth
@@ -34,7 +34,7 @@ const Dashboard = () => {
           >
             RESTOCKS
           </Button>
-        </Grid>
+        </Grid> */}
         <Grid>
           <Button
             fullWidth
