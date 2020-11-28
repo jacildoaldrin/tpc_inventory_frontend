@@ -18,6 +18,11 @@ const MuiTheme = createMuiTheme({
       actions: {
         marginLeft: "10px"
       }
+    },
+    MuiTableCell:{
+      root:{
+        padding: "16px 10px"
+      }
     }
   }
 });

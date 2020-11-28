@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
   buttonPushPull: {
     [theme.breakpoints.down("xs")]: {
-      padding: "4px 4px",
+      padding: "6px",
       minWidth: "48px"
     },
   },
