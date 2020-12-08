@@ -40,8 +40,8 @@ const App = () => {
         <Layout>
           <SpinnerProvider>
             <Route exact path="/" component={Dashboard} />
-            <Route path="/orders" component={Orders} />
-            <Route path="/restocks" component={Restocks} />
+            {/* <Route path="/orders" component={Orders} /> */}
+            {/* <Route path="/restocks" component={Restocks} /> */}
             <Route path="/products" component={Products} />
             <Route path="/suppliers" component={Suppliers} />
             <Route path="/storages" component={Storage} />

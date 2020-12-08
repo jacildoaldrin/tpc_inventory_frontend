@@ -191,11 +191,11 @@ const ProductDetails = () => {
           <Grid item xs={12} container>
             <Grid item xs={12} container justify="space-between">
               <Grid item xs={12} md={5} container justify="space-between">
-                <Typography className={classes.txtGreen}>Fits Size: </Typography>
+                <Typography className={classes.txtGreen}>Fits Size (WxH): </Typography>
                 <Typography>{product.fits_size !== null ? `${product.fits_size} in` : "N/A" }</Typography>
               </Grid>
               <Grid item xs={12} md={5} container justify="space-between">
-                <Typography className={classes.txtGreen}>Dimensions (HxW): </Typography>
+                <Typography className={classes.txtGreen}>Dimensions (WxH): </Typography>
                 <Typography>{product.dimensions !== null ? `${product.dimensions} in` : "N/A" }</Typography>
               </Grid>
             </Grid>
