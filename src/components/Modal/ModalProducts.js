@@ -78,7 +78,13 @@ function ModalProducts({
       var search = keyProdSearch.toLowerCase();
       if (digits?.includes(search)) {
         return true;
+      } else if (product.upc?.toString().toLowerCase().includes(search)) {
+        return true;
+      } else if (product.supplier_code?.toString().toLowerCase().includes(search)) {
+        return true;
       } else if (product.description?.toLowerCase().includes(search)) {
+        return true;
+      } else if (product.list_name?.toLowerCase().includes(search)) {
         return true;
       }
       return false;
@@ -128,7 +134,7 @@ function ModalProducts({
               align="left"
               style={{ paddingTop: "10px" }}
             >
-              Product ID: <u>{product?._id}</u>
+              Select Product:
             </Typography>
           </Grid>
           <Grid item xs={12} sm={5}>

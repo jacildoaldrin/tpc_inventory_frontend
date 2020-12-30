@@ -140,12 +140,12 @@ const ProductDetails = () => {
     <Fab className={classes.fab} aria-haspopup="true" variant="extended" onClick={onFloatBtnClick}>
       <ArrowDropUpIcon /> Actions
     </Fab>
-    <Fab className={showbtn ? classes.btnfloatshow1 : classes.btnfloathide} aria-haspopup="true" variant="extended">
-      <ArrowDropUpIcon /> Restock
-    </Fab>
-    <Fab className={showbtn ? classes.btnfloatshow2 : classes.btnfloathide} aria-haspopup="true" variant="extended" onClick={() => viewDetails(`/products/edit-product/${product_id}`)}>
+    <Fab className={showbtn ? classes.btnfloatshow1 : classes.btnfloathide} aria-haspopup="true" variant="extended" onClick={() => viewDetails(`/products/edit-product/${product_id}`)}>
       <ArrowDropUpIcon /> Edit
     </Fab>
+    {/* <Fab className={showbtn ? classes.btnfloatshow2 : classes.btnfloathide} aria-haspopup="true" variant="extended">
+      <ArrowDropUpIcon /> Restock
+    </Fab> */}
     <Grid container justify="space-between" alignItems="center" className={classes.underline}>
       <Grid item xs={2} md={1}><ButtonBase onClick={goBack}><ChevronLeftIcon className={classes.chevron} /></ButtonBase></Grid>
       <Grid item container xs={10} justify="flex-end"><Typography variant="h5" className={classes.mainProdName} align="right">{product.description}</Typography></Grid>
