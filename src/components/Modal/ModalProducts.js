@@ -37,7 +37,7 @@ function ModalProducts({
 }) {
   const classes = useStyles(modalStyles);
   const { products } = useProducts()
-  const { navigateTo } = useNavigation()
+  const { viewDetails } = useNavigation()
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [keyProdSearch, setKeyProdSearch] = React.useState("");
@@ -66,7 +66,7 @@ function ModalProducts({
     }
     else {
       setOpenModal(false)
-      navigateTo(`/products/push/${selected._id}/${storage.id}`)
+      viewDetails(`/products/push/${selected._id}/${storage.id}`)
     }
   }
 
